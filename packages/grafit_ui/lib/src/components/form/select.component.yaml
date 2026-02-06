@@ -1,0 +1,58 @@
+# Select Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: select
+  sourcePath: apps/v4/registry/new-york-v4/ui/select.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/select.dart
+  class: GrafitSelect
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: GrafitSelectSize.md
+    sm: GrafitSelectSize.sm
+
+  props:
+    value: value (T?)
+    onValueChange: onChanged (ValueChanged<T>)
+    disabled: enabled (bool, inverted)
+    defaultValue: N/A (Flutter uses StatefulWidget with state)
+    name: N/A (Flutter uses Key)
+    required: N/A (Flutter uses FormField validator)
+    placeholder: placeholder (String?)
+
+  subcomponents:
+    SelectTrigger: GrafitSelectTrigger
+    SelectContent: GrafitSelectContent
+    SelectItem: GrafitSelectItem
+    SelectValue: GrafitSelectValue
+    SelectGroup: GrafitSelectGroup
+    SelectLabel: GrafitSelectLabel
+    SelectSeparator: GrafitSelectSeparator
+
+unimplemented: []
+
+adaptations:
+  - "ValueNotifier pattern instead of React state"
+  - "GrafitClickable primitive for gesture handling"
+  - "AnimatedContainer and AnimatedRotation for smooth transitions"
+  - "LayerLink and OverlayEntry for dropdown positioning"
+  - "Size variants via GrafitSelectSize enum (sm, md)"
+  - "GrafitSelectItemData for item configuration"
+  - "GrafitSelectGroupData for grouped options"
+  - "Form validation handled by FormField widget instead of required prop"
+  - "Searchable functionality built-in with GrafitSelectSearchInput"
+  - "Custom layout delegate for positioning dropdown"
+  - "Error text display for form validation"
+  - "Label widget for form field labeling"

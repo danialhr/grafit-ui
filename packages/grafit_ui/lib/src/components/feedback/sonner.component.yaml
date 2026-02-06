@@ -1,0 +1,82 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: sonner
+  sourcePath: apps/v4/registry/new-york-v4/ui/sonner.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/feedback/sonner.dart
+  class: GrafitSonner
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Toaster: GrafitSonner
+    toast: GrafitToastData (Flutter data class)
+    Sonner: GrafitSonner (wrapper widget)
+
+  props:
+    position: position (topLeft | topCenter | topRight | bottomLeft | bottomCenter | bottomRight)
+    duration: duration (Duration)
+    expand: expandByDefault (bool)
+    richColors: N/A (Always rich colors in Flutter)
+    closeButton: Built-in to every toast
+    toastOptions: Individual toast properties via GrafitToastData
+
+  variants:
+    default: basic (renamed from 'default' - Dart reserved keyword)
+    success: success
+    error: error
+    warning: warning
+    info: info
+    loading: loading (with progress indicator)
+
+  methods:
+    toast: showToast / context.showToast
+    promise: showPromise / context.showPromise
+    success: showSuccess / context.showSuccess
+    error: showError / context.showError
+    warning: showWarning / context.showWarning
+    info: showInfo / context.showInfo
+    dismiss: dismiss / context.dismissToast
+    dismissAll: dismissAll / context.dismissAllToasts
+
+unimplemented: []
+
+adaptations:
+  - Added GrafitToastManager singleton for global toast state management
+  - Added GrafitToastData data class for toast configuration
+  - Added BuildContext extension methods for easier usage (context.showToast, etc.)
+  - Added GrafitSonner widget wrapper that integrates with app via Overlay/Stack
+  - Added maxToasts prop to limit concurrent toasts
+  - Added customIcon prop for custom icons
+  - Added showProgress and progress props for promise-based toasts
+  - ThemeExtension-based theming instead of CSS variables
+  - Flutter AnimationController for smooth enter/exit animations
+  - Auto-dismiss with configurable duration
+  - Action buttons with custom labels
+  - Loading state with progress indicator
+  - Multiple positioning options
+
+features:
+  - Toast notifications at screen edges (6 positions)
+  - Auto-dismiss after timeout (configurable duration)
+  - 6 variants: basic, success, error, warning, info, loading
+  - Progress indicator for promise-based toasts
+  - Action buttons with custom labels
+  - Custom positioning (top-left, top-center, top-right, bottom-left, bottom-center, bottom-right)
+  - Stack multiple toasts (configurable max)
+  - Smooth slide and fade animations for enter/exit
+  - Custom styling via GrafitTheme
+  - Dismissible with close button
+  - Global singleton manager for toast state
+  - BuildContext extension for convenient API
+  - Promise/async operation handling with auto success/error states

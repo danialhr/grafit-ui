@@ -1,0 +1,74 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: table
+  sourcePath: apps/v4/registry/new-york-v4/ui/table.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/data-display/data_table.dart
+  class: GrafitDataTable
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Table: GrafitDataTable
+    TableHeader: DataTableHeader (subcomponent)
+    TableBody: DataTableBody (subcomponent)
+    TableFooter: DataTableFooter (subcomponent)
+    TableRow: DataTableRow (subcomponent)
+    TableHead: DataTableHead (subcomponent)
+    TableCell: DataTableCell (subcomponent)
+    TableCaption: DataTableCaption (subcomponent)
+
+  props:
+    className: backgroundColor, borderRadius, border (Flutter pattern)
+    data-slot: Not applicable (React-specific)
+
+unimplemented: []
+
+adaptations:
+  - Added GrafitTableColumn class for column definitions (not in shadcn-ui)
+  - Added GrafitDataTableConfig for centralized configuration
+  - Added GrafitTableSelectionMode for selection modes (none, single, multiple)
+  - Added GrafitTableSortDirection enum for sort states
+  - Added FlexWidth class for responsive column widths
+  - Added DataTablePagination widget for pagination (not in base shadcn-ui Table)
+  - Added support for sortable columns with visual indicators
+  - Added support for selectable rows with checkboxes
+  - Added support for custom row builders
+  - Added support for empty state and loading state
+  - Added support for horizontal scrolling
+  - ThemeExtension-based theming instead of CSS classes
+  - Flutter-specific patterns: StatefulWidget for state management
+  - CrossAxisAlignment and MainAxisAlignment for layout
+  - InkWell for hover/click interactions (instead of CSS hover)
+  - Built-in responsive design with FlexColumnWidth
+
+features:
+  - Structured table with header, body, footer sections
+  - Sortable columns with ascending/descending/none states
+  - Selectable rows (none, single, multiple modes)
+  - Pagination support with DataTablePagination widget
+  - Custom cell renderers via cellBuilder in GrafitTableColumn
+  - Responsive design with fixed and flexible column widths
+  - Custom styling via GrafitTheme (colors, borders, radius)
+  - Empty state handling with custom widget
+  - Loading state handling with custom widget
+  - Row striping for better readability
+  - Hover highlight support
+  - Checkbox column for row selection
+  - Table caption support
+  - Horizontal scroll support
+  - Custom header and footer widgets
+  - Border customization (show/hide borders)
+  - Cell padding and height customization
+  - Row height customization
+  - Column alignment (start, center, end)

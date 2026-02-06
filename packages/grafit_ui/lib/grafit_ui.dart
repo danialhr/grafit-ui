@@ -23,6 +23,7 @@ export 'src/components/form/textarea.dart';
 export 'src/components/form/radio_group.dart';
 export 'src/components/form/toggle_group.dart';
 export 'src/components/form/input_otp.dart';
+export 'src/components/form/select.dart';
 
 // Layout components
 export 'src/components/layout/card.dart';
@@ -35,21 +36,25 @@ export 'src/components/typography/text.dart';
 // Navigation components
 export 'src/components/navigation/tabs.dart';
 export 'src/components/navigation/breadcrumb.dart';
+export 'src/components/navigation/dropdown_menu.dart';
 
 // Overlay components
 export 'src/components/overlay/dialog.dart';
 export 'src/components/overlay/tooltip.dart';
 export 'src/components/overlay/alert_dialog.dart';
 export 'src/components/overlay/popover.dart';
+export 'src/components/overlay/command.dart';
 
 // Feedback components
 export 'src/components/feedback/alert.dart';
 export 'src/components/feedback/progress.dart';
 export 'src/components/feedback/skeleton.dart';
+export 'src/components/feedback/sonner.dart';
 
 // Data display components
 export 'src/components/data-display/badge.dart';
 export 'src/components/data-display/avatar.dart';
+export 'src/components/data-display/data_table.dart';
 
 // Specialized components
 export 'src/components/specialized/resizable.dart';

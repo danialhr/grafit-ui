@@ -475,11 +475,61 @@ flutter_components:
     lastChecked: 2025-02-06
     lastSynced: 2025-02-06
 
+  select:
+    upstream: select
+    flutter: lib/src/components/form/select.dart
+    metadata: lib/src/components/form/select.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  dropdown-menu:
+    upstream: dropdown-menu
+    flutter: lib/src/components/navigation/dropdown_menu.dart
+    metadata: lib/src/components/navigation/dropdown_menu.component.yaml
+    category: *navigation
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  command:
+    upstream: command
+    flutter: lib/src/components/overlay/command.dart
+    metadata: lib/src/components/overlay/command.component.yaml
+    category: *overlay
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  sonner:
+    upstream: sonner
+    flutter: lib/src/components/feedback/sonner.dart
+    metadata: lib/src/components/feedback/sonner.component.yaml
+    category: *feedback
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  data-table:
+    upstream: table
+    flutter: lib/src/components/data-display/data_table.dart
+    metadata: lib/src/components/data-display/data_table.component.yaml
+    category: *data-display
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (28 components with metadata)
-  calculated: "Based on 28 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100)"
+  current: 100  # Average of implemented components (33 components with metadata)
+  calculated: "Based on 33 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)
@@ -515,30 +565,15 @@ pending:
     complexity: high
     estimated_effort: 8 hours
 
-  command:
-    priority: high
-    complexity: high
-    estimated_effort: 10 hours
-
   context-menu:
     priority: medium
     complexity: high
     estimated_effort: 8 hours
 
-  data-table:
-    priority: high
-    complexity: medium
-    estimated_effort: 6 hours
-
   date-picker:
     priority: medium
     complexity: high
     estimated_effort: 12 hours
-
-  dropdown-menu:
-    priority: high
-    complexity: medium
-    estimated_effort: 6 hours
 
   form:
     priority: low
@@ -575,11 +610,6 @@ pending:
     complexity: trivial
     estimated_effort: 2 hours
 
-  select:
-    priority: high
-    complexity: high
-    estimated_effort: 8 hours
-
   separator:
     priority: high
     complexity: trivial
@@ -591,18 +621,8 @@ pending:
     complexity: medium
     estimated_effort: 5 hours
 
-  sonner:
-    priority: high
-    complexity: medium
-    estimated_effort: 6 hours
-
   table:
     priority: medium
-    complexity: medium
-    estimated_effort: 5 hours
-
-  toast:
-    priority: high
     complexity: medium
     estimated_effort: 5 hours
 

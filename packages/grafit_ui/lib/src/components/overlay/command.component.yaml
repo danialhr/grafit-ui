@@ -1,0 +1,48 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: command
+  sourcePath: apps/v4/registry/new-york-v4/ui/command.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/command.dart
+  class: GrafitCommand
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Command: GrafitCommand
+    CommandDialog: GrafitCommandDialog
+    CommandInput: GrafitCommandInput
+    CommandList: GrafitCommandList
+    CommandEmpty: GrafitCommandEmpty
+    CommandGroup: GrafitCommandGroup (data class)
+    CommandItem: GrafitCommandItem (data class)
+    CommandSeparator: GrafitCommandSeparator
+    CommandShortcut: GrafitCommandShortcut
+
+  props:
+    className: N/A (Flutter uses BoxDecoration)
+    children: groups prop (List<GrafitCommandGroup>)
+    filter: onSearch callback
+    value: controller.searchQuery
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's FocusNode and TextEditingController instead of cmdk
+  - Keyboard navigation handled via KeyboardListener and KeyEvent
+  - Groups and items are data classes (GrafitCommandGroup, GrafitCommandItem)
+  - Theming via GrafitTheme instead of CSS classes
+  - Uses Dialog widget for CommandDialog instead of custom overlay
+  - Filtering implemented with custom logic instead of cmdk
+  - Scroll management with ScrollController
+  - Accessibility with Semantics widgets

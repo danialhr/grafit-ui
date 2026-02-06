@@ -1,0 +1,96 @@
+# Component Metadata: Dropdown Menu
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: dropdown-menu
+  sourcePath: apps/v4/registry/new-york-v4/ui/dropdown-menu.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/navigation/dropdown_menu.dart
+  class: GrafitDropdownMenu
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    DropdownMenu: GrafitDropdownMenu
+    DropdownMenuTrigger: GrafitDropdownMenuTrigger
+    DropdownMenuContent: GrafitDropdownMenuContent
+    DropdownMenuItem: GrafiDropdownMenuItem
+    DropdownMenuCheckboxItem: GrafitDropdownMenuCheckboxItem
+    DropdownMenuRadioGroup: GrafitDropdownMenuRadioGroup
+    DropdownMenuRadioItem: GrafitDropdownMenuRadioItem
+    DropdownMenuLabel: GrafitDropdownMenuLabel
+    DropdownMenuSeparator: GrafitDropdownMenuSeparator
+    DropdownMenuShortcut: GrafitDropdownMenuShortcut
+    DropdownMenuSub: GrafitDropdownMenuSub
+    DropdownMenuSubTrigger: GrafitDropdownMenuSubTrigger
+    DropdownMenuSubContent: GrafitDropdownMenuSubContent
+    DropdownMenuGroup: GrafitDropdownMenuGroup
+
+  props:
+    trigger: Widget that opens dropdown on tap
+    children: Menu items and content
+    alignment: Position relative to trigger (GrafitDropdownMenuAlignment enum)
+    sideOffset: Distance from trigger in pixels
+    dismissible: Allow tap outside to close
+    open: Programmatically control open state
+    onOpenChange: Callback when open state changes
+
+  itemProps:
+    leading: Icon or widget before label
+    trailing: Icon or widget after label
+    label: Text label for item
+    child: Custom child widget
+    onSelected: Callback when item is selected
+    enabled: Whether item is interactive
+    variant: default or destructive (GrafitDropdownMenuItemVariant)
+    inset: Add left padding for nested items
+    shortcut: Keyboard shortcut text to display
+
+  checkboxItemProps:
+    checked: Initial checked state
+    onChecked: Callback when checked state changes
+
+  radioItemProps:
+    value: Value for this radio item
+    groupValue: Currently selected value in group
+    onChanged: Callback when selection changes
+
+  labelProps:
+    label: Text label
+    inset: Add left padding for nested labels
+
+  alignments:
+    top: Position above trigger
+    bottom: Position below trigger (default)
+    left: Position to the left of trigger
+    right: Position to the right of trigger
+    topLeft: Top-left corner
+    topRight: Top-right corner
+    bottomLeft: Bottom-left corner
+    bottomRight: Bottom-right corner
+
+  variants:
+    default: Standard menu item
+    destructive: Red/danger variant for destructive actions
+
+unimplemented: []
+
+adaptations:
+  - OverlayEntry replaces Radix Portal
+  - CustomSingleChildLayout with custom delegate for positioning
+  - CompositedTransformTarget/LayerLink for coordinate transformation
+  - AnimationController for fade/scale animations (200ms)
+  - Focus/KeyEvent handling for keyboard navigation
+  - MouseRegion for hover states
+  - GrafitTheme-based theming instead of CSS classes
+  - GlobalKeyed for item tracking and keyboard navigation
+  - ScrollController for scrollable content

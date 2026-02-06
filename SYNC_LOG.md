@@ -188,8 +188,13 @@ All 20 implemented components now have metadata files:
 | radio-group | 100% | Implemented |
 | toggle-group | 100% | Implemented |
 | input-otp | 100% | Implemented |
+| select | 100% | Implemented |
+| dropdown-menu | 100% | Implemented |
+| command | 100% | Implemented |
+| sonner/toast | 100% | Implemented |
+| data-table | 100% | Implemented |
 
-**Overall Parity: 100%** ✅ (28/28 components at full parity)
+**Overall Parity: 100%** ✅ (33/33 components at full parity)
 
 **Overall Parity: 100%** ✅ (20/20 components at full parity)
 
@@ -373,3 +378,63 @@ All 20 implemented components now have metadata files:
 - Programmatic value setting and clearing methods
 - Visual grouping with separators (e.g., XXX-XXX format)
 - Full feature parity with shadcn-ui input-otp
+
+## New Component Implementations (2025-02-06 - Batch 4)
+
+### Select Component (100%)
+- Single selection from a list with grouped options
+- Search/filter functionality with real-time filtering
+- Size variants: sm (32px), md (40px)
+- Subcomponents: SelectTrigger, SelectContent, SelectItem, SelectValue, SelectGroup, SelectLabel, SelectSeparator, SelectSearchInput
+- LayerLink and OverlayEntry for dropdown positioning
+- Form integration with label and error text support
+- Custom styling via GrafitTheme
+- Full feature parity with shadcn-ui select
+
+### DropdownMenu Component (100%)
+- Overlay menu with 8 alignment options
+- Subcomponents: DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuGroup
+- Keyboard navigation (arrow keys, Enter, Escape, Home, End)
+- Nested submenu support
+- Checkbox and radio menu items
+- Icon support (leading and trailing)
+- Shortcut text display
+- Scrollable content with max height
+- Full feature parity with shadcn-ui dropdown-menu
+
+### Command Component (100%)
+- Command palette dialog (triggered by keyboard shortcut)
+- Real-time search filtering by label and keywords
+- Subcomponents: CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator, CommandShortcut
+- Keyboard navigation (arrow keys, Enter, Escape)
+- Grouped commands with labels
+- Keyboard shortcuts display
+- Empty state when no matches
+- Controller for programmatic control
+- Full feature parity with shadcn-ui command
+
+### Sonner/Toast Component (100%)
+- Toast notifications at 6 positions (top/bottom left/center/right)
+- 6 variants: basic, success, error, warning, info, loading
+- Helper methods: showToast, showSuccess, showError, showWarning, showInfo, showLoading, showPromise
+- Auto-dismiss after timeout
+- Progress indicator for promise-based toasts
+- Action buttons with callbacks
+- Stack multiple toasts (configurable max)
+- Smooth slide + fade animations
+- Global singleton manager (GrafitToastManager)
+- BuildContext extension for convenient API
+- Full feature parity with shadcn-ui sonner
+
+### DataTable Component (100%)
+- Structured table with header, body, footer sections
+- Subcomponents: DataTableHeader, DataTableBody, DataTableFooter, DataTableRow, DataTableHead, DataTableCell, DataTableCaption, DataTablePagination
+- Sortable columns (ascending/descending/none)
+- Selectable rows (none, single, multiple modes)
+- Pagination support with page controls and rows-per-page selector
+- Custom cell renderers via cellBuilder function
+- Responsive design with fixed/flex widths
+- Empty and loading state handling
+- Row striping and hover highlight
+- Column alignment (start, center, end)
+- Full feature parity with shadcn-ui table

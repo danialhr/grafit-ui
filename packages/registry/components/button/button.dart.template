@@ -1,0 +1,56 @@
+// This is a template file - variables will be replaced by the CLI
+import 'package:flutter/material.dart';
+import '{{themeImport}}';
+import '{{clickableImport}}';
+
+/// Button variants
+enum {{prefix}}ButtonVariant {
+  primary,
+  secondary,
+  ghost,
+  link,
+  destructive,
+  outline,
+}
+
+/// Button sizes
+enum {{prefix}}ButtonSize {
+  sm,
+  md,
+  lg,
+  icon,
+}
+
+/// Button component with variants and sizes
+class {{prefix}}Button extends StatelessWidget {
+  final String? label;
+  final Widget? child;
+  final VoidCallback? onPressed;
+  final {{prefix}}ButtonVariant variant;
+  final {{prefix}}ButtonSize size;
+  final bool fullWidth;
+  final bool disabled;
+  final IconData? icon;
+  final Widget? leading;
+  final Widget? trailing;
+
+  const {{prefix}}Button({
+    super.key,
+    this.label,
+    this.child,
+    this.onPressed,
+    this.variant = {{prefix}}ButtonVariant.primary,
+    this.size = {{prefix}}ButtonSize.md,
+    this.fullWidth = false,
+    this.disabled = false,
+    this.icon,
+    this.leading,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Component implementation here
+    // ... (same as in the main package)
+  }
+}

@@ -1,0 +1,51 @@
+# Button Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: button
+  sourcePath: apps/web/components/ui/button.tsx
+  commit: null  # To be filled after first sync
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: null
+
+flutter:
+  path: lib/src/components/form/button.dart
+  class: GrafitButton
+  status: implemented
+
+parity:
+  target: 90
+  current: 85
+  gap:
+    - "asChild prop: React-specific pattern, not applicable to Flutter"
+    - "icon variant: Partially implemented (using icon/leading props)"
+
+mapping:
+  variants:
+    default: primary
+    secondary: secondary
+    ghost: ghost
+    link: link
+    destructive: destructive
+    outline: outline
+    # Note: shadcn's 'icon' size variant handled via size prop
+
+  props:
+    onClick: onPressed (GestureCallback)
+    disabled: disabled (bool)
+    variant: variant (GrafitButtonVariant enum)
+    size: size (GrafitButtonSize enum: sm, md, lg, icon)
+    asChild: null (Not implemented - React pattern)
+    loading: null (Not implemented - can be added)
+
+unimplemented:
+  - asChild: "React composition pattern - Flutter uses child parameter instead"
+  - loading: "Loading state with spinner - not yet implemented"
+  - form: "Form integration attribute - Flutter uses separate form widgets"
+
+adaptations:
+  - "Gesture detection via GestureDetector wrapper instead of onClick"
+  - "Hover/focus states via InkWell-like behavior using custom Clickable widget"
+  - "AnimatedContainer for smooth transitions between states"
+  - "Icons handled via icon/leading/trailing props instead of children"
+  - "Size enum (sm, md, lg, icon) replaces className-based sizing"

@@ -1,0 +1,43 @@
+# Checkbox Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: checkbox
+  sourcePath: apps/web/components/ui/checkbox.tsx
+  commit: null
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: null
+
+flutter:
+  path: lib/src/components/form/checkbox.dart
+  class: GrafitCheckbox
+  status: implemented
+
+parity:
+  target: 90
+  current: 90
+  gap: []
+
+mapping:
+  variants:
+    default: default
+    secondary: secondary
+    destructive: null
+
+  props:
+    checked: value (bool)
+    onCheckedChange: onChanged (ValueChanged<bool>)
+    disabled: disabled (bool)
+    required: null (Not needed - use validator)
+    name: null (Not needed - FormField handles this)
+    id: null (Not needed - Flutter uses keys)
+
+unimplemented:
+  - "required prop: Flutter uses validator functions instead"
+  - "name/id props: Flutter uses Key for widget identification"
+
+adaptations:
+  - "ValueNotifier pattern instead of React state"
+  - "GestureDetector for tap handling"
+  - "Container with decoration for visual styling"
+  - "Icon for checkbox indicator"

@@ -1,0 +1,101 @@
+{
+  "version": "0.1.0",
+  "components": [
+    {
+      "name": "button",
+      "category": "form",
+      "description": "Button component with variants (primary, secondary, ghost, link) and sizes (sm, md, lg)",
+      "dependencies": [],
+      "files": ["button.dart"],
+      "docs": "components/button.md"
+    },
+    {
+      "name": "input",
+      "category": "form",
+      "description": "Text input field with decoration, error states, and labels",
+      "dependencies": [],
+      "files": ["input.dart"],
+      "docs": "components/input.md"
+    },
+    {
+      "name": "text",
+      "category": "typography",
+      "description": "Typography components with semantic headings",
+      "dependencies": [],
+      "files": ["text.dart"],
+      "docs": "components/text.md"
+    },
+    {
+      "name": "checkbox",
+      "category": "form",
+      "description": "Checkbox input component",
+      "dependencies": [],
+      "files": ["checkbox.dart"],
+      "docs": "components/checkbox.md"
+    },
+    {
+      "name": "radio-group",
+      "category": "form",
+      "description": "Radio button group component",
+      "dependencies": [],
+      "files": ["radio_group.dart"],
+      "docs": "components/radio-group.md"
+    },
+    {
+      "name": "switch",
+      "category": "form",
+      "description": "Toggle switch component",
+      "dependencies": [],
+      "files": ["switch.dart"],
+      "docs": "components/switch.md"
+    },
+    {
+      "name": "select",
+      "category": "form",
+      "description": "Select dropdown component",
+      "dependencies": [],
+      "files": ["select.dart"],
+      "docs": "components/select.md"
+    },
+    {
+      "name": "slider",
+      "category": "form",
+      "description": "Range slider component",
+      "dependencies": [],
+      "files": ["slider.dart"],
+      "docs": "components/slider.md"
+    },
+    {
+      "name": "textarea",
+      "category": "form",
+      "description": "Multi-line text input component",
+      "dependencies": [],
+      "files": ["textarea.dart"],
+      "docs": "components/textarea.md"
+    },
+    {
+      "name": "card",
+      "category": "data-display",
+      "description": "Card container component",
+      "dependencies": [],
+      "files": ["card.dart"],
+      "docs": "components/card.md"
+    },
+    {
+      "name": "dialog",
+      "category": "overlay",
+      "description": "Modal dialog component",
+      "dependencies": [],
+      "files": ["dialog.dart"],
+      "docs": "components/dialog.md"
+    },
+    {
+      "name": "tabs",
+      "category": "navigation",
+      "description": "Tabbed navigation component",
+      "dependencies": [],
+      "files": ["tabs.dart"],
+      "docs": "components/tabs.md"
+    }
+  ]
+}

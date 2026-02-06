@@ -1,0 +1,22 @@
+name: pikpo_workspace
+repository: https://github.com/your-org/pikpo-ui-shadcn
+packages:
+  - cli
+  - packages/**
+
+command:
+  bootstrap:
+    runPubGetInParallel: false
+  version:
+    linkToGitTags: false
+
+scripts:
+  lint: |
+    melos exec -c 1 -- dart analyze .
+  format: |
+    melos exec -c 1 -- dart format .
+  test: |
+    melos exec -c 1 -- flutter test
+
+dev_dependencies:
+  melos: ^6.0.0

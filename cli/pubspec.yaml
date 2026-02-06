@@ -1,0 +1,19 @@
+name: grafit_cli
+version: 0.1.0
+publish_to: none
+description: CLI tool for Grafit - Flutter port of shadcn/ui
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+executables:
+  gft:
+
+dependencies:
+  args: ^2.5.0
+  path: ^1.9.0
+  yaml: ^3.1.2
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.25.0

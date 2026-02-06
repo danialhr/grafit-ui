@@ -1,0 +1,11 @@
+name: button
+category: form
+description: Button component with variants (primary, secondary, ghost, link) and sizes (sm, md, lg)
+dependencies: []
+files:
+  - button.dart
+template: button.dart.template
+variables:
+  prefix: "{{projectPrefix}}"
+  themeImport: "{{componentsPath}}/theme/theme.dart"
+  clickableImport: "{{componentsPath}}/primitives/clickable.dart"

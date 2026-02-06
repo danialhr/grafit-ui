@@ -1,0 +1,50 @@
+# Component Metadata Template
+# Copy this file to [component-name].component.yaml alongside your Flutter component
+
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: COMPONENT_NAME        # e.g., button, input, card
+  sourcePath: PATH_IN_SHADCN       # e.g., apps/web/components/ui/button.tsx
+  commit: null                       # Git commit hash this is based on
+  version: null                      # shadcn-ui version (if available)
+  lastChecked: null                  # ISO date when last checked against upstream
+  lastSynced: null                   # ISO date when last synced with upstream
+
+flutter:
+  path: PATH_IN_GRAFIT             # Relative path to Flutter component
+  class: CLASS_NAME                 # Main Dart class name
+  status: pending                    # pending | in-progress | implemented | deprecated
+
+parity:
+  target: 90                        # Target parity percentage (85-90%)
+  current: 0                        # Current parity percentage
+  gap: []                           # List of missing features with reasons
+
+# Mapping of shadcn-ui variants/props to Flutter implementation
+mapping:
+  variants:
+    # shadcn_variant_name: grafit_variant_name
+    # Example:
+    #   default: primary
+    #   secondary: secondary
+    #   ghost: ghost
+
+  props:
+    # Map shadcn props to Flutter equivalents
+    # Example:
+    #   onClick: onPressed (Gesture callback)
+    #   disabled: disabled (Boolean)
+    #   variant: variant (Enum)
+
+# What features from shadcn-ui are NOT implemented
+unimplemented:
+  # - asChild: "React-specific pattern, Flutter uses child parameter"
+  # - loading: "Can be added via optional loading prop in future"
+  # - tooltip: "Will be added as separate wrapper component"
+
+# Flutter-specific adaptations made during porting
+adaptations:
+  # - Gesture detection replaces onClick callback
+  # - InkWell/Clickable wrapper for hover/focus states
+  # - AnimatedContainer for transitions instead of CSS
+  # - MediaQuery for responsive design instead of CSS breakpoints

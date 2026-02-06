@@ -1,0 +1,47 @@
+# Input Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: input
+  sourcePath: apps/web/components/ui/input.tsx
+  commit: null
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: null
+
+flutter:
+  path: lib/src/components/form/input.dart
+  class: GrafitInput
+  status: implemented
+
+parity:
+  target: 90
+  current: 88
+  gap:
+    - "File upload: HTML file input not directly supported"
+    - "Multiple file upload: Not implemented"
+
+mapping:
+  variants:
+    default: default
+    file: null (Not implemented)
+
+  props:
+    type: keyboardType (TextInputType)
+    placeholder: hint (String)
+    disabled: disabled (bool)
+    value: controller (TextEditingController)
+    onChange: onChanged (ValueChanged<String>)
+    maxLength: maxLength (int)
+    prefix: prefix (Widget)
+    suffix: suffix (Widget)
+
+unimplemented:
+  - file: "File upload requires platform-specific plugins (file_picker)"
+  - multiple: "Multiple file upload not implemented"
+
+adaptations:
+  - "TextEditingController instead of React state"
+  - "TextInputType for type attribute (email, number, text, etc.)"
+  - "InputDecoration wrapper for styling instead of CSS classes"
+  - "prefix/suffix as Widget parameters instead of slots"
+  - "Error state via errorText prop with validation"

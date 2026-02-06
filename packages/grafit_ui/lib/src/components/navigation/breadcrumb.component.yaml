@@ -1,0 +1,38 @@
+# Component Metadata: Breadcrumb
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: breadcrumb
+  sourcePath: apps/www/components/ui/breadcrumb.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/navigation/breadcrumb.dart
+  class: GrafitBreadcrumb
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  props:
+    - items: List of breadcrumb items
+    - separator: Custom separator widget
+    - ellipsis: Show collapsed indicator
+
+  subcomponents:
+    - GrafitBreadcrumbLink: Clickable breadcrumb item
+    - GrafitBreadcrumbPage: Current page (non-clickable)
+    - GrafitBreadcrumbEllipsis: Collapsed indicator
+    - GrafitBreadcrumbSeparator: Custom separator
+
+  unimplemented: []
+
+  adaptations:
+    - Wrap widget for flexible layout
+    - InkWell for tap handling
+    - DefaultTextStyle for consistent styling

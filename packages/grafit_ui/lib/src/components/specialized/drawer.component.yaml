@@ -1,0 +1,34 @@
+# Component Metadata: Drawer
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: drawer (sheet variant)
+  sourcePath: apps/www/components/ui/sheet.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/drawer.dart
+  class: GrafitDrawer
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  props:
+    - direction: top | bottom | left | right
+    - trigger: Widget that opens drawer
+    - dismissible: Allow backdrop click to close
+    - open: Programmatic control
+
+  unimplemented: []
+
+  adaptations:
+    - Positioned widgets with animation for slide effect
+    - Overlay with GestureDetector for backdrop
+    - AnimationController for smooth transitions
+    - Handle indicator for top/bottom drawers

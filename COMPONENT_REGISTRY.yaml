@@ -395,11 +395,51 @@ flutter_components:
     lastChecked: 2025-02-06
     lastSynced: 2025-02-06
 
+  alert-dialog:
+    upstream: alert-dialog
+    flutter: lib/src/components/overlay/alert_dialog.dart
+    metadata: lib/src/components/overlay/alert_dialog.component.yaml
+    category: *overlay
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  popover:
+    upstream: popover
+    flutter: lib/src/components/overlay/popover.dart
+    metadata: lib/src/components/overlay/popover.component.yaml
+    category: *overlay
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  breadcrumb:
+    upstream: breadcrumb
+    flutter: lib/src/components/navigation/breadcrumb.dart
+    metadata: lib/src/components/navigation/breadcrumb.component.yaml
+    category: *navigation
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  drawer:
+    upstream: drawer
+    flutter: lib/src/components/specialized/drawer.dart
+    metadata: lib/src/components/specialized/drawer.component.yaml
+    category: *specialized
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (20 components with metadata)
-  calculated: "Based on 20 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100)"
+  current: 100  # Average of implemented components (24 components with metadata)
+  calculated: "Based on 24 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)
@@ -409,10 +449,6 @@ pending:
     complexity: medium
     estimated_effort: 4 hours
 
-  alert-dialog:
-    priority: high
-    complexity: low
-    estimated_effort: 2 hours
 
   auto-form:
     priority: low
@@ -465,11 +501,6 @@ pending:
     complexity: high
     estimated_effort: 12 hours
 
-  drawer:
-    priority: medium
-    complexity: medium
-    estimated_effort: 4 hours
-
   dropdown-menu:
     priority: high
     complexity: medium
@@ -510,11 +541,6 @@ pending:
     complexity: low
     estimated_effort: 4 hours
 
-  popover:
-    priority: high
-    complexity: medium
-    estimated_effort: 4 hours
-
   progress:
     priority: high
     complexity: trivial
@@ -541,11 +567,6 @@ pending:
     complexity: medium
     estimated_effort: 5 hours
 
-  skeleton:
-    priority: high
-    complexity: trivial
-    estimated_effort: 2 hours
-
   sonner:
     priority: high
     complexity: medium
@@ -555,11 +576,6 @@ pending:
     priority: medium
     complexity: medium
     estimated_effort: 5 hours
-
-  textarea:
-    priority: high
-    complexity: low
-    estimated_effort: 2 hours
 
   toast:
     priority: high

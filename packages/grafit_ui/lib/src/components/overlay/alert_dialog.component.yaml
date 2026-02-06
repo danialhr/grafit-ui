@@ -1,0 +1,40 @@
+# Component Metadata: AlertDialog
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: alert-dialog
+  sourcePath: apps/www/components/ui/alert-dialog.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/alert_dialog.dart
+  class: GrafitAlertDialog
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  variants:
+    sm: sm (smaller size variant)
+    default: value (default size)
+
+  props:
+    - title/titleText: Title text or widget
+    - description/descriptionText: Description text or widget
+    - trigger: Widget that opens the dialog
+    - dismissible: Allow backdrop click to dismiss
+    - size: sm | value
+    - media: Optional media/icon widget
+
+  unimplemented: []
+
+  adaptations:
+    - Flutter Dialog widget replaces AlertDialogPrimitive
+    - Gestures replace onClick callbacks
+    - AnimatedContainer for transitions
+    - Subcomponents use Flutter composition pattern

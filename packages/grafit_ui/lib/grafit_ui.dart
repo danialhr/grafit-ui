@@ -30,10 +30,13 @@ export 'src/components/typography/text.dart';
 
 // Navigation components
 export 'src/components/navigation/tabs.dart';
+export 'src/components/navigation/breadcrumb.dart';
 
 // Overlay components
 export 'src/components/overlay/dialog.dart';
 export 'src/components/overlay/tooltip.dart';
+export 'src/components/overlay/alert_dialog.dart';
+export 'src/components/overlay/popover.dart';
 
 // Feedback components
 export 'src/components/feedback/alert.dart';
@@ -48,3 +51,4 @@ export 'src/components/data-display/avatar.dart';
 export 'src/components/specialized/resizable.dart';
 export 'src/components/specialized/scroll_area.dart';
 export 'src/components/specialized/collapsible.dart';
+export 'src/components/specialized/drawer.dart';

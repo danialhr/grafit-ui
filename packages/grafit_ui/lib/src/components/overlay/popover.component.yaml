@@ -1,0 +1,35 @@
+# Component Metadata: Popover
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: popover
+  sourcePath: apps/www/components/ui/popover.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/popover.dart
+  class: GrafitPopover
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  props:
+    - trigger: Widget that opens popover on tap
+    - content: Popover content widget
+    - alignment: Position relative to trigger
+    - offset: Distance from trigger
+    - dismissible: Allow tap outside to close
+
+  unimplemented: []
+
+  adaptations:
+    - OverlayEntry replaces Portal
+    - CustomSingleChildLayout for positioning
+    - CompositedTransform for coordinate transformation
+    - AnimationController for fade/scale animations

@@ -1,0 +1,153 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: chart
+  sourcePath: apps/v4/registry/new-york-v4/ui/chart.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-07
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/data-display/chart.dart
+  classes:
+    - GrafitChart
+    - GrafitChartContainer
+    - GrafitChartTooltip
+    - GrafitChartLegend
+    - GrafitChartSeries
+    - GrafitChartConfig
+    - GrafitChartLine
+    - GrafitChartBar
+    - GrafitChartArea
+    - GrafitChartPie
+  status: implemented
+
+parity:
+  target: 100
+  current: 95
+  gap:
+    - "Custom formatter callbacks (labelFormatter, formatter) - partially implemented via customTooltipBuilder"
+    - "ChartStyle CSS injection - adapted to Flutter theming system"
+
+mapping:
+  props:
+    data: data (List<Map<String, dynamic>>)
+    type: type (GrafitChartType: line, area, bar, pie, scatter)
+    xKey: x-axis data key
+    yKeys: y-axis data key(s)
+    y2Key: Secondary y-axis key (planned)
+    colorKey: color mapping key
+    series: series configuration
+    title: Chart title
+    showLegend: showLegend boolean
+    legendPosition: legendPosition (GrafitChartLegendPosition)
+    showTooltip: showTooltip boolean
+    tooltipIndicator: tooltipIndicator (dot, line, dashed)
+    height: height in pixels
+    animationDuration: animationDuration
+    theme: custom theme override
+    onTap: onTap callback
+    customTooltipBuilder: customTooltipBuilder function
+    strokeWidth: strokeWidth for lines
+    fillArea: fillArea for line/area charts
+    barWidth: barWidth for bar charts
+    pointSize: pointSize for scatter/points
+    showGrid: showGrid boolean
+    primaryColor: primaryColor override
+
+  components:
+    ChartContainer: GrafitChartContainer
+    ChartTooltip: GrafitChartTooltip
+    ChartLegend: GrafitChartLegend
+    ChartConfig: GrafitChartConfig (adapted)
+    ChartLine: GrafitChartLine
+    ChartBar: GrafitChartBar
+    ChartArea: GrafitChartArea
+    ChartPie: GrafitChartPie
+
+  chartTypes:
+    line: GrafitChartType.line (via Cristalyse LineGeometry + PointGeometry)
+    area: GrafitChartType.area (via Cristalyse AreaGeometry)
+    bar: GrafitChartType.bar (via Cristalyse BarGeometry)
+    pie: GrafitChartType.pie (via Cristalyse geomPie)
+    scatter: GrafitChartType.scatter (via Cristalyse PointGeometry)
+
+  legendPositions:
+    top: GrafitChartLegendPosition.top
+    bottom: GrafitChartLegendPosition.bottom
+    left: GrafitChartLegendPosition.left
+    right: GrafitChartLegendPosition.right
+    topLeft: GrafitChartLegendPosition.topLeft
+    topRight: GrafitChartLegendPosition.topRight
+    bottomLeft: GrafitChartLegendPosition.bottomLeft
+    bottomRight: GrafitChartLegendPosition.bottomRight
+
+  tooltipIndicators:
+    dot: GrafitChartTooltipIndicator.dot
+    line: GrafitChartTooltipIndicator.line
+    dashed: GrafitChartTooltipIndicator.dashed
+
+unimplemented:
+  - asChild: "React-specific pattern, not applicable to Flutter"
+  - CSS class injection via ChartStyle: "Adapted to Flutter theming system"
+  - hideIcon: "Partially implemented in GrafitChartLegend"
+  - verticalAlign: "Adapted to GrafitChartLegendPosition"
+  - nameKey/labelKey: "Uses direct key access instead"
+
+adaptations:
+  - "Uses Cristalyse package instead of Recharts for rendering"
+  - "Grammar of graphics API matching Cristalyse's layer-based approach"
+  - "GrafitTheme integration via GrafitColorScheme"
+  - "Declarative API with builder-style configuration"
+  - "60fps animations via Cristalyse's animated chart widget"
+  - "Pre-built widgets (GrafitChartLine, GrafitChartBar, etc.) for common use cases"
+  - "Custom tooltip builder for full customization"
+  - "Aspect ratio-based responsive sizing"
+  - "Multi-series chart support"
+  - "Theme color integration with automatic series color generation"
+
+cristalyseFeatures:
+  - "PointLayer for scatter plots"
+  - "LineLayer for line charts"
+  - "AreaLayer for area charts"
+  - "BarLayer for bar charts"
+  - "Position and scale mappings (scaleXOrdinal, scaleYContinuous)"
+  - "Axis layers with grid support"
+  - "Interactive legend with toggle support"
+  - "Tooltip overlay with animation"
+  - "Chart theme customization"
+  - "Dual Y-axis support (exposed via y2Key prop)"
+
+notes: |
+  The chart component is built on top of Cristalyse, a high-performance Flutter charting library
+  that implements the grammar of graphics approach. This provides:
+
+  1. **Performance**: 60fps animations with native Flutter rendering
+  2. **Flexibility**: Layer-based composition for complex visualizations
+  3. **Interactivity**: Built-in tooltip and legend support
+  4. **Theming**: Deep integration with GrafitTheme for consistent styling
+  5. **Declarative API**: Builder-style API matching shadcn-ui patterns
+
+  Key differences from shadcn-ui/ui:
+  - No CSS classes (uses Flutter theming)
+  - Cristalyse instead of Recharts
+  - Type-safe enum-based configuration
+  - Built-in animation support
+  - Platform-specific rendering optimizations
+
+  Example usage:
+  ```dart
+  GrafitChart(
+    data: [
+      {'month': 'Jan', 'revenue': 4500, 'expenses': 3200},
+      {'month': 'Feb', 'revenue': 5200, 'expenses': 3800},
+    ],
+    type: GrafitChartType.line,
+    xKey: 'month',
+    yKeys: ['revenue', 'expenses'],
+    series: [
+      GrafitChartSeries(key: 'revenue', label: 'Revenue'),
+      GrafitChartSeries(key: 'expenses', label: 'Expenses'),
+    ],
+  )
+  ```

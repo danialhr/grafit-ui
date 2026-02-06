@@ -69,6 +69,7 @@ export 'src/components/data-display/data_table.dart';
 export 'src/components/data-display/pagination.dart';
 export 'src/components/data-display/empty.dart';
 export 'src/components/data-display/table.dart';
+export 'src/components/data-display/chart.dart';
 
 // Specialized components
 export 'src/components/specialized/resizable.dart';

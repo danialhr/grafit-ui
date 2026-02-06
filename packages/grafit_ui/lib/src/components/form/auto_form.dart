@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide FormFieldValidator;
 import '../../theme/theme.dart';
 import '../layout/accordion.dart';
 import '../layout/card.dart';
@@ -6,7 +6,6 @@ import 'button.dart';
 import 'checkbox.dart';
 import 'form.dart';
 import 'input.dart';
-import 'label.dart';
 import 'radio_group.dart';
 import 'select.dart';
 import 'switch.dart';
@@ -54,13 +53,22 @@ class GrafitAutoFormField {
   final List<GrafitAutoFormOption>? options;
 
   /// Whether the field should use a specific component override
-  final Widget Function(BuildContext context, dynamic value, String? error, VoidCallback onChanged)? customBuilder;
+  final Widget Function(BuildContext context, dynamic value, String? error, void Function(dynamic) onChanged)? customBuilder;
 
   /// Whether to show the label
   final bool showLabel;
 
   /// Whether the field is enabled
   final bool enabled;
+
+  /// Array field configuration (for arrays of objects)
+  final GrafitAutoFormArrayConfig? arrayConfig;
+
+  /// Nested object configuration (for nested objects)
+  final GrafitAutoFormObjectConfig? objectConfig;
+
+  /// Section configuration (for accordion sections)
+  final GrafitAutoFormSectionConfig? sectionConfig;
 
   const GrafitAutoFormField({
     required this.name,
@@ -79,6 +87,95 @@ class GrafitAutoFormField {
     this.customBuilder,
     this.showLabel = true,
     this.enabled = true,
+    this.arrayConfig,
+    this.objectConfig,
+    this.sectionConfig,
+  });
+}
+
+/// Configuration for array fields (arrays of objects)
+class GrafitAutoFormArrayConfig {
+  /// Schema for array items
+  final GrafitAutoFormSchema itemSchema;
+
+  /// Minimum number of items
+  final int? minItems;
+
+  /// Maximum number of items
+  final int? maxItems;
+
+  /// Label for the "Add" button
+  final String addLabel;
+
+  /// Label for the "Remove" button
+  final String removeLabel;
+
+  /// Whether items can be reordered
+  final bool reorderable;
+
+  /// Custom builder for array items
+  final Widget Function(BuildContext context, Map<String, dynamic> item, int index, VoidCallback onRemove)? itemBuilder;
+
+  const GrafitAutoFormArrayConfig({
+    required this.itemSchema,
+    this.minItems,
+    this.maxItems,
+    this.addLabel = 'Add Item',
+    this.removeLabel = 'Remove',
+    this.reorderable = true,
+    this.itemBuilder,
+  });
+}
+
+/// Configuration for nested object fields
+class GrafitAutoFormObjectConfig {
+  /// Schema for the nested object
+  final GrafitAutoFormSchema schema;
+
+  /// Whether to show a border around the object
+  final bool bordered;
+
+  /// Whether to collapse the object by default
+  final bool collapsible;
+
+  /// Title for the object section
+  final String? title;
+
+  const GrafitAutoFormObjectConfig({
+    required this.schema,
+    this.bordered = true,
+    this.collapsible = false,
+    this.title,
+  });
+}
+
+/// Configuration for section grouping (accordion)
+class GrafitAutoFormSectionConfig {
+  /// List of field names in this section
+  final List<String> fields;
+
+  /// Title for the section
+  final String title;
+
+  /// Description for the section
+  final String? description;
+
+  /// Whether the section is collapsible
+  final bool collapsible;
+
+  /// Whether the section is collapsed by default
+  final bool collapsedByDefault;
+
+  /// Icon for the section
+  final IconData? icon;
+
+  const GrafitAutoFormSectionConfig({
+    required this.fields,
+    required this.title,
+    this.description,
+    this.collapsible = true,
+    this.collapsedByDefault = false,
+    this.icon,
   });
 }
 
@@ -103,7 +200,7 @@ enum GrafitAutoFormFieldType {
   checkbox,
 
   /// Switch (boolean)
-  switch,
+  toggleSwitch,
 
   /// Select dropdown
   select,
@@ -113,6 +210,15 @@ enum GrafitAutoFormFieldType {
 
   /// Date picker
   date,
+
+  /// Array of objects
+  array,
+
+  /// Nested object
+  object,
+
+  /// Section (accordion)
+  section,
 }
 
 /// Option for select/radio fields
@@ -148,13 +254,16 @@ class GrafitAutoFormFieldConfig {
   final GrafitAutoFormFieldType? fieldType;
 
   /// Custom builder for the field
-  final Widget Function(BuildContext context, dynamic value, String? error, VoidCallback onChanged)? builder;
+  final Widget Function(BuildContext context, dynamic value, String? error, void Function(dynamic) onChanged)? builder;
 
   /// Input props for text fields
   final GrafitAutoFormInputProps? inputProps;
 
   /// Order priority (lower = higher priority)
   final int? order;
+
+  /// Nested field configurations (for array/object types)
+  final Map<String, GrafitAutoFormFieldConfig>? nestedConfig;
 
   const GrafitAutoFormFieldConfig({
     this.label,
@@ -164,6 +273,7 @@ class GrafitAutoFormFieldConfig {
     this.builder,
     this.inputProps,
     this.order,
+    this.nestedConfig,
   });
 }
 
@@ -333,6 +443,12 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
   final Map<String, bool> _disabledFields = {};
   final Map<String, bool> _requiredFields = {};
 
+  // State for array fields (dynamic field lists)
+  final Map<String, List<Map<String, dynamic>>> _arrayValues = {};
+
+  // State for collapsible sections
+  final Map<String, bool> _collapsedSections = {};
+
   @override
   void initState() {
     super.initState();
@@ -344,9 +460,22 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
     // Set initial values
     final initialValues = widget.initialValues ?? {};
     for (final field in widget.schema.fields) {
-      final value = initialValues[field.name] ?? field.defaultValue;
-      if (value != null) {
-        _controller.setValue(field.name, value, validate: false);
+      if (field.type == GrafitAutoFormFieldType.array && field.arrayConfig != null) {
+        final arrayValue = initialValues[field.name] as List<dynamic>? ?? field.defaultValue as List<dynamic>? ?? [];
+        _arrayValues[field.name] = arrayValue.cast<Map<String, dynamic>>();
+      } else if (field.type == GrafitAutoFormFieldType.object) {
+        final objectValue = initialValues[field.name] as Map<String, dynamic>? ?? field.defaultValue as Map<String, dynamic>?;
+        if (objectValue != null) {
+          _setNestedObjectValues(field.name, objectValue);
+        }
+      } else if (field.type == GrafitAutoFormFieldType.section) {
+        final collapsedByDefault = field.sectionConfig?.collapsedByDefault ?? false;
+        _collapsedSections[field.name] = collapsedByDefault;
+      } else {
+        final value = initialValues[field.name] ?? field.defaultValue;
+        if (value != null) {
+          _controller.setValue(field.name, value, validate: false);
+        }
       }
     }
 
@@ -354,36 +483,62 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
     _registerValidators();
   }
 
+  void _setNestedObjectValues(String fieldName, Map<String, dynamic> objectValue) {
+    objectValue.forEach((key, value) {
+      _controller.setValue('$fieldName.$key', value, validate: false);
+    });
+  }
+
+  Map<String, dynamic> _getNestedObjectValues(String fieldName, GrafitAutoFormSchema schema) {
+    final result = <String, dynamic>{};
+    for (final field in schema.fields) {
+      final value = _controller.getValue('$fieldName.${field.name}');
+      if (value != null) {
+        result[field.name] = value;
+      }
+    }
+    return result;
+  }
+
   void _registerValidators() {
     for (final field in widget.schema.fields) {
-      final validators = <FormFieldValidator>[];
+      // Skip array, object, and section types - they have their own validation
+      if (field.type == GrafitAutoFormFieldType.array ||
+          field.type == GrafitAutoFormFieldType.object ||
+          field.type == GrafitAutoFormFieldType.section) {
+        continue;
+      }
+
+      final validators = <FormFieldValidator<dynamic>>[];
 
       if (field.required || _requiredFields[field.name] == true) {
-        validators.add(GrafitValidators.required(
-          message: field.validationMessage ?? '${field.label ?? field.name} is required',
-        ));
+        validators.add((value) {
+          return GrafitValidators.required(
+            message: field.validationMessage ?? '${field.label ?? field.name} is required',
+          )(value as String?);
+        });
       }
 
       switch (field.type) {
         case GrafitAutoFormFieldType.email:
-          validators.add(GrafitValidators.email());
+          validators.add((value) => GrafitValidators.email()(value as String?));
           break;
         case GrafitAutoFormFieldType.text:
         case GrafitAutoFormFieldType.textarea:
         case GrafitAutoFormFieldType.password:
           if (field.minLength != null) {
-            validators.add(GrafitValidators.minLength(field.minLength!));
+            validators.add((value) => GrafitValidators.minLength(field.minLength!)(value as String?));
           }
           if (field.maxLength != null) {
-            validators.add(GrafitValidators.maxLength(field.maxLength!));
+            validators.add((value) => GrafitValidators.maxLength(field.maxLength!)(value as String?));
           }
           break;
         case GrafitAutoFormFieldType.number:
           if (field.min != null) {
-            validators.add(GrafitValidators.min(field.min!));
+            validators.add((value) => GrafitValidators.min(field.min!)(value as num?));
           }
           if (field.max != null) {
-            validators.add(GrafitValidators.max(field.max!));
+            validators.add((value) => GrafitValidators.max(field.max!)(value as num?));
           }
           break;
         default:
@@ -467,9 +622,23 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
   }
 
   void _handleSubmit() {
-    if (_controller.validate()) {
-      widget.onSubmit(_controller.values);
+    if (!_controller.validate()) {
+      return;
     }
+
+    // Build the final form values including nested structures
+    final values = Map<String, dynamic>.from(_controller.values);
+
+    // Add array field values
+    for (final field in widget.schema.fields) {
+      if (field.type == GrafitAutoFormFieldType.array && field.arrayConfig != null) {
+        values[field.name] = _arrayValues[field.name] ?? [];
+      } else if (field.type == GrafitAutoFormFieldType.object && field.objectConfig != null) {
+        values[field.name] = _getNestedObjectValues(field.name, field.objectConfig!.schema);
+      }
+    }
+
+    widget.onSubmit(values);
   }
 
   GrafitAutoFormFieldConfig? _getFieldConfig(String fieldName) {
@@ -478,7 +647,20 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldsWithOrder = widget.schema.fields.map((field) {
+    // Separate sections from regular fields
+    final sections = <GrafitAutoFormField>[];
+    final regularFields = <GrafitAutoFormField>[];
+
+    for (final field in widget.schema.fields) {
+      if (field.type == GrafitAutoFormFieldType.section) {
+        sections.add(field);
+      } else {
+        regularFields.add(field);
+      }
+    }
+
+    // Sort regular fields by order
+    final regularFieldsWithOrder = regularFields.map((field) {
       final config = _getFieldConfig(field.name);
       return MapEntry(field, config?.order ?? 0);
     }).toList()
@@ -490,11 +672,16 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (final entry in fieldsWithOrder)
+          // Render regular fields
+          for (final entry in regularFieldsWithOrder)
             if (!_isFieldHidden(entry.key.name)) ...[
               _buildField(context, entry.key),
               SizedBox(height: widget.fieldSpacing),
             ],
+          // Render sections
+          for (final section in sections)
+            if (!_isFieldHidden(section.name))
+              _buildSection(context, section),
           if (widget.showSubmitButton) ...[
             _buildSubmitButton(context),
             SizedBox(height: widget.fieldSpacing),
@@ -536,7 +723,7 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
         return _buildNumberField(context, field, config, isDisabled);
       case GrafitAutoFormFieldType.checkbox:
         return _buildCheckboxField(context, field, config, isDisabled);
-      case GrafitAutoFormFieldType.switch:
+      case GrafitAutoFormFieldType.toggleSwitch:
         return _buildSwitchField(context, field, config, isDisabled);
       case GrafitAutoFormFieldType.select:
         return _buildSelectField(context, field, config, isDisabled);
@@ -544,6 +731,12 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
         return _buildRadioField(context, field, config, isDisabled);
       case GrafitAutoFormFieldType.date:
         return _buildDateField(context, field, config, isDisabled);
+      case GrafitAutoFormFieldType.array:
+        return _buildArrayField(context, field, config, isDisabled);
+      case GrafitAutoFormFieldType.object:
+        return _buildObjectField(context, field, config, isDisabled);
+      case GrafitAutoFormFieldType.section:
+        return const SizedBox.shrink(); // Sections are handled separately
     }
   }
 
@@ -625,7 +818,7 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
               const SizedBox(height: 6),
             ],
             GrafitTextarea(
-              label: showLabel ? null : label,
+              label: showLabel ? null : Text(label),
               hint: inputProps?.placeholder ?? field.placeholder,
               value: value ?? '',
               onChanged: (newValue) => _handleFieldChanged(field.name, newValue),
@@ -878,7 +1071,7 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
                         label: option.label,
                       ))
                   .toList(),
-              groupValue: value,
+              value: value,
               onChanged: isDisabled
                   ? null
                   : (newValue) => _handleFieldChanged(field.name, newValue),
@@ -964,6 +1157,718 @@ class GrafitAutoFormState extends State<GrafitAutoForm> {
         );
       },
     );
+  }
+
+  Widget _buildArrayField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final arrayConfig = field.arrayConfig;
+    if (arrayConfig == null) return const SizedBox.shrink();
+
+    final items = _arrayValues[field.name] ?? [];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (label.isNotEmpty) ...[
+          GrafitFormLabel(
+            text: label,
+            required: field.required,
+          ),
+          const SizedBox(height: 6),
+        ],
+        ...List.generate(items.length, (index) {
+          return _buildArrayItem(
+            context,
+            field.name,
+            arrayConfig,
+            items[index],
+            index,
+            isDisabled,
+          );
+        }),
+        if ((arrayConfig.maxItems == null || items.length < arrayConfig.maxItems!) && !isDisabled)
+          GrafitButton(
+            onPressed: () => _addArrayItem(field.name, arrayConfig),
+            variant: GrafitButtonVariant.outline,
+            size: GrafitButtonSize.sm,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.add, size: 16),
+                const SizedBox(width: 4),
+                Text(arrayConfig.addLabel),
+              ],
+            ),
+          ),
+        if (field.description != null || config?.description != null) ...[
+          const SizedBox(height: 4),
+          GrafitFormDescription(
+            text: config?.description ?? field.description!,
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildArrayItem(
+    BuildContext context,
+    String fieldName,
+    GrafitAutoFormArrayConfig arrayConfig,
+    Map<String, dynamic> item,
+    int index,
+    bool isDisabled,
+  ) {
+    final theme = Theme.of(context).extension<GrafitTheme>()!;
+    final colors = theme.colors;
+
+    return GrafitCard(
+      key: ValueKey('$fieldName-$index'),
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 12),
+      bordered: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Item ${index + 1}',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: colors.foreground,
+                ),
+              ),
+              if (!isDisabled && (arrayConfig.minItems == null || _arrayValues[fieldName]!.length > arrayConfig.minItems!))
+                GrafitButton(
+                  onPressed: () => _removeArrayItem(fieldName, index),
+                  variant: GrafitButtonVariant.ghost,
+                  size: GrafitButtonSize.sm,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.delete_outline, size: 16),
+                      const SizedBox(width: 4),
+                      Text(arrayConfig.removeLabel),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _buildNestedSchema(context, arrayConfig.itemSchema, '$fieldName[$index]', isDisabled),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildObjectField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final objectConfig = field.objectConfig;
+    if (objectConfig == null) return const SizedBox.shrink();
+
+    final title = objectConfig.title ?? label;
+
+    return GrafitCard(
+      padding: objectConfig.bordered ? const EdgeInsets.all(16) : EdgeInsets.zero,
+      margin: EdgeInsets.zero,
+      bordered: objectConfig.bordered,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (title.isNotEmpty) ...[
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).extension<GrafitTheme>()!.colors.foreground,
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+          _buildNestedSchema(context, objectConfig.schema, field.name, isDisabled),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNestedSchema(
+    BuildContext context,
+    GrafitAutoFormSchema schema,
+    String prefix,
+    bool isDisabled,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final field in schema.fields)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildNestedField(context, field, '$prefix.${field.name}', isDisabled),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildNestedField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    bool isDisabled,
+  ) {
+    final config = widget.fieldConfig?[fullFieldName] ?? widget.schema.fieldConfig?[fullFieldName];
+
+    if (config?.builder != null || field.customBuilder != null) {
+      return GrafitFormField<dynamic>(
+        name: fullFieldName,
+        initialValue: field.defaultValue,
+        autovalidate: true,
+        builder: (context, value, error) {
+          return (config?.builder ?? field.customBuilder!)(
+            context,
+            value,
+            error,
+            (newValue) => _handleFieldChanged(fullFieldName, newValue),
+          );
+        },
+      );
+    }
+
+    switch (config?.fieldType ?? field.type) {
+      case GrafitAutoFormFieldType.text:
+      case GrafitAutoFormFieldType.email:
+      case GrafitAutoFormFieldType.password:
+        return _buildNestedTextField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.textarea:
+        return _buildNestedTextareaField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.number:
+        return _buildNestedNumberField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.checkbox:
+        return _buildNestedCheckboxField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.toggleSwitch:
+        return _buildNestedSwitchField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.select:
+        return _buildNestedSelectField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.radio:
+        return _buildNestedRadioField(context, field, fullFieldName, config, isDisabled);
+      case GrafitAutoFormFieldType.date:
+        return _buildNestedDateField(context, field, fullFieldName, config, isDisabled);
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildNestedTextField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final inputProps = config?.inputProps;
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final showLabel = config?.showLabel ?? field.showLabel;
+
+    return GrafitFormField<String>(
+      name: fullFieldName,
+      initialValue: field.defaultValue?.toString(),
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showLabel && label.isNotEmpty) ...[
+              GrafitFormLabel(
+                text: label,
+                required: field.required,
+              ),
+              const SizedBox(height: 6),
+            ],
+            GrafitInput(
+              label: showLabel ? null : label,
+              hint: inputProps?.placeholder ?? field.placeholder,
+              value: value ?? '',
+              onChanged: (newValue) => _handleFieldChanged(fullFieldName, newValue),
+              enabled: !isDisabled,
+              obscureText: field.type == GrafitAutoFormFieldType.password ||
+                  (inputProps?.obscureText ?? false),
+              errorText: error,
+            ),
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedTextareaField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final inputProps = config?.inputProps;
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final showLabel = config?.showLabel ?? field.showLabel;
+
+    return GrafitFormField<String>(
+      name: fullFieldName,
+      initialValue: field.defaultValue?.toString(),
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showLabel && label.isNotEmpty) ...[
+              GrafitFormLabel(
+                text: label,
+                required: field.required,
+              ),
+              const SizedBox(height: 6),
+            ],
+            GrafitTextarea(
+              label: showLabel ? null : Text(label),
+              hint: inputProps?.placeholder ?? field.placeholder,
+              value: value ?? '',
+              onChanged: (newValue) => _handleFieldChanged(fullFieldName, newValue),
+              enabled: !isDisabled,
+              errorText: error,
+              maxLines: inputProps?.maxLines ?? 3,
+              minLines: inputProps?.maxLines ?? 3,
+            ),
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedNumberField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final showLabel = config?.showLabel ?? field.showLabel;
+
+    return GrafitFormField<num>(
+      name: fullFieldName,
+      initialValue: field.defaultValue as num?,
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showLabel && label.isNotEmpty) ...[
+              GrafitFormLabel(
+                text: label,
+                required: field.required,
+              ),
+              const SizedBox(height: 6),
+            ],
+            GrafitInput(
+              label: showLabel ? null : label,
+              hint: field.placeholder,
+              value: value?.toString() ?? '',
+              onChanged: (newValue) {
+                final numValue = num.tryParse(newValue);
+                if (numValue != null) {
+                  _handleFieldChanged(fullFieldName, numValue);
+                }
+              },
+              enabled: !isDisabled,
+              errorText: error,
+              keyboardType: TextInputType.number,
+            ),
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedCheckboxField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+
+    return GrafitFormField<bool>(
+      name: fullFieldName,
+      initialValue: field.defaultValue as bool? ?? false,
+      autovalidate: true,
+      builder: (context, value, error) {
+        return GrafitCheckbox(
+          label: label,
+          value: value ?? false,
+          onChanged: isDisabled
+              ? null
+              : (newValue) => _handleFieldChanged(fullFieldName, newValue),
+          enabled: !isDisabled,
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedSwitchField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+
+    return GrafitFormField<bool>(
+      name: fullFieldName,
+      initialValue: field.defaultValue as bool? ?? false,
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GrafitFormLabel(
+                    text: label,
+                    required: field.required,
+                  ),
+                  if (field.description != null || config?.description != null) ...[
+                    const SizedBox(height: 2),
+                    GrafitFormDescription(
+                      text: config?.description ?? field.description!,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            GrafitSwitch(
+              value: value ?? false,
+              onChanged: isDisabled
+                  ? null
+                  : (newValue) => _handleFieldChanged(fullFieldName, newValue),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedSelectField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final options = field.options ?? [];
+    final showLabel = config?.showLabel ?? field.showLabel;
+
+    return GrafitFormField<dynamic>(
+      name: fullFieldName,
+      initialValue: field.defaultValue,
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showLabel && label.isNotEmpty) ...[
+              GrafitFormLabel(
+                text: label,
+                required: field.required,
+              ),
+              const SizedBox(height: 6),
+            ],
+            GrafitSelect<dynamic>(
+              items: options
+                  .map((option) => GrafitSelectItemData(
+                        value: option.value,
+                        label: option.label,
+                        description: option.description,
+                      ))
+                  .toList(),
+              value: value,
+              onChanged: isDisabled
+                  ? null
+                  : (newValue) => _handleFieldChanged(fullFieldName, newValue),
+              placeholder: field.placeholder,
+              enabled: !isDisabled,
+              errorText: error,
+            ),
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedRadioField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final options = field.options ?? [];
+
+    return GrafitFormField<dynamic>(
+      name: fullFieldName,
+      initialValue: field.defaultValue,
+      autovalidate: true,
+      builder: (context, value, error) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFormLabel(
+              text: label,
+              required: field.required,
+            ),
+            const SizedBox(height: 6),
+            GrafitRadioGroup(
+              items: options
+                  .map((option) => GrafitRadioItemData(
+                        value: option.value,
+                        label: option.label,
+                      ))
+                  .toList(),
+              value: value,
+              onChanged: isDisabled
+                  ? null
+                  : (newValue) => _handleFieldChanged(fullFieldName, newValue),
+              enabled: !isDisabled,
+            ),
+            if (error != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormMessage(error: error),
+            ],
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNestedDateField(
+    BuildContext context,
+    GrafitAutoFormField field,
+    String fullFieldName,
+    GrafitAutoFormFieldConfig? config,
+    bool isDisabled,
+  ) {
+    final label = config?.label ?? field.label ?? _formatLabel(field.name);
+    final showLabel = config?.showLabel ?? field.showLabel;
+
+    return GrafitFormField<DateTime>(
+      name: fullFieldName,
+      initialValue: field.defaultValue as DateTime?,
+      autovalidate: true,
+      builder: (context, value, error) {
+        final formattedDate = value != null
+            ? '${value.year}-${value.month.toString().padLeft(2, '0')}-${value.day.toString().padLeft(2, '0')}'
+            : '';
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showLabel && label.isNotEmpty) ...[
+              GrafitFormLabel(
+                text: label,
+                required: field.required,
+              ),
+              const SizedBox(height: 6),
+            ],
+            GestureDetector(
+              onTap: isDisabled
+                  ? null
+                  : () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: value ?? DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100),
+                      );
+                      if (picked != null) {
+                        _handleFieldChanged(fullFieldName, picked);
+                      }
+                    },
+              child: AbsorbPointer(
+                child: GrafitInput(
+                  label: showLabel ? null : label,
+                  hint: field.placeholder ?? 'YYYY-MM-DD',
+                  value: formattedDate,
+                  onChanged: (_) {},
+                  enabled: !isDisabled,
+                  errorText: error,
+                ),
+              ),
+            ),
+            if (field.description != null || config?.description != null) ...[
+              const SizedBox(height: 4),
+              GrafitFormDescription(
+                text: config?.description ?? field.description!,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildSection(BuildContext context, GrafitAutoFormField sectionField) {
+    final sectionConfig = sectionField.sectionConfig;
+    if (sectionConfig == null) return const SizedBox.shrink();
+
+    // Get fields that belong to this section
+    final sectionFields = widget.schema.fields
+        .where((f) => sectionConfig.fields.contains(f.name) && !_isFieldHidden(f.name))
+        .toList();
+
+    if (sectionFields.isEmpty) return const SizedBox.shrink();
+
+    // Check if section is collapsible
+    if (sectionConfig.collapsible) {
+      final isCollapsed = _collapsedSections[sectionField.name] ?? false;
+      return GrafitAccordion(
+        type: GrafitAccordionType.multiple,
+        initialOpenIndices: isCollapsed ? null : {0},
+        items: [
+          GrafitAccordionItem(
+            value: sectionField.name,
+            trigger: GrafitAccordionTrigger(
+              label: sectionConfig.title,
+              icon: sectionConfig.icon != null
+                  ? Icon(sectionConfig.icon, size: 16)
+                  : null,
+            ),
+            content: GrafitAccordionContent(
+              child: _buildSectionFields(context, sectionFields),
+            ),
+          ),
+        ],
+      );
+    }
+
+    // Non-collapsible section - just render with a title
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (sectionConfig.title.isNotEmpty) ...[
+          Text(
+            sectionConfig.title,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).extension<GrafitTheme>()!.colors.foreground,
+            ),
+          ),
+          if (sectionConfig.description != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              sectionConfig.description!,
+              style: TextStyle(
+                fontSize: 14,
+                color: Theme.of(context).extension<GrafitTheme>()!.colors.mutedForeground,
+              ),
+            ),
+          ],
+          const SizedBox(height: 16),
+        ],
+        _buildSectionFields(context, sectionFields),
+      ],
+    );
+  }
+
+  Widget _buildSectionFields(BuildContext context, List<GrafitAutoFormField> fields) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final field in fields) ...[
+          _buildField(context, field),
+          SizedBox(height: widget.fieldSpacing),
+        ],
+      ],
+    );
+  }
+
+  void _addArrayItem(String fieldName, GrafitAutoFormArrayConfig arrayConfig) {
+    setState(() {
+      final newItem = <String, dynamic>{};
+      // Initialize with default values from schema
+      for (final field in arrayConfig.itemSchema.fields) {
+        if (field.defaultValue != null) {
+          newItem[field.name] = field.defaultValue;
+        }
+      }
+      _arrayValues[fieldName] = [..._arrayValues[fieldName] ?? [], newItem];
+    });
+    widget.onValuesChange?.call(_controller.values);
+  }
+
+  void _removeArrayItem(String fieldName, int index) {
+    setState(() {
+      final items = _arrayValues[fieldName] ?? [];
+      if (index >= 0 && index < items.length) {
+        items.removeAt(index);
+        _arrayValues[fieldName] = items;
+      }
+    });
+    widget.onValuesChange?.call(_controller.values);
   }
 
   Widget _buildSubmitButton(BuildContext context) {
@@ -1191,7 +2096,7 @@ class GrafitAutoFormSchemaBuilder {
   }) {
     return addField(GrafitAutoFormField(
       name: name,
-      type: GrafitAutoFormFieldType.switch,
+      type: GrafitAutoFormFieldType.toggleSwitch,
       label: label,
       required: required,
       defaultValue: defaultValue ?? false,
@@ -1268,6 +2173,90 @@ class GrafitAutoFormSchemaBuilder {
     ));
   }
 
+  /// Add an array field (array of objects)
+  GrafitAutoFormSchemaBuilder addArray({
+    required String name,
+    required GrafitAutoFormSchema itemSchema,
+    String? label,
+    bool required = false,
+    String? description,
+    String? validationMessage,
+    int? minItems,
+    int? maxItems,
+    String addLabel = 'Add Item',
+    String removeLabel = 'Remove',
+    bool reorderable = true,
+  }) {
+    return addField(GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.array,
+      label: label,
+      required: required,
+      description: description,
+      validationMessage: validationMessage,
+      arrayConfig: GrafitAutoFormArrayConfig(
+        itemSchema: itemSchema,
+        minItems: minItems,
+        maxItems: maxItems,
+        addLabel: addLabel,
+        removeLabel: removeLabel,
+        reorderable: reorderable,
+      ),
+    ));
+  }
+
+  /// Add an object field (nested object)
+  GrafitAutoFormSchemaBuilder addObject({
+    required String name,
+    required GrafitAutoFormSchema schema,
+    String? label,
+    bool required = false,
+    String? description,
+    String? validationMessage,
+    bool bordered = true,
+    bool collapsible = false,
+    String? title,
+  }) {
+    return addField(GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.object,
+      label: label,
+      required: required,
+      description: description,
+      validationMessage: validationMessage,
+      objectConfig: GrafitAutoFormObjectConfig(
+        schema: schema,
+        bordered: bordered,
+        collapsible: collapsible,
+        title: title,
+      ),
+    ));
+  }
+
+  /// Add a section field (accordion section)
+  GrafitAutoFormSchemaBuilder addSection({
+    required String name,
+    required List<String> fields,
+    required String title,
+    String? description,
+    bool collapsible = true,
+    bool collapsedByDefault = false,
+    IconData? icon,
+  }) {
+    return addField(GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.section,
+      sectionConfig: GrafitAutoFormSectionConfig(
+        fields: fields,
+        title: title,
+        description: description,
+        collapsible: collapsible,
+        collapsedByDefault: collapsedByDefault,
+        icon: icon,
+      ),
+    ));
+  }
+
   /// Add configuration for a field
   GrafitAutoFormSchemaBuilder configureField(
     String fieldName,
@@ -1282,6 +2271,87 @@ class GrafitAutoFormSchemaBuilder {
     return GrafitAutoFormSchema(
       fields: _fields,
       fieldConfig: _fieldConfig.isNotEmpty ? _fieldConfig : null,
+    );
+  }
+}
+
+/// Extension on GrafitAutoFormField to provide factory constructors for complex field types
+extension GrafitAutoFormFieldExtension on GrafitAutoFormField {
+  /// Factory constructor for array field items
+  static GrafitAutoFormField array({
+    required String name,
+    required GrafitAutoFormSchema itemSchema,
+    String? label,
+    bool required = false,
+    String? description,
+    int? minItems,
+    int? maxItems,
+    String addLabel = 'Add Item',
+    String removeLabel = 'Remove',
+  }) {
+    return GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.array,
+      label: label,
+      required: required,
+      description: description,
+      arrayConfig: GrafitAutoFormArrayConfig(
+        itemSchema: itemSchema,
+        minItems: minItems,
+        maxItems: maxItems,
+        addLabel: addLabel,
+        removeLabel: removeLabel,
+      ),
+    );
+  }
+
+  /// Factory constructor for nested object fields
+  static GrafitAutoFormField object({
+    required String name,
+    required GrafitAutoFormSchema schema,
+    String? label,
+    bool required = false,
+    String? description,
+    bool bordered = true,
+    bool collapsible = false,
+    String? title,
+  }) {
+    return GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.object,
+      label: label,
+      required: required,
+      description: description,
+      objectConfig: GrafitAutoFormObjectConfig(
+        schema: schema,
+        bordered: bordered,
+        collapsible: collapsible,
+        title: title,
+      ),
+    );
+  }
+
+  /// Factory constructor for section fields
+  static GrafitAutoFormField section({
+    required String name,
+    required List<String> fields,
+    required String title,
+    String? description,
+    bool collapsible = true,
+    bool collapsedByDefault = false,
+    IconData? icon,
+  }) {
+    return GrafitAutoFormField(
+      name: name,
+      type: GrafitAutoFormFieldType.section,
+      sectionConfig: GrafitAutoFormSectionConfig(
+        fields: fields,
+        title: title,
+        description: description,
+        collapsible: collapsible,
+        collapsedByDefault: collapsedByDefault,
+        icon: icon,
+      ),
     );
   }
 }

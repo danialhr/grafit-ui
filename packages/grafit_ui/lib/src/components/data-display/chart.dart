@@ -10,6 +10,13 @@ enum GrafitChartType {
   bar,
   pie,
   scatter,
+  donut,
+  radialBar,
+  stackedBar,
+  stackedArea,
+  groupedBar,
+  combo,
+  sparkline,
 }
 
 /// Legend position options
@@ -31,18 +38,45 @@ enum GrafitChartTooltipIndicator {
   dashed,
 }
 
+/// Y-axis position options
+enum GrafitChartYAxisPosition {
+  left,
+  right,
+  both,
+}
+
+/// Trend direction for indicators
+enum GrafitChartTrendDirection {
+  up,
+  down,
+  neutral,
+}
+
+/// Chart stacking mode
+enum GrafitChartStackMode {
+  stack,
+  overlay,
+  percent,
+}
+
 /// Configuration for chart series styling
 class GrafitChartSeries {
   final String key;
   final String label;
   final Color? color;
   final IconData? icon;
+  final bool? showDataLabels;
+  final String? yAxisId;
+  final GrafitChartStackMode? stackMode;
 
   const GrafitChartSeries({
     required this.key,
     required this.label,
     this.color,
     this.icon,
+    this.showDataLabels,
+    this.yAxisId,
+    this.stackMode,
   });
 }
 
@@ -69,6 +103,99 @@ class GrafitChartConfig {
       const Color(0xFF06b6d4), // cyan
       const Color(0xFFf59e0b), // amber
       const Color(0xFF10b981), // emerald
+    ];
+  }
+
+  /// Shadcn-ui default color palette (Zinc theme)
+  static List<Color> shadcnDefaultPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF3b82f6), // blue-500
+      const Color(0xFF8b5cf6), // violet-500
+      const Color(0xFFec4899), // pink-500
+      const Color(0xFFf43f5e), // rose-500
+      const Color(0xFFf97316), // orange-500
+      const Color(0xFFeab308), // yellow-500
+      const Color(0xFF22c55e), // green-500
+      const Color(0xFF14b8a6), // teal-500
+    ];
+  }
+
+  /// Shadcn-ui muted color palette
+  static List<Color> shadcnMutedPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF94a3b8), // slate-400
+      const Color(0xFFcbd5e1), // slate-300
+      const Color(0xFF64748b), // slate-500
+      const Color(0xFF475569), // slate-600
+    ];
+  }
+
+  /// Shadcn-ui vibrant color palette
+  static List<Color> shadcnVibrantPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF0ea5e9), // sky-500
+      const Color(0xFFa855f7), // purple-500
+      const Color(0xFFd946ef), // fuchsia-500
+      const Color(0xFFef4444), // red-500
+      const Color(0xFFf97316), // orange-500
+      const Color(0xFFeab308), // yellow-500
+      const Color(0xFF84cc16), // lime-500
+      const Color(0xFF10b981), // emerald-500
+      const Color(0xFF06b6d4), // cyan-500
+      const Color(0xFF6366f1), // indigo-500
+    ];
+  }
+
+  /// Pastel color palette for softer visuals
+  static List<Color> pastelPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF93c5fd), // blue-300
+      const Color(0xFFc4b5fd), // violet-300
+      const Color(0xFFf9a8d4), // pink-300
+      const Color(0xFFfca5a5), // red-300
+      const Color(0xFFfdba74), // orange-300
+      const Color(0xFFfde047), // yellow-300
+      const Color(0xFFbef264), // lime-300
+      const Color(0xFF6ee7b7), // emerald-300
+    ];
+  }
+
+  /// Monochrome color palette for grayscale charts
+  static List<Color> monochromePalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF0f172a), // slate-900
+      const Color(0xFF334155), // slate-700
+      const Color(0xFF475569), // slate-600
+      const Color(0xFF64748b), // slate-500
+      const Color(0xFF94a3b8), // slate-400
+      const Color(0xFFcbd5e1), // slate-300
+      const Color(0xFFe2e8f0), // slate-200
+    ];
+  }
+
+  /// Heatmap color palette (red to green gradient)
+  static List<Color> heatmapPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFFdc2626), // red-600
+      const Color(0xFFea580c), // orange-600
+      const Color(0xFFd97706), // amber-600
+      const Color(0xFFca8a04), // yellow-600
+      const Color(0xFF65a30d), // lime-600
+      const Color(0xFF16a34a), // green-600
+      const Color(0xFF059669), // emerald-600
+    ];
+  }
+
+  /// Ocean color palette (blue to cyan gradient)
+  static List<Color> oceanPalette(GrafitColorScheme colors) {
+    return [
+      const Color(0xFF1e3a8a), // blue-900
+      const Color(0xFF1e40af), // blue-800
+      const Color(0xFF2563eb), // blue-600
+      const Color(0xFF3b82f6), // blue-500
+      const Color(0xFF0ea5e9), // sky-500
+      const Color(0xFF06b6d4), // cyan-500
+      const Color(0xFF14b8a6), // teal-500
     ];
   }
 }
@@ -165,6 +292,33 @@ class GrafitChart extends StatefulWidget {
   /// Custom colors for chart elements
   final Color? primaryColor;
 
+  /// Y-axis position (left, right, or both)
+  final GrafitChartYAxisPosition yAxisPosition;
+
+  /// Whether to show data labels on points/bars
+  final bool showDataLabels;
+
+  /// Data label formatter
+  final String Function(dynamic value)? dataLabelFormatter;
+
+  /// Donut/Radial specific: inner radius ratio (0.0 to 1.0)
+  final double? innerRadius;
+
+  /// Stacked charts: stack mode
+  final GrafitChartStackMode? stackMode;
+
+  /// Combo charts: secondary chart type (for mixed charts)
+  final GrafitChartType? secondaryChartType;
+
+  /// Sparkline specific: whether to show axes and labels
+  final bool minimal;
+
+  /// Animation curve
+  final Curve animationCurve;
+
+  /// Whether to animate on first build
+  final bool animate;
+
   const GrafitChart({
     super.key,
     required this.data,
@@ -190,6 +344,15 @@ class GrafitChart extends StatefulWidget {
     this.pointSize,
     this.showGrid = true,
     this.primaryColor,
+    this.yAxisPosition = GrafitChartYAxisPosition.left,
+    this.showDataLabels = false,
+    this.dataLabelFormatter,
+    this.innerRadius,
+    this.stackMode,
+    this.secondaryChartType,
+    this.minimal = false,
+    this.animationCurve = Curves.easeOutCubic,
+    this.animate = true,
   });
 
   @override
@@ -264,6 +427,20 @@ class _GrafitChartState extends State<GrafitChart> {
         return _buildPieChart(config);
       case GrafitChartType.scatter:
         return _buildScatterChart(config, effectiveColor);
+      case GrafitChartType.donut:
+        return _buildDonutChart(config);
+      case GrafitChartType.radialBar:
+        return _buildRadialBarChart(config, effectiveColor);
+      case GrafitChartType.stackedBar:
+        return _buildStackedBarChart(config, effectiveColor);
+      case GrafitChartType.stackedArea:
+        return _buildStackedAreaChart(config, effectiveColor);
+      case GrafitChartType.groupedBar:
+        return _buildGroupedBarChart(config, effectiveColor);
+      case GrafitChartType.combo:
+        return _buildComboChart(config, effectiveColor);
+      case GrafitChartType.sparkline:
+        return _buildSparklineChart(config, effectiveColor);
     }
   }
 
@@ -338,6 +515,183 @@ class _GrafitChartState extends State<GrafitChart> {
     return _buildChartWidget(chart, config);
   }
 
+  Widget _buildDonutChart(GrafitChartConfig config) {
+    final valueKey = widget.yKeys.first;
+    final categoryKey = widget.colorKey ?? widget.xKey;
+    final effectiveInnerRadius = widget.innerRadius ?? 0.6;
+
+    final chart = CristalyseChart()
+        .data(widget.data)
+        .mappingPie(value: valueKey, category: categoryKey)
+        .geomPie(
+          innerRadius: effectiveInnerRadius,
+        );
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildRadialBarChart(GrafitChartConfig config, Color primaryColor) {
+    // Radial bar chart as a gauge using donut chart
+    final valueKey = widget.yKeys.first;
+    final categoryKey = widget.colorKey ?? widget.xKey;
+    final effectiveInnerRadius = widget.innerRadius ?? 0.7;
+
+    // Calculate max value for normalization
+    final maxValue = widget.data
+            .map((d) => (d[valueKey] as num?)?.toDouble() ?? 0.0)
+            .reduce((a, b) => a > b ? a : b) *
+        1.1;
+
+    // Normalize data to 0-100 range for radial bars
+    final normalizedData = widget.data.map((d) {
+      final value = (d[valueKey] as num?)?.toDouble() ?? 0.0;
+      return {
+        ...d,
+        '_normalized': (value / maxValue) * 100,
+      };
+    }).toList();
+
+    final chart = CristalyseChart()
+        .data(normalizedData)
+        .mappingPie(value: '_normalized', category: categoryKey)
+        .geomPie(
+          innerRadius: effectiveInnerRadius,
+        );
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildStackedBarChart(GrafitChartConfig config, Color primaryColor) {
+    // Stacked bar chart implementation using Cristalyse
+    // Note: Cristalyse doesn't have native stacking, so we use standard bar
+    // with color grouping for visual distinction
+    final chart = CristalyseChart()
+        .data(widget.data)
+        .mapping(
+          x: widget.xKey,
+          y: widget.yKeys.first,
+          color: widget.colorKey,
+        )
+        .geomBar(
+          width: widget.barWidth ?? 0.8,
+          color: primaryColor,
+        );
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildStackedAreaChart(GrafitChartConfig config, Color primaryColor) {
+    // Stacked area chart - using multiple layers
+    final chart = CristalyseChart()
+        .data(widget.data)
+        .mapping(
+          x: widget.xKey,
+          y: widget.yKeys.first,
+          color: widget.colorKey,
+        )
+        .geomArea(
+          strokeWidth: widget.strokeWidth ?? 2.0,
+          color: primaryColor.withValues(alpha: 0.4),
+        )
+        .geomLine(
+          strokeWidth: 2.0,
+          color: primaryColor.withValues(alpha: 0.8),
+        );
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildGroupedBarChart(GrafitChartConfig config, Color primaryColor) {
+    // Grouped bar chart - using standard bar with color grouping
+    final chart = CristalyseChart()
+        .data(widget.data)
+        .mapping(
+          x: widget.xKey,
+          y: widget.yKeys.first,
+          color: widget.colorKey,
+        )
+        .geomBar(
+          width: widget.barWidth ?? 0.7,
+          color: primaryColor,
+        );
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildComboChart(GrafitChartConfig config, Color primaryColor) {
+    final colors = GrafitChartConfig.defaultSeriesColors(config.colors);
+
+    // Combo chart: bar + line combination on single chart
+    late CristalyseChart chart;
+    if (widget.yKeys.length > 1) {
+      // Mixed chart: bar + line
+      chart = CristalyseChart()
+          .data(widget.data)
+          .mapping(x: widget.xKey, y: widget.yKeys[0])
+          .geomBar(width: widget.barWidth ?? 0.6, color: colors[0])
+          .mapping(x: widget.xKey, y: widget.yKeys[1])
+          .geomLine(strokeWidth: 2.5, color: colors[1])
+          .geomPoint(size: 4.0, color: colors[1], shape: PointShape.circle);
+    } else {
+      chart = CristalyseChart()
+          .data(widget.data)
+          .mapping(
+            x: widget.xKey,
+            y: widget.yKeys.first,
+            color: widget.colorKey,
+          )
+          .geomBar(width: widget.barWidth ?? 0.6, color: primaryColor.withValues(alpha: 0.6))
+          .geomLine(strokeWidth: 2.5, color: primaryColor)
+          .geomPoint(size: 4.0, color: primaryColor, shape: PointShape.circle);
+    }
+
+    return _buildChartWidget(chart, config);
+  }
+
+  Widget _buildSparklineChart(GrafitChartConfig config, Color primaryColor) {
+    // Sparkline: minimal line chart without axes or grid
+    final chart = CristalyseChart()
+        .data(widget.data)
+        .mapping(
+          x: widget.xKey,
+          y: widget.yKeys.first,
+        )
+        .geomLine(
+          strokeWidth: widget.strokeWidth ?? 2.0,
+          color: primaryColor,
+        )
+        .geomPoint(
+          size: 0, // No points for sparkline
+          color: primaryColor,
+        );
+
+    // Override theme for minimal appearance
+    final minimalTheme = ChartTheme(
+      backgroundColor: Colors.transparent,
+      plotBackgroundColor: Colors.transparent,
+      primaryColor: primaryColor,
+      borderColor: Colors.transparent,
+      gridColor: Colors.transparent,
+      axisColor: Colors.transparent,
+      gridWidth: 0,
+      axisWidth: 0,
+      pointSizeDefault: 0,
+      pointSizeMin: 0,
+      pointSizeMax: 0,
+      colorPalette: const [],
+      padding: EdgeInsets.zero,
+      axisTextStyle: const TextStyle(fontSize: 0),
+    );
+
+    final chartWidget = chart.theme(minimalTheme).build();
+
+    return SizedBox(
+      height: widget.height ?? 60,
+      width: double.infinity,
+      child: chartWidget,
+    );
+  }
+
   Widget _buildScatterChart(GrafitChartConfig config, Color primaryColor) {
     final chart = CristalyseChart()
         .data(widget.data)
@@ -356,6 +710,29 @@ class _GrafitChartState extends State<GrafitChart> {
   }
 
   Widget _buildChartWidget(CristalyseChart chart, GrafitChartConfig config) {
+    // Skip additional wrapping for sparkline (minimal) charts
+    if (widget.type == GrafitChartType.sparkline || widget.minimal) {
+      if (widget.showTooltip) {
+        chart = chart.tooltip(
+          (point) {
+            return widget.customTooltipBuilder != null
+                ? widget.customTooltipBuilder!(point.data, point.screenPosition)
+                : _buildDefaultTooltip(point, config);
+          },
+        );
+      }
+      if (widget.onTap != null) {
+        chart = chart.interaction(
+          click: ClickConfig(
+            onTap: (point) {
+              widget.onTap!(point.data);
+            },
+          ),
+        );
+      }
+      return chart.build();
+    }
+
     // Configure scales
     chart = chart.scaleXOrdinal();
     chart = chart.scaleYContinuous();
@@ -980,6 +1357,513 @@ class GrafitChartPie extends StatelessWidget {
       xKey: categoryKey,
       yKeys: [valueKey],
       colorKey: categoryKey,
+      title: title,
+    );
+  }
+}
+
+/// Pre-built chart donut widget for quick donut chart creation
+class GrafitChartDonut extends StatelessWidget {
+  final List<Map<String, dynamic>> data;
+  final String valueKey;
+  final String categoryKey;
+  final String? title;
+  final double? innerRadius;
+  final Widget? centerWidget;
+
+  const GrafitChartDonut({
+    super.key,
+    required this.data,
+    required this.valueKey,
+    required this.categoryKey,
+    this.title,
+    this.innerRadius,
+    this.centerWidget,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GrafitChart(
+      data: data,
+      type: GrafitChartType.donut,
+      xKey: categoryKey,
+      yKeys: [valueKey],
+      colorKey: categoryKey,
+      title: title,
+      innerRadius: innerRadius,
+    );
+  }
+}
+
+/// Pre-built chart sparkline widget for quick sparkline creation
+class GrafitChartSparkline extends StatelessWidget {
+  final List<Map<String, dynamic>> data;
+  final String xKey;
+  final String yKey;
+  final Color? color;
+  final double? height;
+  final bool showArea;
+
+  const GrafitChartSparkline({
+    super.key,
+    required this.data,
+    required this.xKey,
+    required this.yKey,
+    this.color,
+    this.height,
+    this.showArea = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GrafitChart(
+      data: data,
+      type: GrafitChartType.sparkline,
+      xKey: xKey,
+      yKeys: [yKey],
+      primaryColor: color,
+      height: height,
+      minimal: true,
+      showLegend: false,
+      showTooltip: false,
+      fillArea: showArea,
+    );
+  }
+}
+
+/// Chart Card component - shadcn-ui style card wrapper for charts
+///
+/// Provides a consistent card container with optional header,
+/// description, and chart content.
+class GrafitChartCard extends StatelessWidget {
+  final String? title;
+  final String? description;
+  final Widget chart;
+  final Widget? footer;
+  final Widget? action;
+  final EdgeInsetsGeometry? padding;
+  final bool showBorder;
+
+  const GrafitChartCard({
+    super.key,
+    this.title,
+    this.description,
+    required this.chart,
+    this.footer,
+    this.action,
+    this.padding,
+    this.showBorder = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<GrafitTheme>()!;
+    final colors = theme.colors;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.card,
+        borderRadius: BorderRadius.circular(colors.radius * 8),
+        border: showBorder
+            ? Border.all(
+                color: colors.border.withValues(alpha: 0.5),
+              )
+            : null,
+        boxShadow: theme.shadows.sm,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (title != null || description != null || action != null)
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (title != null)
+                          Text(
+                            title!,
+                            style: theme.text.bodyMedium.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: colors.foreground,
+                            ),
+                          ),
+                        if (description != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            description!,
+                            style: theme.text.bodySmall.copyWith(
+                              fontSize: 13,
+                              color: colors.mutedForeground,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  if (action != null) action!,
+                ],
+              ),
+            ),
+          Padding(
+            padding: padding ?? const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            child: chart,
+          ),
+          if (footer != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: footer!,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Chart Tooltip Content - styled tooltip content matching shadcn-ui
+class GrafitChartTooltipContent extends StatelessWidget {
+  final String? title;
+  final List<GrafitChartTooltipItem> items;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final GrafitChartTooltipIndicator indicator;
+  final EdgeInsetsGeometry? padding;
+
+  const GrafitChartTooltipContent({
+    super.key,
+    this.title,
+    required this.items,
+    this.backgroundColor,
+    this.textColor,
+    this.indicator = GrafitChartTooltipIndicator.dot,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<GrafitTheme>()!;
+    final colors = theme.colors;
+
+    final bg = backgroundColor ?? colors.popover;
+    final text = textColor ?? colors.popoverForeground;
+
+    return Container(
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(colors.radius * 6),
+        border: Border.all(
+          color: colors.border.withValues(alpha: 0.5),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (title != null) ...[
+            Text(
+              title!,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                color: text,
+              ),
+            ),
+            const SizedBox(height: 6),
+          ],
+          ...items.map((item) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: _buildTooltipItem(item, colors, text),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTooltipItem(
+    GrafitChartTooltipItem item,
+    GrafitColorScheme colors,
+    Color textColor,
+  ) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildIndicator(item.color),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            item.label,
+            style: TextStyle(
+              fontSize: 11,
+              color: colors.mutedForeground,
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          item.value,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: textColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIndicator(Color color) {
+    switch (indicator) {
+      case GrafitChartTooltipIndicator.dot:
+        return Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        );
+      case GrafitChartTooltipIndicator.line:
+        return Container(
+          width: 12,
+          height: 3,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(1),
+          ),
+        );
+      case GrafitChartTooltipIndicator.dashed:
+        return Container(
+          width: 12,
+          height: 3,
+          decoration: BoxDecoration(
+            border: Border.all(color: color, width: 1.5),
+            borderRadius: BorderRadius.circular(1),
+          ),
+        );
+    }
+  }
+}
+
+/// Trend indicator widget for showing up/down trends
+class GrafitChartTrendIndicator extends StatelessWidget {
+  final num value;
+  final GrafitChartTrendDirection direction;
+  final bool showPercentage;
+  final String? label;
+  final Color? upColor;
+  final Color? downColor;
+  final Color? neutralColor;
+
+  const GrafitChartTrendIndicator({
+    super.key,
+    required this.value,
+    required this.direction,
+    this.showPercentage = true,
+    this.label,
+    this.upColor,
+    this.downColor,
+    this.neutralColor,
+  });
+
+  factory GrafitChartTrendIndicator.fromValues(
+    num current,
+    num previous, {
+    bool showPercentage = true,
+    String? label,
+    Color? upColor,
+    Color? downColor,
+    Color? neutralColor,
+  }) {
+    final diff = current - previous;
+    final percentage = previous != 0 ? (diff / previous * 100) : 0;
+
+    GrafitChartTrendDirection direction;
+    if (diff > 0) {
+      direction = GrafitChartTrendDirection.up;
+    } else if (diff < 0) {
+      direction = GrafitChartTrendDirection.down;
+    } else {
+      direction = GrafitChartTrendDirection.neutral;
+    }
+
+    return GrafitChartTrendIndicator(
+      value: showPercentage ? percentage : diff,
+      direction: direction,
+      showPercentage: showPercentage,
+      label: label,
+      upColor: upColor,
+      downColor: downColor,
+      neutralColor: neutralColor,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<GrafitTheme>()!;
+    final colors = theme.colors;
+
+    final effectiveUpColor = upColor ?? const Color(0xFF22c55e);
+    final effectiveDownColor = downColor ?? const Color(0xFFef4444);
+    final effectiveNeutralColor = neutralColor ?? colors.mutedForeground;
+
+    Color effectiveColor;
+    IconData icon;
+
+    switch (direction) {
+      case GrafitChartTrendDirection.up:
+        effectiveColor = effectiveUpColor;
+        icon = Icons.arrow_upward;
+        break;
+      case GrafitChartTrendDirection.down:
+        effectiveColor = effectiveDownColor;
+        icon = Icons.arrow_downward;
+        break;
+      case GrafitChartTrendDirection.neutral:
+        effectiveColor = effectiveNeutralColor;
+        icon = Icons.remove;
+        break;
+    }
+
+    final valueText = showPercentage
+        ? '${value.abs().toStringAsFixed(1)}%'
+        : value.abs().toString();
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (label != null) ...[
+          Text(
+            label!,
+            style: TextStyle(
+              fontSize: 12,
+              color: colors.mutedForeground,
+            ),
+          ),
+          const SizedBox(width: 4),
+        ],
+        Icon(
+          icon,
+          size: 14,
+          color: effectiveColor,
+        ),
+        const SizedBox(width: 2),
+        Text(
+          valueText,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: effectiveColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Stacked bar chart widget
+class GrafitChartStackedBar extends StatelessWidget {
+  final List<Map<String, dynamic>> data;
+  final String xKey;
+  final List<String> yKeys;
+  final String? colorKey;
+  final String? title;
+  final GrafitChartStackMode stackMode;
+  final List<Color>? colors;
+
+  const GrafitChartStackedBar({
+    super.key,
+    required this.data,
+    required this.xKey,
+    required this.yKeys,
+    this.colorKey,
+    this.title,
+    this.stackMode = GrafitChartStackMode.stack,
+    this.colors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GrafitChart(
+      data: data,
+      type: GrafitChartType.stackedBar,
+      xKey: xKey,
+      yKeys: yKeys,
+      colorKey: colorKey,
+      title: title,
+      stackMode: stackMode,
+    );
+  }
+}
+
+/// Grouped bar chart widget
+class GrafitChartGroupedBar extends StatelessWidget {
+  final List<Map<String, dynamic>> data;
+  final String xKey;
+  final List<String> yKeys;
+  final String? colorKey;
+  final String? title;
+
+  const GrafitChartGroupedBar({
+    super.key,
+    required this.data,
+    required this.xKey,
+    required this.yKeys,
+    this.colorKey,
+    this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GrafitChart(
+      data: data,
+      type: GrafitChartType.groupedBar,
+      xKey: xKey,
+      yKeys: yKeys,
+      colorKey: colorKey,
+      title: title,
+    );
+  }
+}
+
+/// Combo chart widget (bar + line combination)
+class GrafitChartCombo extends StatelessWidget {
+  final List<Map<String, dynamic>> data;
+  final String xKey;
+  final List<String> yKeys;
+  final GrafitChartType secondaryChartType;
+  final String? title;
+
+  const GrafitChartCombo({
+    super.key,
+    required this.data,
+    required this.xKey,
+    required this.yKeys,
+    this.secondaryChartType = GrafitChartType.line,
+    this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GrafitChart(
+      data: data,
+      type: GrafitChartType.combo,
+      xKey: xKey,
+      yKeys: yKeys,
+      secondaryChartType: secondaryChartType,
       title: title,
     );
   }

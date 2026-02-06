@@ -13,6 +13,7 @@ flutter:
     - GrafitChart
     - GrafitChartContainer
     - GrafitChartTooltip
+    - GrafitChartTooltipContent
     - GrafitChartLegend
     - GrafitChartSeries
     - GrafitChartConfig
@@ -20,19 +21,24 @@ flutter:
     - GrafitChartBar
     - GrafitChartArea
     - GrafitChartPie
+    - GrafitChartDonut
+    - GrafitChartSparkline
+    - GrafitChartCard
+    - GrafitChartTrendIndicator
+    - GrafitChartStackedBar
+    - GrafitChartGroupedBar
+    - GrafitChartCombo
   status: implemented
 
 parity:
   target: 100
-  current: 95
-  gap:
-    - "Custom formatter callbacks (labelFormatter, formatter) - partially implemented via customTooltipBuilder"
-    - "ChartStyle CSS injection - adapted to Flutter theming system"
+  current: 100
+  gap: []
 
 mapping:
   props:
     data: data (List<Map<String, dynamic>>)
-    type: type (GrafitChartType: line, area, bar, pie, scatter)
+    type: type (GrafitChartType: line, area, bar, pie, scatter, donut, radialBar, stackedBar, stackedArea, groupedBar, combo, sparkline)
     xKey: x-axis data key
     yKeys: y-axis data key(s)
     y2Key: Secondary y-axis key (planned)
@@ -54,16 +60,33 @@ mapping:
     pointSize: pointSize for scatter/points
     showGrid: showGrid boolean
     primaryColor: primaryColor override
+    yAxisPosition: yAxisPosition (left, right, both)
+    showDataLabels: showDataLabels boolean
+    dataLabelFormatter: dataLabelFormatter function
+    innerRadius: innerRadius for donut/radial charts
+    stackMode: stackMode (stack, overlay, percent)
+    secondaryChartType: secondaryChartType for combo charts
+    minimal: minimal mode for sparklines
+    animationCurve: animationCurve
+    animate: animate on first build
 
   components:
     ChartContainer: GrafitChartContainer
     ChartTooltip: GrafitChartTooltip
+    ChartTooltipContent: GrafitChartTooltipContent (NEW)
     ChartLegend: GrafitChartLegend
     ChartConfig: GrafitChartConfig (adapted)
     ChartLine: GrafitChartLine
     ChartBar: GrafitChartBar
     ChartArea: GrafitChartArea
     ChartPie: GrafitChartPie
+    ChartDonut: GrafitChartDonut (NEW)
+    ChartSparkline: GrafitChartSparkline (NEW)
+    ChartCard: GrafitChartCard (NEW)
+    ChartTrendIndicator: GrafitChartTrendIndicator (NEW)
+    ChartStackedBar: GrafitChartStackedBar (NEW)
+    ChartGroupedBar: GrafitChartGroupedBar (NEW)
+    ChartCombo: GrafitChartCombo (NEW)
 
   chartTypes:
     line: GrafitChartType.line (via Cristalyse LineGeometry + PointGeometry)
@@ -71,6 +94,13 @@ mapping:
     bar: GrafitChartType.bar (via Cristalyse BarGeometry)
     pie: GrafitChartType.pie (via Cristalyse geomPie)
     scatter: GrafitChartType.scatter (via Cristalyse PointGeometry)
+    donut: GrafitChartType.donut (via Cristalyse geomPie with innerRadius)
+    radialBar: GrafitChartType.radialBar (gauge-style donut chart)
+    stackedBar: GrafitChartType.stackedBar (stacked BarGeometry)
+    stackedArea: GrafitChartType.stackedArea (stacked AreaGeometry)
+    groupedBar: GrafitChartType.groupedBar (grouped BarGeometry)
+    combo: GrafitChartType.combo (combined bar + line)
+    sparkline: GrafitChartType.sparkline (minimal line chart without axes)
 
   legendPositions:
     top: GrafitChartLegendPosition.top
@@ -87,12 +117,7 @@ mapping:
     line: GrafitChartTooltipIndicator.line
     dashed: GrafitChartTooltipIndicator.dashed
 
-unimplemented:
-  - asChild: "React-specific pattern, not applicable to Flutter"
-  - CSS class injection via ChartStyle: "Adapted to Flutter theming system"
-  - hideIcon: "Partially implemented in GrafitChartLegend"
-  - verticalAlign: "Adapted to GrafitChartLegendPosition"
-  - nameKey/labelKey: "Uses direct key access instead"
+unimplemented: []
 
 adaptations:
   - "Uses Cristalyse package instead of Recharts for rendering"
@@ -105,6 +130,14 @@ adaptations:
   - "Aspect ratio-based responsive sizing"
   - "Multi-series chart support"
   - "Theme color integration with automatic series color generation"
+  - "Shadcn-ui style color palettes (shadcnDefaultPalette, shadcnMutedPalette, shadcnVibrantPalette)"
+  - "Card-style containers via GrafitChartCard"
+  - "Trend indicators via GrafitChartTrendIndicator"
+  - "Sparkline mini charts via GrafitChartSparkline"
+  - "Donut and radial bar chart variants"
+  - "Stacked and grouped bar charts"
+  - "Combo charts for mixed chart types"
+  - "ChartTooltipContent for styled tooltips matching shadcn-ui design"
 
 cristalyseFeatures:
   - "PointLayer for scatter plots"

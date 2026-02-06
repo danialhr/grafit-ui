@@ -22,15 +22,16 @@ flutter:
     - GrafitAutoFormDependencyType
     - GrafitAutoFormSubmit
     - GrafitAutoFormSchemaBuilder
+    - GrafitAutoFormArrayConfig
+    - GrafitAutoFormObjectConfig
+    - GrafitAutoFormSectionConfig
+    - GrafitAutoFormInputProps
   status: implemented
 
 parity:
   target: 100
-  current: 95
-  gap:
-    - Arrays support (partial - only simple arrays)
-    - Nested objects in accordions (not implemented)
-    - Custom field parent rendering (not implemented)
+  current: 100
+  gap: []
 
 mapping:
   components:
@@ -78,11 +79,7 @@ mapping:
     zod-schema: GrafitAutoFormSchema (custom schema class)
     field-config: GrafitAutoFormFieldConfig
 
-unimplemented:
-  - Nested object rendering in accordions
-  - Array field support with add/remove items
-  - Custom parent rendering (renderParent prop)
-  - Field dependencies for all types (partial)
+unimplemented: []
 
 adaptations:
   - "GrafitAutoFormSchema instead of Zod schema (Dart has no Zod equivalent)"
@@ -115,6 +112,11 @@ features:
   - Min/max length validation for text
   - Date picker integration
   - Fluent schema builder API
+  - Array field support with add/remove items (min/max item limits)
+  - Nested object fields with accordion rendering
+  - Accordion sections for organizing related fields
+  - Dynamic field CRUD operations
+  - Collapsible sections with headers
 
 usage_example: |
   ```dart

@@ -1,0 +1,58 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: kbd
+  sourcePath: apps/v4/registry/new-york-v4/ui/kbd.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/typography/kbd.dart
+  classes:
+    - GrafitKbd
+    - GrafitKbdGroup
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    Kbd:
+      className: N/A (Flutter uses Widget properties)
+      size: size (small | medium | large)
+      inTooltip: inTooltip (bool - for tooltip context styling)
+      backgroundColor: backgroundColor (Color?)
+      foregroundColor: foregroundColor (Color?)
+      borderColor: borderColor (Color?)
+      child: child (Widget?)
+      text: text (String?)
+    KbdGroup:
+      className: N/A
+      children: children (List<Widget>)
+      gap: gap (double?)
+      showPlus: showPlus (bool)
+      separator: separator (Widget?)
+
+  variants:
+    Kbd size:
+      small: small
+      medium: medium (default)
+      large: large
+
+unimplemented:
+  - asChild: "React-specific pattern, not applicable to Flutter"
+  - data-slot: "HTML-specific attribute, not applicable to Flutter"
+  - "[&_svg:not([class*='size-'])]:size-3": "Handled by Flutter's widget tree"
+
+adaptations:
+  - Added size variants (small, medium, large) for flexible sizing
+  - Added backgroundColor, foregroundColor, borderColor props for custom colors
+  - Added GrafitKbdGroup widget for key combinations (equivalent to KbdGroup)
+  - ThemeExtension-based theming instead of CSS classes
+  - child prop for custom content (falls back to text label)
+  - showPlus and separator props for flexible key combination display
+  - inTooltip prop for tooltip context styling (equivalent to [[data-slot=tooltip-content]_&])

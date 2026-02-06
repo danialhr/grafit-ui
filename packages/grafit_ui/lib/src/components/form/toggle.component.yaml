@@ -1,0 +1,48 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: toggle
+  sourcePath: apps/v4/registry/new-york-v4/ui/toggle.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/toggle.dart
+  class: GrafitToggle
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    pressed: pressed
+    onPressed: onPressed
+    defaultPressed: N/A (Controlled component, use pressed)
+    disabled: disabled
+
+  variants:
+    default: GrafitToggleVariant.primary (renamed from 'default' as it's a Dart keyword)
+    outline: GrafitToggleVariant.outline
+
+  sizes:
+    default: GrafitToggleSize.md
+    sm: GrafitToggleSize.sm
+    lg: GrafitToggleSize.lg
+
+unimplemented:
+  - N/A - All features from shadcn-ui are implemented
+
+adaptations:
+  - 'default' variant renamed to 'primary' (default is a Dart keyword)
+  - StatefulWidget instead of functional component to manage pressed state
+  - AnimatedContainer replaces CSS transitions
+  - GrafitClickable wrapper for hover/focus/pressed states
+  - ThemeExtension-based theming instead of CSS classes
+  - IconTheme wrapper for consistent icon styling
+  - Optional tooltip prop for better UX
+  - Size enums align with Flutter conventions (sm/md/lg instead of sm/default/lg)
+  - Builder widget used to access clickable state within GrafitClickable child

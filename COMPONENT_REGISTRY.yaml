@@ -585,11 +585,71 @@ flutter_components:
     lastChecked: 2025-02-06
     lastSynced: 2025-02-06
 
+  toggle:
+    upstream: toggle
+    flutter: lib/src/components/form/toggle.dart
+    metadata: lib/src/components/form/toggle.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  form:
+    upstream: form
+    flutter: lib/src/components/form/form.dart
+    metadata: lib/src/components/form/form.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  sheet:
+    upstream: sheet
+    flutter: lib/src/components/specialized/sheet.dart
+    metadata: lib/src/components/specialized/sheet.component.yaml
+    category: *specialized
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  aspect-ratio:
+    upstream: aspect-ratio
+    flutter: lib/src/components/specialized/aspect_ratio.dart
+    metadata: lib/src/components/specialized/aspect_ratio.component.yaml
+    category: *specialized
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  empty:
+    upstream: empty
+    flutter: lib/src/components/data-display/empty.dart
+    metadata: lib/src/components/data-display/empty.component.yaml
+    category: *data-display
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  kbd:
+    upstream: kbd
+    flutter: lib/src/components/typography/kbd.dart
+    metadata: lib/src/components/typography/kbd.component.yaml
+    category: *typography
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (39 components with metadata)
-  calculated: "Based on 39 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100), pagination(100), combobox(100), navigation-menu(100), menubar(100), context-menu(100), hover-card(100)"
+  current: 100  # Average of implemented components (45 components with metadata)
+  calculated: "Based on 45 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100), pagination(100), combobox(100), navigation-menu(100), menubar(100), context-menu(100), hover-card(100), toggle(100), form(100), sheet(100), aspect-ratio(100), empty(100), kbd(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)
@@ -630,11 +690,6 @@ pending:
     complexity: high
     estimated_effort: 12 hours
 
-  form:
-    priority: low
-    complexity: low
-    estimated_effort: 2 hours
-
   label:
     priority: high
     complexity: trivial
@@ -656,18 +711,9 @@ pending:
     estimated_effort: 1 hour
     status: implemented
 
-  sheet:
-    priority: medium
-    complexity: medium
-    estimated_effort: 5 hours
-
   table:
     priority: medium
     complexity: medium
     estimated_effort: 5 hours
 
-  toggle:
-    priority: medium
-    complexity: trivial
-    estimated_effort: 2 hours
 

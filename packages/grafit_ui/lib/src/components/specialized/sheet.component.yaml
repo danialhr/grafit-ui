@@ -1,0 +1,52 @@
+# Component Metadata: Sheet
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: sheet
+  sourcePath: apps/v4/registry/new-york-v4/ui/sheet.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/sheet.dart
+  class: GrafitSheet
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  components:
+    Sheet: GrafitSheet
+    SheetTrigger: SheetTrigger
+    SheetClose: SheetClose / GrafitSheetCloseButton
+    SheetOverlay: GrafitSheetOverlay
+    SheetContent: GrafitSheetContent
+    SheetHeader: SheetHeader
+    SheetFooter: SheetFooter
+    SheetTitle: SheetTitle
+    SheetDescription: SheetDescription
+
+  props:
+    - side: top | right | bottom | left
+    - trigger: Widget that opens sheet
+    - dismissible: Allow backdrop click to close
+    - open: Programmatic control
+    - onOpenChange: Callback when open state changes
+    - showCloseButton: Show close button in corner
+    - width: Custom width for side sheets
+    - height: Custom height for top/bottom sheets
+
+  unimplemented: []
+
+  adaptations:
+    - Positioned widgets with animation for slide effect
+    - Overlay with GestureDetector for backdrop
+    - AnimationController for smooth transitions (300ms)
+    - GrafitSheetHelper.show() static method for programmatic display
+    - Keyboard support (Escape to close) using RawKeyboard
+    - Fade animation for overlay
+    - Border and shadow styling based on GrafitTheme

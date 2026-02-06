@@ -1,0 +1,70 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: empty
+  sourcePath: apps/v4/registry/new-york-v4/ui/empty.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2026-02-06
+  lastSynced: 2026-02-06
+
+flutter:
+  path: lib/src/components/data-display/empty.dart
+  class: GrafitEmpty
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Empty: GrafitEmpty
+    EmptyHeader: EmptyHeader (subcomponent)
+    EmptyMedia: EmptyMedia (subcomponent)
+    EmptyTitle: EmptyTitle (subcomponent)
+    EmptyDescription: EmptyDescription (subcomponent)
+    EmptyContent: EmptyContent (subcomponent)
+    EmptyFooter: EmptyFooter (subcomponent)
+    EmptyActions: EmptyActions (subcomponent, added)
+    EmptyImage: EmptyImage (subcomponent, added)
+
+  props:
+    className: backgroundColor, border, borderRadius (Flutter pattern)
+    data-slot: Not applicable (React-specific)
+    variant: GrafitEmptyMediaVariant (enum for media variants)
+
+unimplemented: []
+
+adaptations:
+  - Added EmptyFooter and EmptyActions subcomponents for action buttons (not in base shadcn-ui)
+  - Added EmptyImage subcomponent for convenient image display with network/asset factories
+  - Added GrafitEmptyMediaVariant enum for type-safe variant selection (defaultVariant, icon)
+  - Added configurable gap, padding, and mainAxisSize props to main widget
+  - Added maxWidth constraint to header and content subcomponents for better readability
+  - Added factory constructors to EmptyImage for network and asset images
+  - Added iconSize and borderRadius customization to EmptyMedia
+  - Added textAlign and padding customization to title and description
+  - ThemeExtension-based theming instead of CSS classes
+  - Flutter-specific patterns: StatelessWidget for immutable widgets
+  - BoxDecoration for borders and backgrounds
+  - ConstrainedBox for max-width constraints
+  - IconTheme for consistent icon styling
+
+features:
+  - Flexible empty state display with customizable header, content, and footer
+  - Media display support (icons, images) with variant styling
+  - Icon variant with muted background and rounded corners
+  - Default variant with transparent background
+  - Title and description with proper text styling
+  - Action buttons support via EmptyFooter and EmptyActions
+  - Network and asset image support with error handling
+  - Custom padding, borders, and border radius
+  - Gap customization between sections
+  - Max-width constraints for better readability
+  - Text alignment options for title and description
+  - Theme integration via GrafitTheme
+  - Responsive layout with flexible sizing
+  - Support for custom widgets in all sections
+  - Dashed border support via BorderStyle.solid (can be customized)
+  - Centered layout by default

@@ -1,0 +1,36 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: aspect-ratio
+  sourcePath: apps/v4/registry/new-york-v4/ui/aspect-ratio.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/aspect_ratio.dart
+  class: GrafitAspectRatio
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    AspectRatio: GrafitAspectRatio
+    AspectRatio.Root: GrafitAspectRatio (single component)
+
+  props:
+    ratio: ratio (double, default: 1.0)
+    asChild: N/A (Flutter uses child prop)
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's built-in AspectRatio widget with customization
+  - Added alignment prop for child positioning within bounds
+  - Added static constants for common ratios (16:9, 4:3, 1:1, etc.)
+  - Added ClipRRect with border radius from theme for rounded corners
+  - ThemeExtension-based theming for consistent styling

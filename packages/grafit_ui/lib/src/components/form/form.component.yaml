@@ -1,0 +1,199 @@
+# Form Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: form
+  sourcePath: apps/v4/registry/new-york-v4/ui/form.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/form.dart
+  classes:
+    - GrafitForm
+    - GrafitFormField
+    - GrafitFormItem
+    - GrafitFormLabel
+    - GrafitFormControl
+    - GrafitFormDescription
+    - GrafitFormMessage
+    - GrafitFormController
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Form: GrafitForm + GrafitFormController
+    FormField: GrafitFormField
+    FormItem: GrafitFormItem
+    FormLabel: GrafitFormLabel
+    FormControl: GrafitFormControl
+    FormDescription: GrafitFormDescription
+    FormMessage: GrafitFormMessage
+    FormProvider: GrafitFormScope
+    useFormContext: GrafitFormExtension.formController
+    useFormState: GrafitFormController (direct access)
+    Controller: GrafitFormFieldState
+
+  props:
+    # GrafitForm props
+    child: child (Widget)
+    initialValues: initialValues (Map<String, dynamic>)
+    onSubmit: onSubmit (Function)
+    autovalidate: autoValidate (bool)
+    onInit: onInit (Function)
+    onDispose: onDispose (Function)
+
+    # GrafitFormField props
+    name: name (String)
+    defaultValue: initialValue (T?)
+    rules: validators (List<FormFieldValidator>)
+    render: builder (Widget Function)
+    shouldUnregister: N/A (handled automatically)
+    control: N/A (handled internally)
+
+  state_management:
+    react-hook-form: GrafitFormController (ChangeNotifier)
+    useForm: GrafitForm.of (static method)
+    useFormContext: GrafitFormScope.of (inherited widget)
+    formState: GrafitFormController properties
+
+unimplemented: []
+
+adaptations:
+  - "GrafitFormController instead of react-hook-form's useForm hook"
+  - "ChangeNotifier-based state management instead of React state"
+  - "InheritedWidget (GrafitFormScope) instead of FormProvider context"
+  - "Builders pattern for widget composition instead of render props"
+  - "Explicit validator registration instead of rules object"
+  - "GrafitFormData class for form data encapsulation"
+  - "GrafitValidators utility class for common validators"
+  - "Widget-based composition instead of component composition"
+  - "GrafitFormExtension for context-based controller access"
+  - "GrafitFormItem for automatic error display integration"
+  - "Separate GrafitFormFieldState for field-level state management"
+  - "Autovalidate flag for real-time validation on change"
+  - "Async validation support via AsyncFormFieldValidator"
+
+features:
+  - Form state management with ChangeNotifier
+  - Field-level validation with sync and async validators
+  - Form-level validation (validate all fields)
+  - Error display with FormMessage component
+  - Touched/dirty state tracking
+  - Initial values support
+  - Form reset functionality
+  - Built-in common validators (required, email, minLength, etc.)
+  - Custom validator support
+  - Label and description helpers
+  - Error state styling via theme
+  - Accessible form structure with proper semantics
+  - Form submission handling
+  - Real-time validation on field change
+  - Scoped form data access via InheritedWidget
+
+usage_example: |
+  ```dart
+  GrafitForm(
+    initialValues: {
+      'email': '',
+      'password': '',
+    },
+    onInit: (controller) {
+      // Initialize form
+    },
+    onSubmit: (controller) {
+      if (controller.isValid) {
+        print(controller.values);
+      }
+      return true;
+    },
+    child: Column(
+      children: [
+        GrafitFormField<String>(
+          name: 'email',
+          validators: [
+            GrafitValidators.required(),
+            GrafitValidators.email(),
+          ],
+          builder: (context, value, error) {
+            return GrafitInput(
+              label: 'Email',
+              hint: 'Enter your email',
+              value: value ?? '',
+              onChanged: (newValue) {
+                // Value updated automatically
+              },
+              errorText: error,
+            );
+          },
+        ),
+        GrafitFormField<String>(
+          name: 'password',
+          validators: [
+            GrafitValidators.required(),
+            GrafitValidators.minLength(8),
+          ],
+          builder: (context, value, error) {
+            return GrafitInput(
+              label: 'Password',
+              hint: 'Enter your password',
+              obscureText: true,
+              value: value ?? '',
+              errorText: error,
+            );
+          },
+        ),
+        ElevatedButton(
+          onPressed: () {
+            context.formController.validate();
+          },
+          child: Text('Submit'),
+        ),
+      ],
+    ),
+  )
+  ```
+
+validation_example: |
+  ```dart
+  // Common validators
+  validators: [
+    GrafitValidators.required(message: 'Email is required'),
+    GrafitValidators.email(),
+    GrafitValidators.minLength(5),
+  ]
+
+  // Custom validator
+  validators: [
+    GrafitValidators.custom<String>((value) {
+      if (value == null || !value.startsWith('admin')) {
+        return 'Must start with admin';
+      }
+      return null;
+    }),
+  ]
+
+  // Async validator
+  GrafitFormField<String>(
+    name: 'username',
+    asyncValidator: (value) async {
+      final exists = await checkUsernameExists(value);
+      if (exists) {
+        return 'Username already taken';
+      }
+      return null;
+    },
+    builder: (context, value, error) {
+      return GrafitInput(
+        value: value ?? '',
+        errorText: error,
+      );
+    },
+  )
+  ```

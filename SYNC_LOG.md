@@ -199,8 +199,14 @@ All 20 implemented components now have metadata files:
 | menubar | 100% | Implemented |
 | context-menu | 100% | Implemented |
 | hover-card | 100% | Implemented |
+| toggle | 100% | Implemented |
+| form | 100% | Implemented |
+| sheet | 100% | Implemented |
+| aspect-ratio | 100% | Implemented |
+| empty | 100% | Implemented |
+| kbd | 100% | Implemented |
 
-**Overall Parity: 100%** ✅ (39/39 components at full parity)
+**Overall Parity: 100%** ✅ (45/45 components at full parity)
 
 **Overall Parity: 100%** ✅ (20/20 components at full parity)
 
@@ -511,3 +517,69 @@ All 20 implemented components now have metadata files:
 - Portal rendering via OverlayEntry
 - Touch support with closeOnTap
 - Full feature parity with shadcn-ui hover-card
+
+## New Component Implementations (2025-02-06 - Batch 6)
+
+### Toggle Component (100%)
+- Toggle button that can be on/off with pressed state
+- Two variants: primary (accent background) and outline (bordered)
+- Three sizes: sm (32x32), md (36x36), lg (40x40)
+- AnimatedContainer for smooth transitions (150ms)
+- Disabled state with visual feedback
+- IconTheme wrapper for consistent icon styling
+- Optional tooltip support
+- Full feature parity with shadcn-ui toggle
+
+### Form Component (100%)
+- Complete form state management via ChangeNotifier
+- Subcomponents: FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormScope
+- GrafitFormController for centralized form state
+- Validation support (sync and async validators)
+- GrafitValidators utility class with common validators (required, email, minLength, maxLength, min, max, pattern, custom)
+- Error display integration with theme colors
+- Form reset and error clearing
+- InheritedWidget pattern for form context access
+- BuildContext extension for easy controller access
+- Full feature parity with shadcn-ui form
+
+### Sheet Component (100%)
+- Slide-in panel from 4 directions (top, right, bottom, left)
+- Subcomponents: SheetTrigger, SheetClose, SheetCloseButton, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription
+- Modal overlay with backdrop (semi-transparent black)
+- Trigger button support for opening
+- Keyboard support (Escape to close)
+- Custom sizing (width for side sheets, height for top/bottom)
+- Dual animation system (slide + fade) with 300ms easeInOut curves
+- GrafitSheetHelper with show() method for programmatic display
+- Dismissible backdrop (configurable)
+- Full feature parity with shadcn-ui sheet
+
+### AspectRatio Component (100%)
+- Maintain aspect ratio for child widget using Flutter's AspectRatio
+- Static ratio constants for common formats: 16:9, 4:3, 1:1, 21:9, 3:2, 2:3
+- Custom ratio support via double value
+- Child alignment control (AlignmentGeometry)
+- ClipRRect with theme-based radius for rounded corners
+- Full feature parity with shadcn-ui aspect-ratio
+
+### Empty Component (100%)
+- Empty state display for no data scenarios
+- Subcomponents: EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent, EmptyFooter, EmptyActions, EmptyImage
+- Two media variants: default (transparent) and icon (muted background with rounded corners)
+- Flexible layout with customizable header, content, and footer sections
+- Image support with network/asset factories and error handling
+- Max-width constraints for readability
+- Text alignment options
+- Custom styling via GrafitTheme
+- Full feature parity with shadcn-ui empty
+
+### Kbd Component (100%)
+- Keyboard key styling for shortcuts display
+- Three sizes: small (16px height, 10px font), medium (20px, 12px), large (24px, 14px)
+- Muted background with foreground text and subtle border
+- GrafitKbdGroup for key combinations with customizable separators
+- Named constructors: GrafitKbd(), GrafitKbd.small(), GrafitKbd.large()
+- Tooltip context support with inTooltip prop for semi-transparent styling
+- GrafitTheme integration with custom color overrides
+- Font: sans-serif, medium weight, small size
+- Full feature parity with shadcn-ui kbd

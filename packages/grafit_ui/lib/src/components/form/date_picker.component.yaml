@@ -1,0 +1,87 @@
+# Date Picker Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: date-picker
+  sourcePath: apps/v4/registry/new-york-v4/ui/date-picker.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-07
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/form/date_picker.dart
+  class: GrafitDatePicker
+  status: implemented
+
+parity:
+  target: 100
+  current: 95
+  gap:
+    - "Year dropdown in caption (requires additional work)"
+    - "Time picker integration (planned for future version)"
+
+mapping:
+  variants:
+    default: GrafitDatePickerMode.single
+    range: GrafitDatePickerMode.range
+
+  props:
+    mode: mode (GrafitDatePickerMode enum)
+    selected: initialDate (DateTime?) or initialRange (DateTimeRange?)
+    onSelect: onDateChanged (ValueChanged<DateTime?>) or onRangeChanged (ValueChanged<DateTimeRange?>)
+    placeholder: placeholder (String)
+    disabled: enabled (bool, inverted)
+    disabled: disabledDates (List<DateTime>) or isDateDisabled (Function)
+    min: firstDate (DateTime?)
+    max: lastDate (DateTime?)
+    required: N/A (Flutter uses FormField validator)
+    defaultValue: initialDate or initialRange
+    calendarProps: Various calendar props passed through
+
+  subcomponents:
+    DatePickerTrigger: _GrafitDatePickerTrigger (internal)
+    DatePickerContent: _GrafitDatePickerContent (internal)
+    DatePickerLabel: _GrafitDatePickerLabel (internal)
+    DatePickerHelperText: _GrafitDatePickerHelperText (internal)
+    DatePickerPopover: _GrafitDatePickerPopover (internal)
+    Calendar: GrafitCalendar (reused from specialized)
+
+  dateFormats:
+    mdyy: MM/DD/YYYY format
+    iso: YYYY-MM-DD format (ISO 8601)
+    dmyy: DD/MM/YYYY format
+    custom: customDateFormat function
+
+unimplemented: []
+
+adaptations:
+  - "StatefulWidget pattern instead of React hooks"
+  - "GrafitClickable primitive for gesture handling"
+  - "LayerLink and OverlayEntry for popover positioning"
+  - "GrafitCalendar component reused for calendar display"
+  - "Date formatting via enum and custom functions"
+  - "GrafitDatePickerMode enum for selection modes"
+  - "Separate callbacks for single/range selection"
+  - "Label and error text widgets for form integration"
+  - "Clear button for resetting selection"
+  - "Calendar icon trigger (configurable)"
+  - "Custom layout delegate for positioning popover"
+  - "GrafitDatePickerPreset for preset date ranges"
+  - "GrafitDatePickerWithPresets variant with shortcuts"
+
+features:
+  - Single date selection
+  - Date range selection
+  - Custom date formatting (MM/DD/YYYY, YYYY-MM-DD, DD/MM/YYYY, custom)
+  - Disabled dates support
+  - Min/max date constraints
+  - Calendar popover on trigger click
+  - Clear button to reset selection
+  - Calendar icon trigger
+  - Label and error text support
+  - Full calendar integration (GrafitCalendar)
+  - Outside days display
+  - Week number support
+  - Custom weekday/month labels
+  - First day of week configuration
+  - Form field integration ready

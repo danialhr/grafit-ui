@@ -212,8 +212,9 @@ All 20 implemented components now have metadata files:
 | native-select | 100% | Implemented |
 | table | 100% | Implemented |
 | chart | 95% | Implemented |
+| date-picker | 100% | Implemented |
 
-**Overall Parity: 99%** ✅ (52/52 components, auto-form and chart at 95%)
+**Overall Parity: 99%** ✅ (53/53 components, auto-form and chart at 95%)
 
 **Overall Parity: 100%** ✅ (20/20 components at full parity)
 
@@ -693,3 +694,19 @@ All 20 implemented components now have metadata files:
 - Grid toggle support
 - Note: 95% parity - uses Cristalyse (external dependency) instead of building from scratch
 - Sources: [Cristalyse GitHub](https://github.com/rudi-q/cristalyse) | [Cristalyse Website](https://cristalyse.com/)
+
+### DatePicker Component (100%)
+- Input field with calendar icon trigger that opens popover on click
+- Two selection modes: single date and date range
+- Full integration with existing GrafitCalendar component
+- Calendar popover using GrafitPopover for positioning
+- Date formatting options: MDY, YMD, DMY, and custom
+- Display format options: MDY, YMD, DMY, custom
+- Form field features: label, error text, helper text, disabled state
+- Clear button to reset selection
+- Date constraints: firstDate, lastDate, disabledDates, isDateDisabled
+- Calendar icon trigger (configurable)
+- Animated popover with scale and fade transitions
+- Support for all GrafitCalendar props (outside days, week numbers, custom labels)
+- Composable design reusing existing components
+- Full feature parity with shadcn-ui date-picker

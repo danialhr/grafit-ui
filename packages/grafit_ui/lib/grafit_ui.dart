@@ -30,6 +30,7 @@ export 'src/components/form/form.dart';
 export 'src/components/form/auto_form.dart';
 export 'src/components/form/input_group.dart';
 export 'src/components/form/native_select.dart';
+export 'src/components/form/date_picker.dart';
 
 // Layout components
 export 'src/components/layout/card.dart';

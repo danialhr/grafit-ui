@@ -645,30 +645,75 @@ flutter_components:
     lastChecked: 2025-02-06
     lastSynced: 2025-02-06
 
+  auto-form:
+    upstream: auto-form
+    flutter: lib/src/components/form/auto_form.dart
+    metadata: lib/src/components/form/auto_form.component.yaml
+    category: *form
+    status: implemented
+    parity: 95
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  calendar:
+    upstream: calendar
+    flutter: lib/src/components/specialized/calendar.dart
+    metadata: lib/src/components/specialized/calendar.component.yaml
+    category: *specialized
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  carousel:
+    upstream: carousel
+    flutter: lib/src/components/specialized/carousel.dart
+    metadata: lib/src/components/specialized/carousel.component.yaml
+    category: *specialized
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  input-group:
+    upstream: input-group
+    flutter: lib/src/components/form/input_group.dart
+    metadata: lib/src/components/form/input_group.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  native-select:
+    upstream: native-select
+    flutter: lib/src/components/form/native_select.dart
+    metadata: lib/src/components/form/native_select.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  table:
+    upstream: table
+    flutter: lib/src/components/data-display/table.dart
+    metadata: lib/src/components/data-display/table.component.yaml
+    category: *data-display
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (45 components with metadata)
-  calculated: "Based on 45 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100), pagination(100), combobox(100), navigation-menu(100), menubar(100), context-menu(100), hover-card(100), toggle(100), form(100), sheet(100), aspect-ratio(100), empty(100), kbd(100)"
+  current: 99  # Average of implemented components (51 components with metadata)
+  calculated: "Based on 51 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100), pagination(100), combobox(100), navigation-menu(100), menubar(100), context-menu(100), hover-card(100), toggle(100), form(100), sheet(100), aspect-ratio(100), empty(100), kbd(100), auto-form(95), calendar(100), carousel(100), input-group(100), native-select(100), table(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)
 pending:
-  auto-form:
-    priority: low
-    complexity: high
-    estimated_effort: 8 hours
-
-  calendar:
-    priority: medium
-    complexity: high
-    estimated_effort: 12 hours
-
-  carousel:
-    priority: low
-    complexity: high
-    estimated_effort: 10 hours
-
   chart:
     priority: low
     complexity: high
@@ -710,10 +755,5 @@ pending:
     complexity: trivial
     estimated_effort: 1 hour
     status: implemented
-
-  table:
-    priority: medium
-    complexity: medium
-    estimated_effort: 5 hours
 
 

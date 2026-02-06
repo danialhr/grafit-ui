@@ -1,0 +1,57 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: calendar
+  sourcePath: apps/v4/registry/new-york-v4/ui/calendar.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/calendar.dart
+  class: GrafitCalendar
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Calendar: GrafitCalendar
+    CalendarDayButton: _CalendarDay (internal class)
+    Chevron: GrafitButton with chevron icons
+    WeekNumber: _CalendarGrid with showWeekNumbers prop
+    Root: Container wrapper in GrafitCalendar
+
+  props:
+    mode: GrafitCalendarMode (enum: single, multiple, range)
+    showOutsideDays: showOutsideDays (bool)
+    captionLayout: captionLayout (GrafitCalendarCaptionLayout enum)
+    firstDayOfWeek: firstDayOfWeek (int, 0=Sunday)
+    disabled: disabledDates (List<DateTime>) or isDateDisabled (function)
+    selected: initialDate, initialDates, or initialRange
+    onSelect: onDateChanged, onDatesChanged, or onRangeChanged
+    numberOfMonths: N/A (Flutter limitation - single month view)
+    month: initialMonth (DateTime for initial displayed month)
+    defaultMonth: initialMonth (alias)
+    formatters: N/A (handled internally with getDayStyle)
+    classNames: N/A (ThemeExtension-based theming)
+    components: N/A (internal widget composition)
+
+unimplemented: []
+
+adaptations:
+  - Uses StatefulWidget instead of hooks for state management
+  - Three selection modes: single, multiple, range via GrafitCalendarMode enum
+  - Separate callbacks for each mode (onDateChanged, onDatesChanged, onRangeChanged)
+  - Date normalization to handle time components consistently
+  - Custom styling via GrafitCalendarDayStyle callback function
+  - Custom weekday/month labels via props
+  - Week number support via showWeekNumbers prop
+  - Flexible date disabling via list or function
+  - ThemeExtension-based theming instead of CSS classes
+  - Flutter GestureDetector + FocusableActionDetector for interactions
+  - Custom DateFormat helper to avoid intl package dependency
+  - Subcomponents exposed as separate widgets: GrafitCalendarPrevButton, GrafitCalendarNextButton

@@ -27,6 +27,9 @@ export 'src/components/form/input_otp.dart';
 export 'src/components/form/select.dart';
 export 'src/components/form/toggle.dart';
 export 'src/components/form/form.dart';
+export 'src/components/form/auto_form.dart';
+export 'src/components/form/input_group.dart';
+export 'src/components/form/native_select.dart';
 
 // Layout components
 export 'src/components/layout/card.dart';
@@ -65,6 +68,7 @@ export 'src/components/data-display/avatar.dart';
 export 'src/components/data-display/data_table.dart';
 export 'src/components/data-display/pagination.dart';
 export 'src/components/data-display/empty.dart';
+export 'src/components/data-display/table.dart';
 
 // Specialized components
 export 'src/components/specialized/resizable.dart';
@@ -73,3 +77,5 @@ export 'src/components/specialized/collapsible.dart';
 export 'src/components/specialized/drawer.dart';
 export 'src/components/specialized/sheet.dart';
 export 'src/components/specialized/aspect_ratio.dart';
+export 'src/components/specialized/calendar.dart';
+export 'src/components/specialized/carousel.dart';

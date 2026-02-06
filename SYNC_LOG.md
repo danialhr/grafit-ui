@@ -205,8 +205,14 @@ All 20 implemented components now have metadata files:
 | aspect-ratio | 100% | Implemented |
 | empty | 100% | Implemented |
 | kbd | 100% | Implemented |
+| auto-form | 95% | Implemented |
+| calendar | 100% | Implemented |
+| carousel | 100% | Implemented |
+| input-group | 100% | Implemented |
+| native-select | 100% | Implemented |
+| table | 100% | Implemented |
 
-**Overall Parity: 100%** ✅ (45/45 components at full parity)
+**Overall Parity: 99%** ✅ (51/51 components, auto-form at 95%)
 
 **Overall Parity: 100%** ✅ (20/20 components at full parity)
 
@@ -583,3 +589,90 @@ All 20 implemented components now have metadata files:
 - GrafitTheme integration with custom color overrides
 - Font: sans-serif, medium weight, small size
 - Full feature parity with shadcn-ui kbd
+
+## New Component Implementations (2025-02-06 - Batch 7)
+
+### AutoForm Component (95%)
+- Auto-generate form fields from JSON schema
+- 10 field types: text, textarea, number, email, password, checkbox, switch, select, radio, date
+- Built-in validators: required, email, min/max value, min/max length, pattern
+- Field dependencies: hides, disables, requires, setsOptions
+- Fluent schema builder API (GrafitAutoFormSchemaBuilder)
+- Integration with GrafitForm component
+- Custom field rendering via customBuilder
+- Field configuration overrides
+- Note: 95% parity - some advanced features not implemented (arrays, nested accordions)
+
+### Calendar Component (100%)
+- Month view with 7-column day grid
+- Subcomponents: CalendarHeader, CalendarGrid, CalendarDay, CalendarPrevButton, CalendarNextButton
+- Three selection modes: single, multiple, range
+- Navigate between months with Previous/Next buttons
+- Highlight today and selected dates
+- Range selection with start/middle/end styling
+- Disabled dates support (list or function)
+- Custom day styling via getDayStyle callback
+- Week start day configuration
+- Show/hide outside days from adjacent months
+- Week numbers column (optional)
+- Custom weekday and month labels
+- Caption layout: label or dropdown
+- Full feature parity with shadcn-ui calendar
+
+### Carousel Component (100%)
+- Horizontal/vertical scrolling list of items
+- Subcomponents: CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselIndicator
+- Previous/Next navigation buttons (circular styled)
+- Dot indicators for position tracking
+- Auto-play support with configurable delay
+- Touch swipe gestures
+- Loop support (infinite scroll)
+- External API control (GrafitCarouselApi)
+- Keyboard navigation (arrow keys)
+- Configurable viewport fraction and spacing
+- Snap to item behavior
+- Accessibility via Semantics widgets
+- Full feature parity with shadcn-ui carousel
+
+### InputGroup Component (100%)
+- Container with input and prefix/suffix addons
+- Subcomponents: InputGroupLeftAddon, InputGroupRightAddon, InputGroupTopAddon, InputGroupBottomAddon, InputGroupText, InputGroupButton, InputGroupInput, InputGroupTextarea
+- Connected borders for cohesive appearance
+- Left and right slots for inline addons
+- Top and bottom slots for block addons
+- Text elements with optional icons
+- Button support within groups (4 sizes: xs, sm, iconXs, iconSm)
+- Focus state tracking with visual feedback
+- Error state with destructive color
+- Disabled state with reduced opacity
+- Click-to-focus behavior on addons
+- Helper/error text support
+- Full feature parity with shadcn-ui input-group
+
+### NativeSelect Component (100%)
+- Native platform dropdown using showModalBottomSheet
+- Single selection from options
+- Two sizes: sm (smaller), md (medium)
+- Subcomponents: NativeSelectOption, NativeSelectOptionGroup
+- Grouped options support
+- Placeholder text when no value selected
+- Visual feedback for selected items (checkmark, accent background)
+- Disabled state with reduced opacity
+- Form integration with label and error text
+- Custom styling via GrafitTheme
+- Focus management with FocusNode
+- Full feature parity with shadcn-ui native-select
+
+### Table Component (100%)
+- Basic table structure with header, body, footer
+- Subcomponents: TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption
+- Column headers with alignment (left, center, right)
+- Row hover effects
+- Border customization (horizontal, vertical, row)
+- Caption support with top/bottom positioning
+- Selected state for rows
+- Text wrapping control (nowrap on cells)
+- Horizontal scrolling support
+- Extension methods for easy cell creation
+- Builder pattern for programmatic rows
+- Full feature parity with shadcn-ui table

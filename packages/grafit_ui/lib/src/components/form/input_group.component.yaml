@@ -1,0 +1,59 @@
+# Input Group Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: input-group
+  sourcePath: apps/v4/registry/new-york-v4/ui/input-group.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/input_group.dart
+  class: GrafitInputGroup
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    align: GrafitInputGroupAlign enum (inlineStart, inlineEnd, blockStart, blockEnd)
+    size: GrafitInputGroupButtonSize enum (xs, sm, iconXs, iconSm)
+
+  props:
+    left: left (Widget)
+    right: right (Widget)
+    top: top (Widget)
+    bottom: bottom (Widget)
+    disabled: disabled (bool)
+    hasError: hasError (bool)
+    errorText: errorText (String)
+    helperText: helperText (String)
+
+  subcomponents:
+    InputGroup: GrafitInputGroup
+    InputGroupAddon: Split into GrafitInputGroupLeftAddon, GrafitInputGroupRightAddon, GrafitInputGroupTopAddon, GrafitInputGroupBottomAddon
+    InputGroupText: GrafitInputGroupText
+    InputGroupButton: GrafitInputGroupButton
+    InputGroupInput: GrafitInputGroupInput
+    InputGroupTextarea: GrafitInputGroupTextarea
+
+unimplemented: []
+
+adaptations:
+  - "Separate addon components for each alignment (left, right, top, bottom) instead of single InputGroupAddon with align prop"
+  - "Row/Column layout based on addon presence instead of CSS flex-direction"
+  - "GestureDetector for click handling instead of onClick"
+  - "Container with BoxDecoration for borders instead of CSS border classes"
+  - "Focus state tracked via FocusNode instead of CSS :focus-within"
+  - "Opacity for disabled state instead of CSS opacity property"
+  - "TextEditingController for input value management instead of React state"
+  - "TextInputType for keyboard type instead of type attribute"
+  - "Custom input/textarea components instead of native HTML elements"
+  - "GrafitTheme integration for colors instead of CSS variables"
+  - "BorderRadius for rounded corners instead of border-radius CSS"
+  - "BoxShadow for focus ring instead of CSS box-shadow"
+  - "DefaultTextStyle and IconTheme for text/icon styling instead of CSS classes"

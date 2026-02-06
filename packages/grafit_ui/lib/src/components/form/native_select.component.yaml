@@ -1,0 +1,56 @@
+# Native Select Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: native-select
+  sourcePath: apps/v4/registry/new-york-v4/ui/native-select.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/native_select.dart
+  class: GrafitNativeSelect
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: GrafitNativeSelectSize.md
+    sm: GrafitNativeSelectSize.sm
+
+  props:
+    value: value (T?)
+    onValueChange: onChanged (ValueChanged<T?>)
+    disabled: enabled (bool, inverted)
+    defaultValue: N/A (Flutter uses StatefulWidget with state)
+    placeholder: placeholder (String?)
+    size: size (GrafitNativeSelectSize)
+
+  subcomponents:
+    NativeSelect: GrafitNativeSelect
+    NativeSelectOption: GrafitNativeSelectOption
+    NativeSelectOptGroup: GrafitNativeSelectOptGroup
+    NativeSelectOptionItem: GrafitNativeSelectOptionItem
+
+unimplemented: []
+
+adaptations:
+  - "ValueNotifier pattern instead of React state"
+  - "GrafitFocusable primitive for focus management"
+  - "AnimatedContainer for smooth transitions"
+  - "Size variants via GrafitNativeSelectSize enum (sm, md)"
+  - "GrafitNativeSelectOption for option configuration"
+  - "GrafitNativeSelectOptionGroup for grouped options"
+  - "Form validation handled by FormField widget instead of required prop"
+  - "ModalBottomSheet for platform-native dropdown on mobile"
+  - "Error text display for form validation"
+  - "Helper text display for additional context"
+  - "Label widget for form field labeling"
+  - "Focus node for programmatic focus control"
+  - "GrafitLabel component for label rendering"
+  - "Custom bottom sheet UI matching Grafit theme"

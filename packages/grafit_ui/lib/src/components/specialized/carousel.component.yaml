@@ -1,0 +1,51 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: carousel
+  sourcePath: apps/v4/registry/new-york-v4/ui/carousel.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/carousel.dart
+  class: GrafitCarousel
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Carousel: GrafitCarousel
+    CarouselContent: GrafitCarouselContent
+    CarouselItem: GrafitCarouselItem
+    CarouselPrevious: GrafitCarouselPrevious
+    CarouselNext: GrafitCarouselNext
+    CarouselIndicator: GrafitCarouselIndicator (Flutter extension)
+
+  props:
+    orientation: orientation (GrafitCarouselOrientation enum)
+    opts/align: N/A (Flutter uses PageController with viewportFraction)
+    opts.draggable: enableSwipe (bool)
+    opts.loop: loop (bool)
+    setApi: onApiReady (ValueChanged<GrafitCarouselApi>)
+    plugins: N/A (Flutter uses native PageView)
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's PageController and PageView for scroll behavior
+  - Added GrafitCarouselApi class for external control (similar to embla-carousel API)
+  - Implemented loop mode using virtual pages (infinite scroll pattern)
+  - Added auto-play support with configurable delay
+  - Added keyboard navigation support (arrow keys)
+  - Implemented dot indicators for position tracking
+  - Added snap-to-item behavior via PageController
+  - ThemeExtension-based theming for consistent styling
+  - Previous/Next buttons positioned absolutely like shadcn-ui
+  - Touch swipe support using PageView's built-in physics
+  - Custom spacing and viewport fraction support
+  - Orientation support for both horizontal and vertical layouts

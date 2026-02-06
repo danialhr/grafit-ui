@@ -1,0 +1,278 @@
+# AutoForm Component Metadata
+source:
+  repository: https://github.com/vantezzen/autoform
+  component: auto-form
+  sourcePath: src/components/ui/auto-form
+  branch: pure-shadcn
+  commit: d09ff66
+  version: 1.0.0
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/auto_form.dart
+  classes:
+    - GrafitAutoForm
+    - GrafitAutoFormField
+    - GrafitAutoFormFieldType
+    - GrafitAutoFormOption
+    - GrafitAutoFormFieldConfig
+    - GrafitAutoFormSchema
+    - GrafitAutoFormDependency
+    - GrafitAutoFormDependencyType
+    - GrafitAutoFormSubmit
+    - GrafitAutoFormSchemaBuilder
+  status: implemented
+
+parity:
+  target: 100
+  current: 95
+  gap:
+    - Arrays support (partial - only simple arrays)
+    - Nested objects in accordions (not implemented)
+    - Custom field parent rendering (not implemented)
+
+mapping:
+  components:
+    AutoForm: GrafitAutoForm + GrafitAutoFormSchema
+    AutoFormSubmit: GrafitAutoFormSubmit
+    FieldConfig: GrafitAutoFormFieldConfig
+    Dependency: GrafitAutoFormDependency
+
+  props:
+    # GrafitAutoForm props
+    formSchema: schema (GrafitAutoFormSchema)
+    onSubmit: onSubmit (Function)
+    onValuesChange: onValuesChange (Function)
+    initialValues: initialValues (Map<String, dynamic>)
+    fieldConfig: fieldConfig (Map<String, GrafitAutoFormFieldConfig>)
+    dependencies: dependencies (List<GrafitAutoFormDependency>)
+    submitButtonText: submitButtonText (String)
+    showSubmitButton: showSubmitButton (bool)
+    submitButton: submitButton (Widget?)
+    children: children (List<Widget>?)
+    padding: padding (EdgeInsetsGeometry?)
+    fieldSpacing: fieldSpacing (double)
+
+    # GrafitAutoFormField props
+    name: name (String)
+    type: type (GrafitAutoFormFieldType)
+    label: label (String?)
+    required: required (bool)
+    defaultValue: defaultValue (dynamic)
+    description: description (String?)
+    placeholder: placeholder (String?)
+    validationMessage: validationMessage (String?)
+    min: min (num?)
+    max: max (num?)
+    minLength: minLength (int?)
+    maxLength: maxLength (int?)
+    options: options (List<GrafitAutoFormOption>?)
+    customBuilder: customBuilder (Widget Function?)
+    showLabel: showLabel (bool)
+    enabled: enabled (bool)
+
+  state_management:
+    react-hook-form: GrafitFormController (ChangeNotifier)
+    useForm: GrafitForm.of (static method)
+    zod-schema: GrafitAutoFormSchema (custom schema class)
+    field-config: GrafitAutoFormFieldConfig
+
+unimplemented:
+  - Nested object rendering in accordions
+  - Array field support with add/remove items
+  - Custom parent rendering (renderParent prop)
+  - Field dependencies for all types (partial)
+
+adaptations:
+  - "GrafitAutoFormSchema instead of Zod schema (Dart has no Zod equivalent)"
+  - "GrafitFormController instead of react-hook-form's useForm hook"
+  - "ChangeNotifier-based state management instead of React state"
+  - "GrafitAutoFormFieldType enum for field types instead of inference"
+  - "GrafitAutoFormSchemaBuilder for fluent schema building API"
+  - "Widget-based composition instead of JSX"
+  - "GrafitAutoFormDependency for field dependencies"
+  - "GrafitValidators utility class for common validators"
+  - "GrafitForm integration instead of direct react-hook-form"
+  - "GrafitAutoFormSubmit as standalone submit button component"
+
+features:
+  - Automatic form field generation from schema
+  - Support for multiple field types (text, email, password, number, checkbox, switch, select, radio, date, textarea)
+  - Field validation with built-in validators
+  - Field dependencies (hide, disable, require, set options)
+  - Custom field builders
+  - Field configuration overrides
+  - Initial values support
+  - Value change callbacks
+  - Custom submit button
+  - Label and description support
+  - Error message display
+  - Disabled state support
+  - Required field indicators
+  - Placeholder text support
+  - Min/max validation for numbers
+  - Min/max length validation for text
+  - Date picker integration
+  - Fluent schema builder API
+
+usage_example: |
+  ```dart
+  // Using schema builder
+  final schema = GrafitAutoFormSchemaBuilder()
+    ..addText(
+      name: 'username',
+      label: 'Username',
+      required: true,
+      minLength: 2,
+    )
+    ..addEmail(
+      name: 'email',
+      label: 'Email',
+      required: true,
+    )
+    ..addPassword(
+      name: 'password',
+      label: 'Password',
+      required: true,
+      minLength: 8,
+    )
+    ..addCheckbox(
+      name: 'acceptTerms',
+      label: 'Accept terms and conditions',
+      required: true,
+    )
+    ..addSelect(
+      name: 'role',
+      label: 'Role',
+      options: [
+        GrafitAutoFormOption(value: 'user', label: 'User'),
+        GrafitAutoFormOption(value: 'admin', label: 'Admin'),
+      ],
+      required: true,
+    );
+
+  GrafitAutoForm(
+    schema: schema.build(),
+    onSubmit: (values) {
+      print('Form submitted: \$values');
+    },
+  )
+  ```
+
+advanced_example: |
+  ```dart
+  // With field configuration and dependencies
+  GrafitAutoForm(
+    schema: GrafitAutoFormSchema(
+      fields: [
+        GrafitAutoFormField(
+          name: 'sendMeMails',
+          type: GrafitAutoFormFieldType.switch,
+          label: 'Send me emails',
+          defaultValue: false,
+        ),
+        GrafitAutoFormField(
+          name: 'email',
+          type: GrafitAutoFormFieldType.email,
+          label: 'Email address',
+          required: true,
+        ),
+        GrafitAutoFormField(
+          name: 'preferences',
+          type: GrafitAutoFormFieldType.select,
+          label: 'Email preferences',
+          options: [
+            GrafitAutoFormOption(value: 'daily', label: 'Daily digest'),
+            GrafitAutoFormOption(value: 'weekly', label: 'Weekly summary'),
+          ],
+        ),
+      ],
+    ),
+    fieldConfig: {
+      'sendMeMails': GrafitAutoFormFieldConfig(
+        description: 'Toggle to enable email notifications',
+      ),
+    },
+    dependencies: [
+      GrafitAutoFormDependency(
+        sourceField: 'sendMeMails',
+        targetField: 'email',
+        type: GrafitAutoFormDependencyType.requires,
+        when: (value) => value == true,
+      ),
+      GrafitAutoFormDependency(
+        sourceField: 'sendMeMails',
+        targetField: 'preferences',
+        type: GrafitAutoFormDependencyType.hides,
+        when: (value) => value != true,
+      ),
+    ],
+    onSubmit: (values) {
+      print('Form submitted: \$values');
+    },
+  )
+  ```
+
+custom_field_example: |
+  ```dart
+  // Custom field builder
+  GrafitAutoForm(
+    schema: GrafitAutoFormSchema(
+      fields: [
+        GrafitAutoFormField(
+          name: 'customField',
+          type: GrafitAutoFormFieldType.text,
+          customBuilder: (context, value, error, onChanged) {
+            return Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                children: [
+                  Text('Custom Field'),
+                  TextField(
+                    value: value ?? '',
+                    onChanged: onChanged,
+                  ),
+                  if (error != null)
+                    Text(error, style: TextStyle(color: Colors.red)),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+    onSubmit: (values) {
+      print('Form submitted: \$values');
+    },
+  )
+  ```
+
+validation_example: |
+  ```dart
+  // Field with validation
+  GrafitAutoFormField(
+    name: 'age',
+    type: GrafitAutoFormFieldType.number,
+    label: 'Age',
+    required: true,
+    min: 18,
+    max: 120,
+    validationMessage: 'Must be between 18 and 120',
+  )
+
+  // Text field with length validation
+  GrafitAutoFormField(
+    name: 'username',
+    type: GrafitAutoFormFieldType.text,
+    label: 'Username',
+    required: true,
+    minLength: 3,
+    maxLength: 20,
+    validationMessage: 'Must be 3-20 characters',
+  )
+  ```

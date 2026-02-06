@@ -1,0 +1,83 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: table
+  sourcePath: apps/v4/registry/new-york-v4/ui/table.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/data-display/table.dart
+  classes:
+    - GrafitTable
+    - GrafitTableHeader
+    - GrafitTableBody
+    - GrafitTableFooter
+    - GrafitTableRow
+    - GrafitTableHead
+    - GrafitTableCell
+    - GrafitTableCaption
+    - GrafitTableRowBuilder
+    - GrafitTableRowLike
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Table: GrafitTable
+    TableHeader: GrafitTableHeader
+    TableBody: GrafitTableBody
+    TableFooter: GrafitTableFooter
+    TableRow: GrafitTableRow
+    TableHead: GrafitTableHead
+    TableCell: GrafitTableCell
+    TableCaption: GrafitTableCaption
+
+  props:
+    # Table
+    className: backgroundColor (adapted)
+    caption: caption
+    # TableHeader
+    className: backgroundColor, textStyle (adapted)
+    # TableFooter
+    className: backgroundColor (adapted)
+    # TableRow
+    data-[state=selected]: selected prop
+    hover:bg-muted/50: hoverColor prop
+    # TableHead
+    text-left/center/right: alignment enum
+    align-middle: verticalAlignment
+    h-10: padding (adapted)
+    # TableCell
+    p-2: padding (adapted)
+    align-middle: verticalAlignment
+    whitespace-nowrap: nowrap prop
+
+  features:
+    Container with overflow-x-auto: Built-in SingleChildScrollView wrapper
+    caption-bottom: captionBottom prop
+    hover effects: hoverColor prop on GrafitTableRow
+    data-[state=selected]: selected prop on GrafitTableRow
+    border customization: borderWidth, showRowBorders, showHorizontalBorders, showVerticalBorders props
+    Row/column builder: GrafitTableRowBuilder class
+    Extension methods: toTableCell, toTableHead extensions on Widget
+
+unimplemented: []
+
+adaptations:
+  - Flutter's Table/TableColumnWidth pattern instead of HTML table elements
+  - GrafitTableAlignment enum instead of CSS text-align classes
+  - Explicit columnCount prop for Flutter Table widget
+  - GrafitTableRowLike interface for row type polymorphism
+  - Extension methods for easy cell creation (toTableCell, toTableHead)
+  - GrafitTableRowBuilder for programmatic row construction
+  - ThemeExtension-based theming instead of CSS classes
+  - Widget composition pattern instead of React children
+  - Border customization props instead of border utility classes
+  - GrafitTableHeader, GrafitTableFooter, GrafitTableRow are non-widget classes implementing GrafitTableRowLike interface
+  - withValues() instead of deprecated withOpacity() for color alpha values

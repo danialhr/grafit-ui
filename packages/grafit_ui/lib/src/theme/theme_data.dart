@@ -24,6 +24,7 @@ class GrafitColorScheme {
   final Color border;
   final Color input;
   final Color ring;
+  final Color transparent;
   final double radius;
 
   const GrafitColorScheme({
@@ -46,6 +47,7 @@ class GrafitColorScheme {
     required this.border,
     required this.input,
     required this.ring,
+    this.transparent = Colors.transparent,
     this.radius = 0.5,
   });
 
@@ -71,8 +73,9 @@ class GrafitColorScheme {
       border: _parseColor(map['border']),
       input: _parseColor(map['input']),
       ring: _parseColor(map['ring']),
+      transparent: _parseColor(map['transparent']) ?? Colors.transparent,
       radius: (map['radius'] as num?)?.toDouble() ?? 0.5,
-    );
+    };
   }
 
   static Color _parseColor(dynamic value) {
@@ -106,6 +109,7 @@ class GrafitColorScheme {
       'border': border.value,
       'input': input.value,
       'ring': ring.value,
+      'transparent': transparent.value,
       'radius': radius,
     };
   }
@@ -151,6 +155,8 @@ class GrafitColorScheme {
         return input;
       case 'ring':
         return ring;
+      case 'transparent':
+        return transparent;
       default:
         return null;
     }

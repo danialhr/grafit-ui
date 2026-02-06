@@ -1,0 +1,50 @@
+# Radio Group Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: radio-group
+  sourcePath: apps/v4/registry/new-york-v4/ui/radio-group.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/radio_group.dart
+  class: GrafitRadioGroup
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: default
+    sm: GrafitRadioSize.sm
+    md: GrafitRadioSize.md
+    lg: GrafitRadioSize.lg
+
+  props:
+    value: value (T?)
+    onValueChange: onChanged (ValueChanged<T>)
+    disabled: enabled (bool, inverted)
+    name: N/A (Flutter uses Key)
+    defaultValue: N/A (Flutter uses StatefulWidget with state)
+    required: N/A (Flutter uses FormField validator)
+    orientation: direction (Axis)
+
+  subcomponents:
+    RadioGroupItem: GrafitRadioItem
+
+unimplemented: []
+
+adaptations:
+  - "ValueNotifier pattern instead of React state"
+  - "GrafitClickable primitive for gesture handling"
+  - "AnimatedContainer for smooth transitions"
+  - "Separate GrafitRadioItemData for item configuration"
+  - "Size variants via GrafitRadioSize enum"
+  - "Direction property for layout orientation"
+  - "Form validation handled by FormField widget instead of required prop"
+  - "Group value pattern for individual items"

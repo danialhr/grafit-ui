@@ -1,0 +1,73 @@
+# Input OTP Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: input-otp
+  sourcePath: apps/v4/registry/new-york-v4/ui/input-otp.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/input_otp.dart
+  classes:
+    - GrafitInputOtp
+    - GrafitInputOtpGroup
+    - GrafitInputOtpSlot
+    - GrafitInputOtpSeparator
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: default
+
+  props:
+    maxLength: length (int)
+    value: initialValue (String)
+    onChange: onChanged (ValueChanged<String>)
+    pattern: inputFormatters (List<TextInputFormatter>)
+    disabled: enabled (bool)
+    containerClassName: N/A (handled by layout widgets)
+    className: N/A (handled by theme)
+
+  subcomponents:
+    InputOTPGroup: GrafitInputOtpGroup
+    InputOTPSlot: GrafitInputOtpSlot
+    InputOTPSeparator: GrafitInputOtpSeparator
+
+unimplemented: []
+
+adaptations:
+  - "InheritedWidget pattern instead of React Context (OTPInputContext)"
+  - "TextEditingController for each slot instead of React state"
+  - "FocusNode management for each slot"
+  - "TextInputFormatter for pattern validation"
+  - "GestureDetector for tap handling instead of div onClick"
+  - "Custom animation controller for blinking caret instead of CSS keyframes"
+  - "Row/Column widgets for layout instead of flexbox"
+  - "BorderRadius and BoxDecoration for styling instead of CSS classes"
+  - "RawKeyboardListener for keyboard event handling"
+  - "State management through parent widget instead of context provider"
+  - "Child parameter for flexible composition instead of fixed slots"
+  - "Separate focus nodes for each slot for independent focus management"
+
+features:
+  - Individual digit slots with auto-focus navigation
+  - Paste support for full OTP code
+  - Customizable slot styling via GrafitTheme
+  - Blinking cursor on empty focused slots
+  - Visual grouping with GrafitInputOtpGroup
+  - Separators for visual separation (e.g., XXX-XXX format)
+  - Error state support per slot
+  - Disabled state support
+  - OnCompleted callback when all digits are entered
+  - Programmatic value setting and clearing
+  - Keyboard navigation (backspace moves to previous slot)
+  - Custom input formatters for validation (e.g., digits only)
+  - Auto-focus first slot on mount
+  - Customizable dimensions and border radius per slot

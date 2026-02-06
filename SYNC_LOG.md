@@ -184,8 +184,12 @@ All 20 implemented components now have metadata files:
 | popover | 100% | Implemented |
 | breadcrumb | 100% | Implemented |
 | drawer | 100% | Implemented |
+| accordion | 100% | Implemented |
+| radio-group | 100% | Implemented |
+| toggle-group | 100% | Implemented |
+| input-otp | 100% | Implemented |
 
-**Overall Parity: 100%** ✅ (24/24 components at full parity)
+**Overall Parity: 100%** ✅ (28/28 components at full parity)
 
 **Overall Parity: 100%** ✅ (20/20 components at full parity)
 
@@ -319,3 +323,53 @@ All 20 implemented components now have metadata files:
 - Responsive width (75% of screen, max 384px)
 - Subcomponents: Header, Footer, Title, Description, CloseButton
 - Full feature parity with shadcn-ui drawer/sheet
+
+## New Component Implementations (2025-02-06 - Batch 3)
+
+### Accordion Component (100%)
+- Collapsible items with smooth animation (200ms)
+- Single or multiple items open at once
+- Subcomponents: AccordionItem, AccordionTrigger, AccordionContent
+- Rotating chevron icon (AnimatedRotation)
+- Disabled state with visual feedback
+- Keyboard navigation support
+- Helper functions: createAccordionItem, createAccordionItemWithContent
+- Full feature parity with shadcn-ui accordion
+
+### RadioGroup Component (100%)
+- Single selection from a set of options via generic type parameter
+- Size variants: sm (16px), md (18px), lg (20px)
+- Subcomponents: RadioItemData, RadioItem, _RadioIndicator
+- Disabled state at group and per-item level
+- Layout direction: vertical or horizontal
+- Label and description support
+- Animated transitions for smooth state changes
+- Focus ring indicator on focus
+- Hover states with background color change
+- Full feature parity with shadcn-ui radio-group
+
+### ToggleGroup Component (100%)
+- Single selection (radio-like) and multiple selection (checkbox-like) modes
+- Visual variants: plain, outline
+- Size options: sm (28px), md (36px), lg (42px)
+- Subcomponents: ToggleGroupItem
+- Spacing control: 0 for connected items, >0 for separated items
+- Disabled state at group and item level
+- Visual feedback for hover, pressed, focused, and active states
+- Position-aware border radius for connected items
+- Built-in tooltip support
+- InheritedWidget pattern for state sharing
+- Full feature parity with shadcn-ui toggle-group
+
+### InputOtp Component (100%)
+- Individual digit slots with auto-focus navigation
+- Paste support for full OTP code
+- Blinking cursor animation on empty focused slots
+- Subcomponents: InputOtpGroup, InputOtpSlot, InputOtpSeparator
+- Error state support per slot
+- Keyboard navigation (backspace moves to previous slot)
+- Custom input formatters for validation
+- Auto-focus first slot on mount
+- Programmatic value setting and clearing methods
+- Visual grouping with separators (e.g., XXX-XXX format)
+- Full feature parity with shadcn-ui input-otp

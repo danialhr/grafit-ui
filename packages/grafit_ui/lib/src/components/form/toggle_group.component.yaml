@@ -1,0 +1,55 @@
+# Toggle Group Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: toggle-group
+  sourcePath: apps/v4/registry/new-york-v4/ui/toggle-group.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/toggle_group.dart
+  class: GrafitToggleGroup
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: plain
+    outline: outline
+
+  sizes:
+    sm: sm
+    default: md
+    lg: lg
+
+  props:
+    type: type (GrafitToggleGroupType enum: single, multiple)
+    value: value (dynamic - String for single, Set<String> for multiple)
+    onValueChange: onChanged (ValueChanged<dynamic>)
+    disabled: enabled (bool, inverted)
+    variant: variant (GrafitToggleGroupVariant enum)
+    size: size (GrafitToggleGroupSize enum)
+    spacing: spacing (double)
+
+  subcomponents:
+    ToggleGroupItem: GrafitToggleGroupItem
+
+unimplemented: []
+
+adaptations:
+  - "ValueNotifier pattern instead of React state"
+  - "InheritedWidget for sharing group state with items"
+  - "GrafitClickable primitive for gesture handling"
+  - "AnimatedContainer for smooth transitions"
+  - "Controlled component only (no uncontrolled mode)"
+  - "Custom enum for type instead of string literal"
+  - "Spacing prop for connected/disconnected items"
+  - "Built-in tooltip support"
+  - "Position tracking via InheritedWidget for border radius"
+  - "ThemeExtension-based theming instead of CSS classes"

@@ -1,0 +1,52 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: accordion
+  sourcePath: apps/v4/registry/new-york-v4/ui/accordion.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/layout/accordion.dart
+  class: GrafitAccordion
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Accordion: GrafitAccordion
+    AccordionItem: GrafitAccordionItem
+    AccordionTrigger: GrafitAccordionTrigger
+    AccordionContent: GrafitAccordionContent
+    AccordionPrimitive.Root: GrafitAccordion (internal state management)
+    AccordionPrimitive.Item: GrafitAccordionItem (data class)
+    AccordionPrimitive.Trigger: GrafitAccordionTrigger (with internal widget)
+    AccordionPrimitive.Content: GrafitAccordionContent
+    AccordionPrimitive.Header: Handled internally by GrafitAccordionItemWidget
+
+  props:
+    type: type (GrafitAccordionType enum)
+    collapsible: N/A (all items are collapsible by default)
+    defaultValue: initialIndex (for single) / initialOpenIndices (for multiple)
+    value: N/A (internal state management)
+    onValueChange: onOpenChange
+    disabled: disabled (on GrafitAccordionItem)
+    className: N/A (Flutter uses Widget composition)
+
+unimplemented: []
+
+adaptations:
+  - Added GrafitAccordionType enum (single/multiple) for type control
+  - Added initialIndex/initialOpenIndices for initial state control
+  - Added bordered/backgroundColor/padding props for container styling
+  - Added showIcon prop on GrafitAccordionTrigger for icon visibility control
+  - AnimationController-based smooth animations for expand/collapse
+  - ThemeExtension-based theming instead of CSS classes
+  - Helper functions (createAccordionItem, createAccordionItemWithContent) for convenience
+  - MouseRegion cursor feedback for disabled state
+  - FocusScope for keyboard navigation support

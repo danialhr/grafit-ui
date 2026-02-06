@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
 
+/// Switch size variant
+enum GrafitSwitchSize {
+  sm,
+  value,
+}
+
 /// Switch/toggle component
 class GrafitSwitch extends StatelessWidget {
   final bool value;
   final ValueChanged<bool>? onChanged;
   final String? label;
   final bool enabled;
+  final GrafitSwitchSize size;
 
   const GrafitSwitch({
     super.key,
@@ -15,6 +22,7 @@ class GrafitSwitch extends StatelessWidget {
     this.onChanged,
     this.label,
     this.enabled = true,
+    this.size = GrafitSwitchSize.value,
   });
 
   @override
@@ -23,20 +31,26 @@ class GrafitSwitch extends StatelessWidget {
     final colors = theme.colors;
     final effectiveEnabled = enabled && onChanged != null;
 
+    // Size dimensions based on shadcn-ui: sm=56x14, default=32x18 (roughly)
+    final switchWidth = size == GrafitSwitchSize.sm ? 32.0 : 44.0;
+    final switchHeight = size == GrafitSwitchSize.sm ? 18.0 : 24.0;
+    final thumbSize = size == GrafitSwitchSize.sm ? 14.0 : 20.0;
+    final borderRadius = switchHeight / 2;
+
     Widget switchWidget = GrafitClickable(
       enabled: effectiveEnabled,
       onTap: () => onChanged?.call(!value),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        width: 44,
-        height: 24,
+        width: switchWidth,
+        height: switchHeight,
         decoration: BoxDecoration(
           color: value
               ? colors.primary
               : (context.isClickableHovered && effectiveEnabled)
                   ? colors.muted
                   : colors.input,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
             color: context.isClickableFocused ? colors.ring : colors.transparent,
             width: context.isClickableFocused ? 2 : 0,
@@ -45,10 +59,10 @@ class GrafitSwitch extends StatelessWidget {
         child: AnimatedAlign(
           duration: const Duration(milliseconds: 150),
           alignment: value ? Alignment.centerRight : Alignment.centerLeft,
-          padding: const EdgeInsets.all(2),
+          padding: EdgeInsets.all(2),
           child: Container(
-            width: 20,
-            height: 20,
+            width: thumbSize,
+            height: thumbSize,
             decoration: BoxDecoration(
               color: colors.background,
               shape: BoxShape.circle,

@@ -1,0 +1,41 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: card
+  sourcePath: apps/v4/registry/new-york-v4/ui/card.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/layout/card.dart
+  class: GrafitCard
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Card: GrafitCard
+    CardHeader: GrafitCardHeader
+    CardContent: GrafitCardContent
+    CardFooter: GrafitCardFooter
+    CardTitle: title prop in CardHeader (Flutter pattern)
+    CardDescription: description prop in CardHeader (Flutter pattern)
+    CardAction: action prop in CardHeader (Flutter pattern)
+
+  props:
+    className: N/A (Flutter uses Widget composition)
+    children: child
+
+unimplemented: []
+
+adaptations:
+  - Added bordered prop for border control
+  - Added shadow prop for shadow control
+  - Added backgroundColor prop for custom colors
+  - Added padding/margin props for spacing control
+  - ThemeExtension-based theming instead of CSS classes

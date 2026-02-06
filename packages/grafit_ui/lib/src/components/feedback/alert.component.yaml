@@ -1,0 +1,40 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: alert
+  sourcePath: apps/v4/registry/new-york-v4/ui/alert.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/feedback/alert.dart
+  class: GrafitAlert
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Alert: GrafitAlert
+    AlertTitle: title prop (Flutter pattern)
+    AlertDescription: description prop (Flutter pattern)
+
+  props:
+    variant: variant (value | destructive | warning)
+
+  variants:
+    default: value
+    destructive: destructive
+    warning: warning (Grafit addition, not in shadcn-ui)
+
+unimplemented: []
+
+adaptations:
+  - Added warning variant (not in shadcn-ui default)
+  - Added icon prop for custom icons
+  - Added onClose callback for dismissible alerts
+  - ThemeExtension-based theming instead of CSS classes

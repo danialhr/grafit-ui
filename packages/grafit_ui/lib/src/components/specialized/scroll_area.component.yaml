@@ -1,0 +1,37 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: scroll-area
+  sourcePath: apps/v4/registry/new-york-v4/ui/scroll-area.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/scroll_area.dart
+  class: GrafitScrollArea
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    ScrollArea: GrafitScrollArea
+    ScrollBarViewport: child prop (handled by SingleChildScrollView)
+    ScrollBarCorner: N/A (Flutter handles automatically)
+    ScrollBar: Scrollbar widget (built-in)
+
+  props:
+    orientation: scrollDirection (Axis enum)
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's built-in Scrollbar widget with customization
+  - Added scrollDirection prop for axis control
+  - Added controller prop for external control
+  - Added padding prop for internal padding
+  - ThemeExtension-based theming instead of CSS classes

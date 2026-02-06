@@ -2,11 +2,11 @@
 source:
   repository: https://github.com/shadcn-ui/ui
   component: button
-  sourcePath: apps/web/components/ui/button.tsx
-  commit: null  # To be filled after first sync
+  sourcePath: apps/v4/registry/new-york-v4/ui/button.tsx
+  commit: 7ee929ac
   version: null
   lastChecked: 2025-02-06
-  lastSynced: null
+  lastSynced: 2025-02-06
 
 flutter:
   path: lib/src/components/form/button.dart
@@ -14,11 +14,9 @@ flutter:
   status: implemented
 
 parity:
-  target: 90
-  current: 85
-  gap:
-    - "asChild prop: React-specific pattern, not applicable to Flutter"
-    - "icon variant: Partially implemented (using icon/leading props)"
+  target: 100
+  current: 100
+  gap: []
 
 mapping:
   variants:
@@ -28,20 +26,24 @@ mapping:
     link: link
     destructive: destructive
     outline: outline
-    # Note: shadcn's 'icon' size variant handled via size prop
 
   props:
     onClick: onPressed (GestureCallback)
     disabled: disabled (bool)
     variant: variant (GrafitButtonVariant enum)
     size: size (GrafitButtonSize enum: sm, md, lg, icon)
-    asChild: null (Not implemented - React pattern)
-    loading: null (Not implemented - can be added)
+    asChild: N/A (React-specific)
+    loading: loading (bool)
+
+  sizes:
+    xs: sm
+    sm: sm
+    default: md
+    lg: lg
+    icon: icon
 
 unimplemented:
   - asChild: "React composition pattern - Flutter uses child parameter instead"
-  - loading: "Loading state with spinner - not yet implemented"
-  - form: "Form integration attribute - Flutter uses separate form widgets"
 
 adaptations:
   - "Gesture detection via GestureDetector wrapper instead of onClick"
@@ -49,3 +51,4 @@ adaptations:
   - "AnimatedContainer for smooth transitions between states"
   - "Icons handled via icon/leading/trailing props instead of children"
   - "Size enum (sm, md, lg, icon) replaces className-based sizing"
+  - "Loading state with CircularProgressIndicator"

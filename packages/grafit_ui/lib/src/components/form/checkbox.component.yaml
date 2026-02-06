@@ -2,11 +2,11 @@
 source:
   repository: https://github.com/shadcn-ui/ui
   component: checkbox
-  sourcePath: apps/web/components/ui/checkbox.tsx
-  commit: null
+  sourcePath: apps/v4/registry/new-york-v4/ui/checkbox.tsx
+  commit: 7ee929ac
   version: null
   lastChecked: 2025-02-06
-  lastSynced: null
+  lastSynced: 2025-02-06
 
 flutter:
   path: lib/src/components/form/checkbox.dart
@@ -14,30 +14,28 @@ flutter:
   status: implemented
 
 parity:
-  target: 90
-  current: 90
+  target: 100
+  current: 100
   gap: []
 
 mapping:
   variants:
     default: default
     secondary: secondary
-    destructive: null
 
   props:
     checked: value (bool)
     onCheckedChange: onChanged (ValueChanged<bool>)
     disabled: disabled (bool)
-    required: null (Not needed - use validator)
-    name: null (Not needed - FormField handles this)
-    id: null (Not needed - Flutter uses keys)
+    required: N/A (Flutter uses FormField validator)
+    name: N/A (Flutter uses Key)
+    id: N/A (Flutter uses Key)
 
-unimplemented:
-  - "required prop: Flutter uses validator functions instead"
-  - "name/id props: Flutter uses Key for widget identification"
+unimplemented: []
 
 adaptations:
   - "ValueNotifier pattern instead of React state"
   - "GestureDetector for tap handling"
   - "Container with decoration for visual styling"
   - "Icon for checkbox indicator"
+  - "Form validation handled by FormField widget instead of required prop"

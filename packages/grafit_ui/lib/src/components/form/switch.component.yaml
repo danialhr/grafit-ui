@@ -1,0 +1,36 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: switch
+  sourcePath: apps/v4/registry/new-york-v4/ui/switch.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/switch.dart
+  class: GrafitSwitch
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    checked: value
+    onCheckedChange: onChanged
+    disabled: enabled
+
+  variants:
+    N/A: Single variant with theming support
+
+unimplemented:
+  - size: "shadcn-ui supports 'sm' | 'default' sizes, Grafit uses fixed size"
+
+adaptations:
+  - Added label prop for inline labeling (not in shadcn-ui)
+  - AnimatedContainer replaces CSS transitions
+  - GrafitClickable wrapper for hover/focus states
+  - ThemeExtension-based theming instead of CSS classes

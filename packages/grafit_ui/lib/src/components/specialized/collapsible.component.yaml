@@ -1,0 +1,38 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: collapsible
+  sourcePath: apps/v4/registry/new-york-v4/ui/collapsible.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/collapsible.dart
+  class: GrafitCollapsible
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Collapsible: GrafitCollapsible
+    CollapsibleTrigger: GrafitCollapsibleTrigger (separate class)
+    CollapsibleContent: content prop (Flutter pattern)
+
+  props:
+    open: N/A (internal state)
+    defaultOpen: initiallyOpen
+    onOpenChange: onOpenChange (ValueChanged<bool>)
+
+unimplemented: []
+
+adaptations:
+  - Added animated prop for animation control
+  - Separate GrafitCollapsibleTrigger class for convenience
+  - AnimationController-based smooth animations
+  - GestureDetector for trigger interaction
+  - ThemeExtension-based theming instead of CSS classes

@@ -8,6 +8,7 @@ class GrafitCollapsible extends StatefulWidget {
   final Widget content;
   final bool initiallyOpen;
   final bool animated;
+  final ValueChanged<bool>? onOpenChange;
 
   const GrafitCollapsible({
     super.key,
@@ -15,6 +16,7 @@ class GrafitCollapsible extends StatefulWidget {
     required this.content,
     this.initiallyOpen = false,
     this.animated = true,
+    this.onOpenChange,
   });
 
   @override
@@ -58,6 +60,7 @@ class _GrafitCollapsibleState extends State<GrafitCollapsible>
       } else {
         _controller.reverse();
       }
+      widget.onOpenChange?.call(_isOpen);
     });
   }
 

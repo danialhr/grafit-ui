@@ -7,6 +7,7 @@ class GrafitSeparator extends StatelessWidget {
   final double? thickness;
   final Color? color;
   final double? spacing;
+  final bool decorative;
 
   const GrafitSeparator({
     super.key,
@@ -14,6 +15,7 @@ class GrafitSeparator extends StatelessWidget {
     this.thickness,
     this.color,
     this.spacing,
+    this.decorative = true,
   });
 
   @override
@@ -21,22 +23,32 @@ class GrafitSeparator extends StatelessWidget {
     final theme = Theme.of(context).extension<GrafitTheme>()!;
     final colors = theme.colors;
 
-    if (horizontal) {
-      return Container(
-        height: thickness ?? 1,
-        margin: EdgeInsets.symmetric(vertical: spacing ?? 8),
-        decoration: BoxDecoration(
-          color: color ?? colors.border,
-        ),
+    final separator = horizontal
+        ? Container(
+            height: thickness ?? 1,
+            margin: EdgeInsets.symmetric(vertical: spacing ?? 8),
+            decoration: BoxDecoration(
+              color: color ?? colors.border,
+            ),
+          )
+        : Container(
+            width: thickness ?? 1,
+            margin: EdgeInsets.symmetric(horizontal: spacing ?? 8),
+            decoration: BoxDecoration(
+              color: color ?? colors.border,
+            ),
+          );
+
+    // Use Semantics for accessibility when decorative=false
+    if (decorative) {
+      return Semantics(
+        container: true,
+        child: separator,
       );
     }
 
-    return Container(
-      width: thickness ?? 1,
-      margin: EdgeInsets.symmetric(horizontal: spacing ?? 8),
-      decoration: BoxDecoration(
-        color: color ?? colors.border,
-      ),
+    return ExcludeSemantics(
+      child: separator,
     );
   }
 }

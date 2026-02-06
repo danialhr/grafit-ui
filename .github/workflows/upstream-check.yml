@@ -1,0 +1,206 @@
+name: Check Upstream (shadcn-ui/ui)
+
+on:
+  schedule:
+    # Weekly on Monday at 10:00 UTC
+    - cron: '0 10 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Check upstream changes
+        id: check-upstream
+        run: |
+          # Get tracked commit from registry
+          TRACKED_COMMIT=$(grep "trackedCommit:" COMPONENT_REGISTRY.yaml | awk '{print $2}' || echo "null")
+
+          echo "tracked_commit=$TRACKED_COMMIT" >> $GITHUB_OUTPUT
+
+          # Check if upstream directory exists
+          if [ ! -d "upstream/shadcn-ui" ]; then
+            echo "status=no_upstream" >> $GITHUB_OUTPUT
+            echo "No upstream subtree found. Run sync-upstream.sh first."
+            exit 0
+          fi
+
+          # Get current commit
+          CURRENT_COMMIT=$(cd upstream/shadcn-ui && git log -1 --format=%h)
+          echo "current_commit=$CURRENT_COMMIT" >> $GITHUB_OUTPUT
+
+          # Check if updates available
+          if [ "$TRACKED_COMMIT" = "null" ] || [ "$TRACKED_COMMIT" != "$CURRENT_COMMIT" ]; then
+            echo "status=updates_available" >> $GITHUB_OUTPUT
+          else
+            echo "status=uptodate" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Detect new components
+        if: steps.check-upstream.outputs.status != 'no_upstream'
+        run: |
+          python3 << 'EOF'
+          import os
+          import yaml
+          from pathlib import Path
+          from datetime import datetime
+
+          # Read registry
+          with open('COMPONENT_REGISTRY.yaml', 'r') as f:
+              registry = yaml.safe_load(f)
+
+          # Get tracked components
+          tracked = set(registry.get('flutter_components', {}).keys())
+
+          # Scan upstream directory
+          upstream_path = Path('upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui')
+          if upstream_path.exists():
+              upstream_files = set()
+              for file in upstream_path.glob('*.tsx'):
+                  component = file.stem
+                  upstream_files.add(component)
+
+              # Find new components
+              new_components = upstream_files - tracked
+
+              if new_components:
+                  print(f"🆕 New components detected: {len(new_components)}")
+                  with open('new_components.txt', 'w') as f:
+                      for comp in sorted(new_components):
+                          f.write(f"{comp}\n")
+                          print(f"  - {comp}")
+              else:
+                  print("✓ No new components")
+                  with open('new_components.txt', 'w') as f:
+                      f.write("")
+          EOF
+
+      - name: Generate report
+        if: steps.check-upstream.outputs.status == 'updates_available'
+        id: report
+        run: |
+          python3 << 'EOF'
+          import yaml
+          from datetime import datetime
+
+          with open('COMPONENT_REGISTRY.yaml', 'r') as f:
+              registry = yaml.safe_load(f)
+
+          tracked_commit = steps.check-upstream.outputs.tracked_commit
+          current_commit = steps.check-upstream.outputs.current_commit
+
+          report = f"""# Upstream Update Report
+
+          **Generated:** {datetime.utcnow().isoformat()}Z
+
+          ## Status
+          - **Tracked Commit:** {tracked_commit if tracked_commit != 'null' else 'None'}
+          - **Current Commit:** {current_commit}
+          - **Status:** Updates Available
+
+          """
+
+          # Check for new components
+          try:
+              with open('new_components.txt', 'r') as f:
+                  new_comps = [line.strip() for line in f if line.strip()]
+              if new_comps:
+                  report += "\n## 🆕 New Components\n\n"
+                  for comp in new_comps:
+                      report += f"- {comp}\n"
+          except:
+              pass
+
+          report += "\n## 📋 Next Steps\n\n"
+          report += "1. Review changes: \`git diff {tracked_commit}..{current_commit} upstream/shadcn-ui\`\n"
+          report += "2. Run: \`./scripts/sync-upstream.sh\`\n"
+          report += "3. Update individual components: \`./scripts/sync-component.sh <name>\`\n"
+          report += "4. Update COMPONENT_REGISTRY.yaml with new commit: {current_commit}\n"
+
+          with open('UPSTREAM_REPORT.md', 'w') as f:
+              f.write(report)
+
+          print(report)
+          EOF
+
+      - name: Create or Update Issue
+        if: steps.check-upstream.outputs.status == 'updates_available'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const report = require('fs').readFileSync('UPSTREAM_REPORT.md', 'utf8');
+
+            // Check for existing issue
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              state: 'open',
+              labels: ['upstream-update']
+            });
+
+            let issue;
+            if (issues.data.length > 0) {
+              // Update existing issue
+              issue = issues.data[0];
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.name,
+                issue_number: issue.number,
+                body: report
+              });
+
+              console.log(`Updated issue #${issue.number}`);
+            } else {
+              // Create new issue
+              issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.name,
+                title: `⬆️ Upstream Updates Available - shadcn-ui/ui`,
+                body: report,
+                labels: ['upstream-update', 'dependencies']
+              });
+
+              console.log(`Created issue #${issue.number}`);
+            }
+
+      - name: Upload report as artifact
+        if: steps.check-upstream.outputs.status == 'updates_available'
+        uses: actions/upload-artifact@v4
+        with:
+          name: upstream-report
+          path: UPSTREAM_REPORT.md
+
+      - name: Commit report
+        if: steps.check-upstream.outputs.status == 'updates_available'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add UPSTREAM_REPORT.md new_components.txt 2>/dev/null || true
+          git commit -m "chore: update upstream report" || echo "No changes to commit"
+          git push || echo "No push configured"
+
+      - name: Update registry with current commit
+        if: steps.check-upstream.outputs.status == 'updates_available'
+        run: |
+          # Update tracked commit in registry
+          CURRENT_COMMIT="${{steps.check-upstream.outputs.current_commit}}"
+          sed -i.bak "s/trackedCommit: .*/trackedCommit: $CURRENT_COMMIT/" COMPONENT_REGISTRY.yaml
+          rm COMPONENT_REGISTRY.yaml.bak 2>/dev/null || true
+
+          git add COMPONENT_REGISTRY.yaml
+          git commit -m "chore: update tracked commit to $CURRENT_COMMIT" || echo "No changes to commit"
+          git push || echo "No push configured"

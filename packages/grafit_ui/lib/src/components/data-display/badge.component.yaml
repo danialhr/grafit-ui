@@ -1,0 +1,39 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: badge
+  sourcePath: apps/v4/registry/new-york-v4/ui/badge.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/data-display/badge.dart
+  class: GrafitBadge
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    variant: variant (value | primary | secondary | destructive | outline | ghost)
+
+  variants:
+    default: value
+    secondary: secondary
+    destructive: destructive
+    outline: outline
+    ghost: ghost
+    primary: primary (Grafit addition)
+
+unimplemented:
+  - asChild: "React-specific pattern, not applicable to Flutter"
+
+adaptations:
+  - Added primary variant (not in shadcn-ui default)
+  - Added backgroundColor and foregroundColor props for custom colors
+  - child prop for custom content (falls back to label text)
+  - ThemeExtension-based theming instead of CSS classes

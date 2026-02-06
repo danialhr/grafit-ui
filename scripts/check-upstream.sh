@@ -44,7 +44,7 @@ echo "Changed components since last sync:"
 echo ""
 
 # Show changed files in components/ui directory
-git diff $TRACKED_COMMIT..upstream/main -- upstream/shadcn-ui/apps/web/components/ui/ \
+git diff $TRACKED_COMMIT..upstream/main -- upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui/ \
     --name-only 2>/dev/null | while read file; do
         COMPONENT=$(basename "$file" .tsx)
         STATUS=$(git diff $TRACKED_COMMIT..upstream/main -- "$file" | head -1)

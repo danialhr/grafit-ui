@@ -22,13 +22,13 @@ if [ ! -d "upstream/shadcn-ui" ]; then
 fi
 
 # Find component in upstream
-UPSTREAM_FILE="upstream/shadcn-ui/apps/web/components/ui/$COMPONENT.tsx"
+UPSTREAM_FILE="upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui/$COMPONENT.tsx"
 
 if [ ! -f "$UPSTREAM_FILE" ]; then
     echo "✗ Component '$COMPONENT' not found in shadcn-ui/ui"
     echo ""
     echo "Available components:"
-    ls upstream/shadcn-ui/apps/web/components/ui/*.tsx | xargs -n1 basename -s .tsx
+    ls upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui/*.tsx 2>/dev/null | xargs -n1 basename -s .tsx
     exit 1
 fi
 

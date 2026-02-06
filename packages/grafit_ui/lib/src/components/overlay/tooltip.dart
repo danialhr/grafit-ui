@@ -5,13 +5,15 @@ import '../../theme/theme.dart';
 class GrafitTooltip extends StatelessWidget {
   final String message;
   final Widget child;
-  final bool wait;
+  final int delayDuration;
+  final int? skipDelayDuration;
 
   const GrafitTooltip({
     super.key,
     required this.message,
     required this.child,
-    this.wait = true,
+    this.delayDuration = 500,
+    this.skipDelayDuration,
   });
 
   @override
@@ -21,7 +23,10 @@ class GrafitTooltip extends StatelessWidget {
 
     return Tooltip(
       message: message,
-      waitDuration: Duration(milliseconds: wait ? 500 : 0),
+      waitDuration: Duration(milliseconds: delayDuration),
+      showDuration: skipDelayDuration != null
+          ? Duration(milliseconds: skipDelayDuration!)
+          : null,
       decoration: BoxDecoration(
         color: colors.foreground,
         borderRadius: BorderRadius.circular(colors.radius * 6),

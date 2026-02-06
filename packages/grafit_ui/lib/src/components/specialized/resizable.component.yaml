@@ -1,0 +1,40 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: resizable
+  sourcePath: apps/v4/registry/new-york-v4/ui/resizable.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/specialized/resizable.dart
+  class: GrafitResizable
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Resizable: GrafitResizable
+    ResizablePanel: GrafitResizablePanel class
+    ResizableHandle: Generated automatically between panels
+    ResizablePanelGroup: GrafitResizable container
+
+  props:
+    direction: direction (Axis.horizontal/vertical)
+    defaultSize: initialSizes
+    minSize: minSize per panel (GrafitResizablePanel)
+    maxSize: maxSize per panel (GrafitResizablePanel)
+    collapsible: collapsible per panel (GrafitResizablePanel)
+
+unimplemented: []
+
+adaptations:
+  - Uses children list and initialSizes for configuration
+  - Added handleSize prop for custom handle sizing
+  - Gesture-based resizing with drag handles
+  - ThemeExtension-based theming instead of CSS classes

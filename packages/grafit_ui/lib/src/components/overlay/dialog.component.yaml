@@ -1,0 +1,39 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: dialog
+  sourcePath: apps/v4/registry/new-york-v4/ui/dialog.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/dialog.dart
+  class: GrafitDialog
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Dialog: GrafitDialog
+    DialogTrigger: showDialog method (Flutter pattern)
+    DialogHeader: N/A (title prop - Flutter pattern)
+    DialogTitle: title prop (Flutter pattern)
+    DialogDescription: description prop (Flutter pattern)
+    DialogContent: content prop (Flutter pattern)
+    DialogFooter: actions prop (Flutter pattern)
+
+  props:
+    open: N/A (controlled by Navigator)
+    onOpenChange: onCancel/onConfirm
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's AlertDialog instead of custom dialog
+  - Added show() static method for dialog display
+  - ThemeExtension-based theming instead of CSS classes

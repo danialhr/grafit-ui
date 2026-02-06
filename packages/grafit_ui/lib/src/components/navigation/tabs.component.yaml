@@ -1,0 +1,46 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: tabs
+  sourcePath: apps/v4/registry/new-york-v4/ui/tabs.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/navigation/tabs.dart
+  class: GrafitTabs
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Tabs: GrafitTabs
+    TabsList: TabBar (built-in Flutter) / Vertical tab list (custom)
+    TabsTrigger: Tab (built-in Flutter) / Tab trigger (custom)
+    TabsContent: TabBarView (built-in Flutter)
+
+  props:
+    defaultValue: initialIndex
+    onValueChange: onChanged
+    orientation: orientation (GrafitTabsOrientation enum: horizontal, vertical)
+    variant: variant (GrafitTabsVariant enum: value, line)
+
+  variants:
+    default: value
+    line: line
+
+  orientations:
+    horizontal: horizontal
+    vertical: vertical
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's built-in TabController and TabBar
+  - GrafitTab data class for tab configuration
+  - ThemeExtension-based theming instead of CSS classes

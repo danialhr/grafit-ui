@@ -33,6 +33,7 @@ class GrafitButton extends StatelessWidget {
   final IconData? icon;
   final Widget? leading;
   final Widget? trailing;
+  final bool loading;
 
   const GrafitButton({
     super.key,
@@ -46,13 +47,14 @@ class GrafitButton extends StatelessWidget {
     this.icon,
     this.leading,
     this.trailing,
+    this.loading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<GrafitTheme>()!;
     final colors = theme.colors;
-    final effectiveDisabled = disabled || onPressed == null;
+    final effectiveDisabled = disabled || onPressed == null || loading;
 
     return _GrafitButtonStyle(
       variant: variant,
@@ -62,7 +64,7 @@ class GrafitButton extends StatelessWidget {
       colors: colors,
       child: GrafitClickable(
         enabled: !effectiveDisabled,
-        onTap: onPressed,
+        onTap: loading ? null : onPressed,
         child: _buildContent(context),
       ),
     );
@@ -74,7 +76,20 @@ class GrafitButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[
+            if (loading) ...[
+              SizedBox(
+                width: _getIconSize(),
+                height: _getIconSize(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    // Will be set by IconTheme in parent
+                    Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+            ] else if (icon != null) ...[
               Icon(icon, size: _getIconSize()),
               const SizedBox(width: 8),
             ] else if (leading != null) ...[
@@ -86,7 +101,7 @@ class GrafitButton extends StatelessWidget {
                 label!,
                 style: _getTextStyle(),
               ),
-            if (trailing != null) ...[
+            if (trailing != null && !loading) ...[
               const SizedBox(width: 8),
               trailing!,
             ],

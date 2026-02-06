@@ -1,0 +1,40 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: tooltip
+  sourcePath: apps/v4/registry/new-york-v4/ui/tooltip.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/tooltip.dart
+  class: GrafitTooltip
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+    - "TooltipTrigger subcomponent: Not implemented, uses child prop"
+
+mapping:
+  components:
+    Tooltip: GrafitTooltip
+    TooltipTrigger: child prop
+    TooltipContent: N/A (handled internally)
+
+  props:
+    content: message
+    delayDuration: wait (bool, not ms)
+
+unimplemented:
+  - TooltipTrigger: "shadcn-ui has separate TooltipTrigger component, Grafit uses child prop"
+  - TooltipContent: "shadcn-ui has separate TooltipContent component, Grafit handles internally"
+  - delayDuration: "shadcn-ui uses ms value, Grafit uses bool for 500ms or 0"
+  - skipDelayDuration: "shadcn-ui supports skipDelayDuration, not implemented in Grafit"
+
+adaptations:
+  - Uses Flutter's built-in Tooltip with custom styling
+  - wait prop controls if there's a 500ms delay (true) or no delay (false)
+  - ThemeExtension-based theming instead of CSS classes

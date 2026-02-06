@@ -1,0 +1,36 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: avatar
+  sourcePath: apps/v4/registry/new-york-v4/ui/avatar.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/data-display/avatar.dart
+  class: GrafitAvatar
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Avatar: GrafitAvatar
+    AvatarImage: imageUrl prop (Flutter pattern)
+    AvatarFallback: fallback prop (Flutter pattern)
+
+  props:
+    src: imageUrl
+
+unimplemented: []
+
+adaptations:
+  - Added name prop for automatic initials generation
+  - Added size prop for custom sizing (not in shadcn-ui avatar)
+  - Added backgroundColor prop for custom colors
+  - Automatic fallback to icon when no name or image provided
+  - ThemeExtension-based theming instead of CSS classes

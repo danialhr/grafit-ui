@@ -15,7 +15,7 @@ if [ ! -d "upstream/shadcn-ui" ]; then
 fi
 
 # Count components in upstream
-UPSTREAM_COUNT=$(find upstream/shadcn-ui/apps/web/components/ui -name "*.tsx" | wc -l | tr -d ' ')
+UPSTREAM_COUNT=$(find upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui -name "*.tsx" | wc -l | tr -d ' ')
 echo "📦 shadcn-ui/ui components: $UPSTREAM_COUNT"
 echo ""
 
@@ -24,7 +24,7 @@ echo "Scanning upstream components..."
 echo ""
 
 # List all TSX files in upstream
-for file in upstream/shadcn-ui/apps/web/components/ui/*.tsx; do
+for file in upstream/shadcn-ui/apps/v4/registry/new-york-v4/ui/*.tsx; do
     if [ -f "$file" ]; then
         COMPONENT=$(basename "$file" .tsx)
         # Check if tracked in registry

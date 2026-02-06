@@ -1,19 +1,40 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
+/// Resizable panel configuration
+class GrafitResizablePanel {
+  final Widget child;
+  final double? minSize;
+  final double? maxSize;
+  final bool collapsible;
+  final bool initiallyCollapsed;
+
+  const GrafitResizablePanel({
+    required this.child,
+    this.minSize,
+    this.maxSize,
+    this.collapsible = false,
+    this.initiallyCollapsed = false,
+  });
+}
+
 /// Resizable panel component
 class GrafitResizable extends StatefulWidget {
-  final List<Widget> children;
+  final List<GrafitResizablePanel> panels;
   final List<double> initialSizes;
   final Axis direction;
   final double handleSize;
+  final double defaultMinSize;
+  final double defaultMaxSize;
 
   const GrafitResizable({
     super.key,
-    required this.children,
+    required this.panels,
     required this.initialSizes,
     this.direction = Axis.horizontal,
     this.handleSize = 4,
+    this.defaultMinSize = 0.1,
+    this.defaultMaxSize = 0.9,
   });
 
   @override
@@ -22,12 +43,14 @@ class GrafitResizable extends StatefulWidget {
 
 class _GrafitResizableState extends State<GrafitResizable> {
   late List<double> _sizes;
+  late List<bool> _collapsed;
   int? _draggingHandle;
 
   @override
   void initState() {
     super.initState();
     _sizes = widget.initialSizes;
+    _collapsed = widget.panels.map((p) => p.initiallyCollapsed).toList();
   }
 
   @override
@@ -51,8 +74,9 @@ class _GrafitResizableState extends State<GrafitResizable> {
     final List<Widget> panels = [];
     double currentOffset = 0;
 
-    for (int i = 0; i < widget.children.length; i++) {
-      final size = _sizes[i] * totalSize;
+    for (int i = 0; i < widget.panels.length; i++) {
+      final panel = widget.panels[i];
+      final size = _collapsed[i] ? widget.handleSize : _sizes[i] * totalSize;
 
       // Panel
       if (widget.direction == Axis.horizontal) {
@@ -63,8 +87,10 @@ class _GrafitResizableState extends State<GrafitResizable> {
             bottom: 0,
             width: size,
             child: SizedBox(
-              width: size,
-              child: widget.children[i],
+              width: size > widget.handleSize ? size : widget.handleSize,
+              child: _collapsed[i]
+                  ? null
+                  : panel.child,
             ),
           ),
         );
@@ -76,8 +102,10 @@ class _GrafitResizableState extends State<GrafitResizable> {
             right: 0,
             height: size,
             child: SizedBox(
-              height: size,
-              child: widget.children[i],
+              height: size > widget.handleSize ? size : widget.handleSize,
+              child: _collapsed[i]
+                  ? null
+                  : panel.child,
             ),
           ),
         );
@@ -86,10 +114,11 @@ class _GrafitResizableState extends State<GrafitResizable> {
       currentOffset += size;
 
       // Handle (except for last panel)
-      if (i < widget.children.length - 1) {
+      if (i < widget.panels.length - 1) {
         final handleIndex = i;
+        final nextPanelCollapsible = widget.panels[i + 1].collapsible;
         panels.add(
-          _buildResizeHandle(handleIndex, currentOffset, theme),
+          _buildResizeHandle(handleIndex, currentOffset, theme, nextPanelCollapsible),
         );
         currentOffset += widget.handleSize;
       }
@@ -98,13 +127,16 @@ class _GrafitResizableState extends State<GrafitResizable> {
     return panels;
   }
 
-  Widget _buildResizeHandle(int index, double offset, GrafitTheme theme) {
+  Widget _buildResizeHandle(int index, double offset, GrafitTheme theme, bool canCollapseNext) {
     return GestureDetector(
       onHorizontalDragUpdate: widget.direction == Axis.horizontal
           ? (details) => _updateSizes(index, details.delta.dx)
           : null,
       onVerticalDragUpdate: widget.direction == Axis.vertical
           ? (details) => _updateSizes(index, details.delta.dy)
+          : null,
+      onTap: canCollapseNext
+          ? () => _toggleCollapse(index + 1)
           : null,
       child: MouseRegion(
         cursor: widget.direction == Axis.horizontal
@@ -119,7 +151,9 @@ class _GrafitResizableState extends State<GrafitResizable> {
               width: widget.direction == Axis.vertical ? 20 : widget.handleSize,
               height: widget.direction == Axis.horizontal ? 20 : widget.handleSize,
               decoration: BoxDecoration(
-                color: theme.colors.mutedForeground,
+                color: canCollapseNext
+                    ? theme.colors.primary
+                    : theme.colors.mutedForeground,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -133,11 +167,25 @@ class _GrafitResizableState extends State<GrafitResizable> {
     setState(() {
       final sizeDelta = delta / _totalSize();
 
+      // Get min/max sizes for panels
+      final minSize1 = widget.panels[handleIndex].minSize ?? widget.defaultMinSize;
+      final maxSize1 = widget.panels[handleIndex].maxSize ?? widget.defaultMaxSize;
+      final minSize2 = widget.panels[handleIndex + 1].minSize ?? widget.defaultMinSize;
+      final maxSize2 = widget.panels[handleIndex + 1].maxSize ?? widget.defaultMaxSize;
+
       // Distribute the size change between adjacent panels
-      _sizes[handleIndex] = (_sizes[handleIndex] + sizeDelta).clamp(0.1, 0.9);
+      _sizes[handleIndex] = (_sizes[handleIndex] + sizeDelta).clamp(minSize1, maxSize1);
       _sizes[handleIndex + 1] =
-          (_sizes[handleIndex + 1] - sizeDelta).clamp(0.1, 0.9);
+          (_sizes[handleIndex + 1] - sizeDelta).clamp(minSize2, maxSize2);
     });
+  }
+
+  void _toggleCollapse(int panelIndex) {
+    if (widget.panels[panelIndex].collapsible) {
+      setState(() {
+        _collapsed[panelIndex] = !_collapsed[panelIndex];
+      });
+    }
   }
 
   double _totalSize() {

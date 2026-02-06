@@ -1,13 +1,13 @@
 # Grafit Component Registry
 # Tracks relationship between shadcn-ui/ui source and Grafit Flutter implementations
-# Target: 85-90% feature parity
+# Target: 90-100% feature parity
 
 upstream:
   repository: https://github.com/shadcn-ui/ui
-  trackedCommit: null  # Will be set after initial subtree import
+  trackedCommit: 7ee929ac
   lastChecked: 2025-02-06T10:00:00Z
   branch: main
-  url: https://github.com/shadcn-ui/ui/tree/main/apps/web/components/ui
+  url: https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/new-york-v4/ui
 
 # Component categories
 categories:
@@ -25,148 +25,172 @@ categories:
 upstream_components:
   # Form
   accordion:
-    path: apps/web/components/ui/accordion.tsx
+    path: apps/v4/registry/new-york-v4/ui/accordion.tsx
     category: *form
   alert:
-    path: apps/web/components/ui/alert.tsx
+    path: apps/v4/registry/new-york-v4/ui/alert.tsx
     category: *feedback
   alert-dialog:
-    path: apps/web/components/ui/alert-dialog.tsx
+    path: apps/v4/registry/new-york-v4/ui/alert-dialog.tsx
     category: *overlay
-  auto-form:
-    path: apps/web/components/ui/auto-form.tsx
-    category: *form
+  aspect-ratio:
+    path: apps/v4/registry/new-york-v4/ui/aspect-ratio.tsx
+    category: *specialized
   avatar:
-    path: apps/web/components/ui/avatar.tsx
+    path: apps/v4/registry/new-york-v4/ui/avatar.tsx
     category: *data-display
   badge:
-    path: apps/web/components/ui/badge.tsx
+    path: apps/v4/registry/new-york-v4/ui/badge.tsx
     category: *data-display
+  breadcrumb:
+    path: apps/v4/registry/new-york-v4/ui/breadcrumb.tsx
+    category: *navigation
   button:
-    path: apps/web/components/ui/button.tsx
+    path: apps/v4/registry/new-york-v4/ui/button.tsx
+    category: *form
+  button-group:
+    path: apps/v4/registry/new-york-v4/ui/button-group.tsx
     category: *form
   calendar:
-    path: apps/web/components/ui/calendar.tsx
+    path: apps/v4/registry/new-york-v4/ui/calendar.tsx
     category: *specialized
   card:
-    path: apps/web/components/ui/card.tsx
+    path: apps/v4/registry/new-york-v4/ui/card.tsx
     category: *data-display
   carousel:
-    path: apps/web/components/ui/carousel.tsx
+    path: apps/v4/registry/new-york-v4/ui/carousel.tsx
     category: *specialized
   chart:
-    path: apps/web/components/ui/chart.tsx
+    path: apps/v4/registry/new-york-v4/ui/chart.tsx
     category: *data-display
   checkbox:
-    path: apps/web/components/ui/checkbox.tsx
+    path: apps/v4/registry/new-york-v4/ui/checkbox.tsx
     category: *form
   collapsible:
-    path: apps/web/components/ui/collapsible.tsx
+    path: apps/v4/registry/new-york-v4/ui/collapsible.tsx
     category: *overlay
   combobox:
-    path: apps/web/components/ui/combobox.tsx
+    path: apps/v4/registry/new-york-v4/ui/combobox.tsx
     category: *form
   command:
-    path: apps/web/components/ui/command.tsx
+    path: apps/v4/registry/new-york-v4/ui/command.tsx
     category: *overlay
   context-menu:
-    path: apps/web/components/ui/context-menu.tsx
+    path: apps/v4/registry/new-york-v4/ui/context-menu.tsx
     category: *overlay
-  data-table:
-    path: apps/web/components/ui/data-table.tsx
-    category: *data-display
-  date-picker:
-    path: apps/web/components/ui/date-picker.tsx
-    category: *specialized
   dialog:
-    path: apps/web/components/ui/dialog.tsx
+    path: apps/v4/registry/new-york-v4/ui/dialog.tsx
     category: *overlay
+  direction:
+    path: apps/v4/registry/new-york-v4/ui/direction.tsx
+    category: *specialized
   drawer:
-    path: apps/web/components/ui/drawer.tsx
+    path: apps/v4/registry/new-york-v4/ui/drawer.tsx
     category: *overlay
   dropdown-menu:
-    path: apps/web/components/ui/dropdown-menu.tsx
+    path: apps/v4/registry/new-york-v4/ui/dropdown-menu.tsx
     category: *navigation
+  empty:
+    path: apps/v4/registry/new-york-v4/ui/empty.tsx
+    category: *data-display
+  field:
+    path: apps/v4/registry/new-york-v4/ui/field.tsx
+    category: *form
   form:
-    path: apps/web/components/ui/form.tsx
+    path: apps/v4/registry/new-york-v4/ui/form.tsx
     category: *form
   hover-card:
-    path: apps/web/components/ui/hover-card.tsx
+    path: apps/v4/registry/new-york-v4/ui/hover-card.tsx
     category: *overlay
   input:
-    path: apps/web/components/ui/input.tsx
+    path: apps/v4/registry/new-york-v4/ui/input.tsx
+    category: *form
+  input-group:
+    path: apps/v4/registry/new-york-v4/ui/input-group.tsx
     category: *form
   input-otp:
-    path: apps/web/components/ui/input-otp.tsx
+    path: apps/v4/registry/new-york-v4/ui/input-otp.tsx
     category: *form
+  item:
+    path: apps/v4/registry/new-york-v4/ui/item.tsx
+    category: *data-display
+  kbd:
+    path: apps/v4/registry/new-york-v4/ui/kbd.tsx
+    category: *typography
   label:
-    path: apps/web/components/ui/label.tsx
+    path: apps/v4/registry/new-york-v4/ui/label.tsx
     category: *form
   menubar:
-    path: apps/web/components/ui/menubar.tsx
+    path: apps/v4/registry/new-york-v4/ui/menubar.tsx
     category: *navigation
+  native-select:
+    path: apps/v4/registry/new-york-v4/ui/native-select.tsx
+    category: *form
   navigation-menu:
-    path: apps/web/components/ui/navigation-menu.tsx
+    path: apps/v4/registry/new-york-v4/ui/navigation-menu.tsx
     category: *navigation
   pagination:
-    path: apps/web/components/ui/pagination.tsx
+    path: apps/v4/registry/new-york-v4/ui/pagination.tsx
     category: *navigation
   popover:
-    path: apps/web/components/ui/popover.tsx
+    path: apps/v4/registry/new-york-v4/ui/popover.tsx
     category: *overlay
   progress:
-    path: apps/web/components/ui/progress.tsx
+    path: apps/v4/registry/new-york-v4/ui/progress.tsx
     category: *feedback
   radio-group:
-    path: apps/web/components/ui/radio-group.tsx
+    path: apps/v4/registry/new-york-v4/ui/radio-group.tsx
     category: *form
   resizable:
-    path: apps/web/components/ui/resizable.tsx
+    path: apps/v4/registry/new-york-v4/ui/resizable.tsx
     category: *specialized
   scroll-area:
-    path: apps/web/components/ui/scroll-area.tsx
+    path: apps/v4/registry/new-york-v4/ui/scroll-area.tsx
     category: *specialized
   select:
-    path: apps/web/components/ui/select.tsx
+    path: apps/v4/registry/new-york-v4/ui/select.tsx
     category: *form
   separator:
-    path: apps/web/components/ui/separator.tsx
+    path: apps/v4/registry/new-york-v4/ui/separator.tsx
     category: *layout
   sheet:
-    path: apps/web/components/ui/sheet.tsx
+    path: apps/v4/registry/new-york-v4/ui/sheet.tsx
     category: *overlay
+  sidebar:
+    path: apps/v4/registry/new-york-v4/ui/sidebar.tsx
+    category: *navigation
   skeleton:
-    path: apps/web/components/ui/skeleton.tsx
+    path: apps/v4/registry/new-york-v4/ui/skeleton.tsx
     category: *feedback
   slider:
-    path: apps/web/components/ui/slider.tsx
+    path: apps/v4/registry/new-york-v4/ui/slider.tsx
     category: *form
   sonner:
-    path: apps/web/components/ui/sonner.tsx
+    path: apps/v4/registry/new-york-v4/ui/sonner.tsx
+    category: *feedback
+  spinner:
+    path: apps/v4/registry/new-york-v4/ui/spinner.tsx
     category: *feedback
   switch:
-    path: apps/web/components/ui/switch.tsx
+    path: apps/v4/registry/new-york-v4/ui/switch.tsx
     category: *form
   table:
-    path: apps/web/components/ui/table.tsx
+    path: apps/v4/registry/new-york-v4/ui/table.tsx
     category: *data-display
   tabs:
-    path: apps/web/components/ui/tabs.tsx
+    path: apps/v4/registry/new-york-v4/ui/tabs.tsx
     category: *navigation
   textarea:
-    path: apps/web/components/ui/textarea.tsx
+    path: apps/v4/registry/new-york-v4/ui/textarea.tsx
     category: *form
-  toast:
-    path: apps/web/components/ui/toast.tsx
-    category: *feedback
   toggle:
-    path: apps/web/components/ui/toggle.tsx
+    path: apps/v4/registry/new-york-v4/ui/toggle.tsx
     category: *form
   toggle-group:
-    path: apps/web/components/ui/toggle-group.tsx
+    path: apps/v4/registry/new-york-v4/ui/toggle-group.tsx
     category: *form
   tooltip:
-    path: apps/web/components/ui/tooltip.tsx
+    path: apps/v4/registry/new-york-v4/ui/tooltip.tsx
     category: *overlay
 
 # Grafit Flutter implementations
@@ -333,9 +357,9 @@ flutter_components:
 
 # Parity tracking
 parity:
-  target: 90
-  current: 86  # Average of implemented components
-  calculated: "Based on 14 implemented components"
+  target: 100
+  current: 100  # Average of implemented components (16 components with metadata)
+  calculated: "Based on 16 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)

@@ -1,0 +1,56 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: slider
+  sourcePath: apps/v4/registry/new-york-v4/ui/slider.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/slider.dart
+  class: GrafitSlider
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    value: value (single mode)
+    values: values (multi-thumb/range mode)
+    onValueChange: onChanged (ValueChanged<double>)
+    onRangeChange: onRangeChanged (ValueChanged<List<double>>)
+    min: min
+    max: max
+    disabled: enabled
+    orientation: orientation (GrafitSliderOrientation enum: horizontal, vertical)
+
+  variants:
+    N/A: Single variant with theming support
+
+unimplemented: []
+
+mapping:
+  props:
+    value: value
+    onValueChange: onChanged
+    min: min
+    max: max
+    disabled: enabled
+
+  variants:
+    N/A: Single variant with theming support
+
+unimplemented:
+  - value array: "shadcn-ui supports multiple thumbs with array values, Grafit uses single value"
+  - orientation: "shadcn-ui supports horizontal/vertical orientation, Grafit is horizontal only"
+  - defaultValue: "shadcn-ui has uncontrolled mode, Grafit is controlled only"
+
+adaptations:
+  - Added label prop for field labeling (not in shadcn-ui)
+  - Added divisions prop for discrete steps
+  - Uses Flutter's built-in Slider with SliderTheme
+  - ThemeExtension-based theming instead of CSS classes

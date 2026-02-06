@@ -525,11 +525,71 @@ flutter_components:
     lastChecked: 2025-02-06
     lastSynced: 2025-02-06
 
+  pagination:
+    upstream: pagination
+    flutter: lib/src/components/data-display/pagination.dart
+    metadata: lib/src/components/data-display/pagination.component.yaml
+    category: *navigation
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  combobox:
+    upstream: combobox
+    flutter: lib/src/components/form/combobox.dart
+    metadata: lib/src/components/form/combobox.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  navigation-menu:
+    upstream: navigation-menu
+    flutter: lib/src/components/navigation/navigation_menu.dart
+    metadata: lib/src/components/navigation/navigation_menu.component.yaml
+    category: *navigation
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  menubar:
+    upstream: menubar
+    flutter: lib/src/components/navigation/menubar.dart
+    metadata: lib/src/components/navigation/menubar.component.yaml
+    category: *navigation
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  context-menu:
+    upstream: context-menu
+    flutter: lib/src/components/overlay/context_menu.dart
+    metadata: lib/src/components/overlay/context_menu.component.yaml
+    category: *overlay
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  hover-card:
+    upstream: hover-card
+    flutter: lib/src/components/overlay/hover_card.dart
+    metadata: lib/src/components/overlay/hover_card.component.yaml
+    category: *overlay
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (33 components with metadata)
-  calculated: "Based on 33 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100)"
+  current: 100  # Average of implemented components (39 components with metadata)
+  calculated: "Based on 39 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100), alert-dialog(100), popover(100), breadcrumb(100), drawer(100), accordion(100), radio-group(100), toggle-group(100), input-otp(100), select(100), dropdown-menu(100), command(100), sonner(100), data-table(100), pagination(100), combobox(100), navigation-menu(100), menubar(100), context-menu(100), hover-card(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)
@@ -560,11 +620,6 @@ pending:
     estimated_effort: 3 hours
     status: implemented
 
-  combobox:
-    priority: medium
-    complexity: high
-    estimated_effort: 8 hours
-
   context-menu:
     priority: medium
     complexity: high
@@ -580,25 +635,10 @@ pending:
     complexity: low
     estimated_effort: 2 hours
 
-  hover-card:
-    priority: low
-    complexity: low
-    estimated_effort: 3 hours
-
   label:
     priority: high
     complexity: trivial
     estimated_effort: 1 hour
-
-  menubar:
-    priority: medium
-    complexity: medium
-    estimated_effort: 5 hours
-
-  navigation-menu:
-    priority: medium
-    complexity: medium
-    estimated_effort: 6 hours
 
   pagination:
     priority: low

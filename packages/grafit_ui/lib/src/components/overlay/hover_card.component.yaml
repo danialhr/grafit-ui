@@ -1,0 +1,50 @@
+# Component Metadata: HoverCard
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: hover-card
+  sourcePath: apps/v4/registry/new-york-v4/ui/hover-card.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/hover_card.dart
+  class: GrafitHoverCard
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  components:
+    HoverCard: GrafitHoverCard
+    HoverCardTrigger: GrafitHoverCardTrigger
+    HoverCardContent: GrafitHoverCardContent
+    HoverCardHeader: GrafitHoverCardHeader
+    HoverCardTitle: GrafitHoverCardTitle
+    HoverCardDescription: GrafitHoverCardDescription
+
+  props:
+    trigger: Widget that triggers hover card on hover
+    content: Hover card content widget
+    alignment: Position relative to trigger (top, bottom, left, right, etc.)
+    offset: Distance from trigger in pixels
+    openDelay: Delay before opening (default 400ms)
+    closeDelay: Delay before closing (default 200ms)
+    width: Width of the hover card (default 256)
+    closeOnTap: Allow tap to close the hover card
+
+  unimplemented: []
+
+  adaptations:
+    - MouseRegion replaces HoverCardPrimitive.Root
+    - CustomSingleChildLayout for positioning
+    - CompositedTransformTarget for coordinate transformation
+    - AnimationController for fade/scale animations
+    - Timer-based open/close delays
+    - Added width prop for custom card sizing
+    - Added closeOnTap prop for touch interaction
+    - ThemeExtension-based theming instead of CSS classes

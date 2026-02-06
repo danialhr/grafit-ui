@@ -1,0 +1,96 @@
+# Pagination Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: pagination
+  sourcePath: apps/v4/registry/new-york-v4/ui/pagination.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/data-display/pagination.dart
+  class: GrafitPaginationWidget
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Pagination: GrafitPagination
+    PaginationContent: GrafitPaginationContent
+    PaginationItem: GrafitPaginationItem
+    PaginationLink: GrafitPaginationLink
+    PaginationPrevious: GrafitPaginationPrevious
+    PaginationNext: GrafitPaginationNext
+    PaginationEllipsis: GrafitPaginationEllipsis
+
+  props:
+    Pagination:
+      className: padding (EdgeInsets?)
+      children: child (Widget)
+
+    PaginationContent:
+      className: crossAxisAlignment, gap
+      children: children (List<Widget>)
+
+    PaginationItem:
+      children: child (Widget)
+
+    PaginationLink:
+      isActive: isActive (bool)
+      size: size (GrafitPaginationLinkSize)
+      href: onPressed (VoidCallback) - adapted to callback
+
+    PaginationPrevious:
+      children: showLabel (bool)
+      className: N/A (handled internally)
+
+    PaginationNext:
+      children: showLabel (bool)
+      className: N/A (handled internally)
+
+    PaginationEllipsis:
+      className: N/A (handled internally)
+
+  variants:
+    PaginationLink size:
+      icon: icon
+      default: md
+      sm: sm (Grafit addition)
+
+unimplemented:
+  - asChild: "React-specific pattern, not applicable to Flutter"
+  - href: "Replaced with onPressed callback for Flutter navigation"
+  - aria-label: "Replaced with Semantics widget for accessibility"
+  - data-slot attributes: "Flutter uses different widget composition patterns"
+
+adaptations:
+  - "GrafitPaginationWidget: High-level widget with state management added (not in original)"
+  - "onPressed callback instead of href for page navigation"
+  - "Semantics widgets for proper accessibility labels"
+  - "AnimatedContainer for smooth state transitions"
+  - "GrafitClickable primitive for gesture handling"
+  - "Flexible page range calculation with maxVisiblePages parameter"
+  - "Compact mode for mobile layouts"
+  - "showFirstLast and showPreviousNext flags for flexible button display"
+  - "Theme integration via GrafitTheme extension"
+  - "Disabled states for first/last page navigation"
+  - "Ellipsis rendering for large page ranges"
+  - "Center alignment by default (configurable)"
+  - "Custom spacing via gap parameter"
+
+features:
+  - Page navigation with previous/next buttons
+  - Page number links with active state
+  - Ellipsis indicators for large page ranges
+  - Disabled state for boundary pages
+  - Custom styling via GrafitTheme
+  - Accessibility support via Semantics
+  - Responsive design with compact mode
+  - State management with currentPage tracking
+  - Callback-based page changes
+  - Configurable visible page range

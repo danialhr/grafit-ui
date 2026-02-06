@@ -1,0 +1,51 @@
+# Component Metadata: Context Menu
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: context-menu
+  sourcePath: apps/v4/registry/new-york-v4/ui/context-menu.tsx
+  commit: 7ee929ac
+  version: 1.0.5
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/overlay/context_menu.dart
+  class: GrafitContextMenu
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  props:
+    - child: Widget that displays context menu on right-click
+    - items: List of menu items to display
+    - disabled: Whether the context menu is disabled
+
+  subcomponents:
+    - GrafitContextMenuTrigger: Wrapper for the trigger widget
+    - GrafitContextMenuContent: Wrapper for menu items
+    - GrafitContextMenuItem: Individual menu item with leading/trailing icons
+    - GrafitContextMenuCheckboxItem: Checkbox menu item
+    - GrafitContextMenuRadioGroup: Radio group for exclusive selection
+    - GrafitContextMenuRadioItem: Individual radio item
+    - GrafitContextMenuLabel: Label text for grouping
+    - GrafitContextMenuSeparator: Visual separator between items
+    - GrafitContextMenuShortcut: Keyboard shortcut display
+    - GrafitContextMenuGroup: Groups related items
+    - GrafitContextMenuSub: Nested submenu
+    - GrafitContextMenuSubTrigger: Trigger for submenu
+    - GrafitContextMenuSubContent: Content for submenu
+    - GrafitContextMenuPortal: Portal wrapper for overlay
+
+  unimplemented: []
+
+  adaptations:
+    - GestureDetector with onSecondaryTapDown for right-click detection
+    - OverlayEntry replaces Radix Portal
+    - CustomSingleChildLayout for positioning at cursor
+    - AnimationController for fade/scale animations
+    - Focus widget for keyboard navigation
+    - MouseRegion for hover states

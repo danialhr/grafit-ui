@@ -1,0 +1,70 @@
+# Component Metadata: Navigation Menu
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: navigation-menu
+  sourcePath: apps/v4/registry/new-york-v4/ui/navigation-menu.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/navigation/navigation_menu.dart
+  class: GrafitNavigationMenu
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    NavigationMenu: GrafitNavigationMenu
+    NavigationMenuList: GrafitNavigationMenuList
+    NavigationMenuItem: GrafitNavigationMenuItem
+    NavigationMenuTrigger: GrafitNavigationMenuTrigger
+    NavigationMenuContent: GrafitNavigationMenuContent
+    NavigationMenuLink: GrafitNavigationMenuLink
+    NavigationMenuIndicator: GrafitNavigationMenuIndicator
+    NavigationMenuViewport: _GrafitNavigationMenuViewport (internal)
+
+  props:
+    children: List of navigation menu items
+    viewportMode: How content is displayed (GrafitNavigationMenuViewportMode enum: viewport, popover)
+    onValueChange: Callback when active item changes
+    initialValue: Initially active index
+
+  triggerProps:
+    child: Content of the trigger button
+    onTap: Optional tap callback
+
+  linkProps:
+    leading: Icon or widget before content
+    trailing: Icon or widget after content
+    title: Link title text
+    description: Link description text
+    child: Custom child widget
+    onSelect: Callback when link is selected
+    selected: Whether link is selected
+    active: Whether link is active (hovered/pressed state)
+
+  indicatorProps:
+    child: Custom indicator widget (defaults to small dot)
+
+  viewportModes:
+    viewport: Content appears in shared viewport below menu
+    popover: Content appears directly below each trigger
+
+unimplemented: []
+
+adaptations:
+  - OverlayEntry replaces Radix Portal
+  - CustomSingleChildLayout with custom delegate for positioning
+  - CompositedTransformTarget/LayerLink for coordinate transformation
+  - AnimationController for fade/scale animations (200ms)
+  - Focus/KeyEvent handling for keyboard navigation
+  - MouseRegion for hover states
+  - InheritedWidget (_GrafitNavigationMenuScope) for state management
+  - GrafitTheme-based theming instead of CSS classes
+  - Keyboard navigation: Arrow keys, Enter, Space, Escape, Home, End

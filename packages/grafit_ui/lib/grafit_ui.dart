@@ -16,6 +16,7 @@ export 'src/primitives/dismissible.dart';
 export 'src/components/form/button.dart';
 export 'src/components/form/input.dart';
 export 'src/components/form/checkbox.dart';
+export 'src/components/form/combobox.dart';
 export 'src/components/form/switch.dart';
 export 'src/components/form/slider.dart';
 export 'src/components/form/label.dart';
@@ -37,6 +38,8 @@ export 'src/components/typography/text.dart';
 export 'src/components/navigation/tabs.dart';
 export 'src/components/navigation/breadcrumb.dart';
 export 'src/components/navigation/dropdown_menu.dart';
+export 'src/components/navigation/navigation_menu.dart';
+export 'src/components/navigation/menubar.dart';
 
 // Overlay components
 export 'src/components/overlay/dialog.dart';
@@ -44,6 +47,8 @@ export 'src/components/overlay/tooltip.dart';
 export 'src/components/overlay/alert_dialog.dart';
 export 'src/components/overlay/popover.dart';
 export 'src/components/overlay/command.dart';
+export 'src/components/overlay/context_menu.dart';
+export 'src/components/overlay/hover_card.dart';
 
 // Feedback components
 export 'src/components/feedback/alert.dart';
@@ -55,6 +60,7 @@ export 'src/components/feedback/sonner.dart';
 export 'src/components/data-display/badge.dart';
 export 'src/components/data-display/avatar.dart';
 export 'src/components/data-display/data_table.dart';
+export 'src/components/data-display/pagination.dart';
 
 // Specialized components
 export 'src/components/specialized/resizable.dart';

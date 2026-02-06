@@ -1,0 +1,92 @@
+# Component Metadata: MenuBar
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: menubar
+  sourcePath: apps/v4/registry/new-york-v4/ui/menubar.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/navigation/menubar.dart
+  class: GrafitMenubar
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Menubar: GrafitMenubar
+    MenubarMenu: GrafitMenubarMenu
+    MenubarTrigger: GrafitMenubarTrigger
+    MenubarContent: GrafitMenubarContent
+    MenubarItem: GrafitMenubarItem
+    MenubarCheckboxItem: GrafitMenubarCheckboxItem
+    MenubarRadioGroup: GrafitMenubarRadioGroup
+    MenubarRadioItem: GrafitMenubarRadioItem
+    MenubarLabel: GrafitMenubarLabel
+    MenubarSeparator: GrafitMenubarSeparator
+    MenubarShortcut: GrafitMenuBarShortcut
+    MenubarGroup: GrafitMenubarGroup
+    MenubarSub: GrafitMenubarSub
+    MenubarSubTrigger: GrafitMenubarSubTrigger
+    MenubarSubContent: GrafitMenubarSubContent
+
+  props:
+    children: List of GrafitMenubarMenu widgets
+
+  menuProps:
+    trigger: Widget that displays in the menubar
+    children: List of menu items and content
+
+  itemProps:
+    leading: Icon or widget before label
+    trailing: Icon or widget after label
+    label: Text label for item
+    child: Custom child widget
+    onSelected: Callback when item is selected
+    enabled: Whether item is interactive
+    variant: default or destructive (GrafitMenubarMenuItemVariant)
+    inset: Add left padding for nested items
+    shortcut: Keyboard shortcut text to display
+
+  checkboxItemProps:
+    checked: Initial checked state
+    onChecked: Callback when checked state changes
+
+  radioItemProps:
+    value: Value for this radio item
+    groupValue: Currently selected value in group
+    onChanged: Callback when selection changes
+
+  labelProps:
+    label: Text label
+    inset: Add left padding for nested labels
+
+  variants:
+    default: Standard menu item
+    destructive: Red/danger variant for destructive actions
+
+  subProps:
+    trigger: Widget that triggers submenu expansion
+    children: List of submenu items
+
+unimplemented: []
+
+adaptations:
+  - OverlayEntry replaces Radix Portal
+  - CustomSingleChildLayout with custom delegate for positioning
+  - CompositedTransformTarget/LayerLink for coordinate transformation
+  - AnimationController for fade/scale animations (200ms)
+  - Focus/KeyEvent handling for keyboard navigation (arrows, enter, escape)
+  - MouseRegion for hover states
+  - GrafitTheme-based theming instead of CSS classes
+  - GlobalKeyed for item tracking and keyboard navigation
+  - ScrollController for scrollable content
+  - Horizontal menu bar layout with dropdown menus positioned below triggers
+  - State management for open/closed menu tracking
+  - Nested submenu support with indentation

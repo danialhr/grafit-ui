@@ -1,0 +1,71 @@
+# Combobox Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: combobox
+  sourcePath: apps/v4/registry/new-york-v4/ui/combobox.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/combobox.dart
+  class: GrafitCombobox
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  variants:
+    default: GrafitComboboxSize.md
+    sm: GrafitComboboxSize.sm
+    multiple: GrafitCombobox.multiple
+    grouped: GrafitCombobox.grouped
+
+  props:
+    value: value (T?)
+    onValueChange: onChanged (ValueChanged<T>)
+    disabled: enabled (bool, inverted)
+    placeholder: placeholder (String?)
+    searchPlaceholder: searchPlaceholder (String?)
+    allowCreation: allowCreation (bool)
+    onCreate: onCreate (ValueChanged<String>)
+    showClear: showClear (bool)
+    showTrigger: showTrigger (bool)
+
+  subcomponents:
+    ComboboxTrigger: GrafitComboboxTrigger
+    ComboboxContent: GrafitComboboxContent
+    ComboboxItem: GrafitComboboxItem
+    ComboboxInput: GrafitComboboxInput
+    ComboboxEmpty: GrafitComboboxEmpty
+    ComboboxGroup: GrafitComboboxGroup
+    ComboboxLabel: GrafitComboboxLabel
+    ComboboxSeparator: GrafitComboboxSeparator
+    ComboboxClear: GrafitComboboxClear
+    ComboboxSearchInput: GrafitComboboxSearchInput
+    ComboboxCreateItem: GrafitComboboxCreateItem
+
+unimplemented: []
+
+adaptations:
+  - "TextEditingController instead of React state"
+  - "GrafitClickable primitive for gesture handling"
+  - "GrafitFocusable primitive for focus management"
+  - "AnimatedContainer and AnimatedRotation for smooth transitions"
+  - "LayerLink and OverlayEntry for dropdown positioning"
+  - "Size variants via GrafitComboboxSize enum (sm, md)"
+  - "GrafitComboboxItemData for item configuration"
+  - "GrafitComboboxGroupData for grouped options"
+  - "Form validation handled by FormField widget instead of required prop"
+  - "Keyboard navigation with arrow keys and Enter/Escape"
+  - "Real-time filtering of items based on search query"
+  - "Multi-select mode via GrafitCombobox.multiple constructor"
+  - "Create new items option with allowCreation prop"
+  - "Highlight tracking for keyboard navigation"
+  - "Custom layout delegate for positioning dropdown"
+  - "Error text and helper text display for form validation"
+  - "Label widget for form field labeling"

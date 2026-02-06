@@ -1,0 +1,38 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: skeleton
+  sourcePath: apps/v4/registry/new-york-v4/ui/skeleton.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/feedback/skeleton.dart
+  class: GrafitSkeleton
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Skeleton: GrafitSkeleton
+    SkeletonText: GrafitSkeletonText (convenience)
+    SkeletonAvatar: GrafitSkeletonAvatar (convenience)
+    SkeletonCard: GrafitSkeletonCard (convenience)
+
+  props:
+    className: N/A (Flutter uses Widget properties)
+
+unimplemented: []
+
+adaptations:
+  - Added GrafitSkeletonText for text line simulation
+  - Added GrafitSkeletonAvatar for circular avatars
+  - Added GrafitSkeletonCard for card blocks with lines
+  - Animated shimmer effect via AnimationController
+  - Custom width, height, borderRadius props
+  - Custom colors via baseColor/highlightColor props

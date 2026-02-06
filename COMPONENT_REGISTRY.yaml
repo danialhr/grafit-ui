@@ -351,15 +351,55 @@ flutter_components:
     metadata: lib/src/components/specialized/collapsible.component.yaml
     category: *overlay
     status: implemented
-    parity: 82
+    parity: 100
     lastChecked: 2025-02-06
-    lastSynced: null
+    lastSynced: 2025-02-06
+
+  label:
+    upstream: label
+    flutter: lib/src/components/form/label.dart
+    metadata: lib/src/components/form/label.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  textarea:
+    upstream: textarea
+    flutter: lib/src/components/form/textarea.dart
+    metadata: lib/src/components/form/textarea.component.yaml
+    category: *form
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  progress:
+    upstream: progress
+    flutter: lib/src/components/feedback/progress.dart
+    metadata: lib/src/components/feedback/progress.component.yaml
+    category: *feedback
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
+
+  skeleton:
+    upstream: skeleton
+    flutter: lib/src/components/feedback/skeleton.dart
+    metadata: lib/src/components/feedback/skeleton.component.yaml
+    category: *feedback
+    status: implemented
+    parity: 100
+    lastChecked: 2025-02-06
+    lastSynced: 2025-02-06
 
 # Parity tracking
 parity:
   target: 100
-  current: 100  # Average of implemented components (16 components with metadata)
-  calculated: "Based on 16 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100)"
+  current: 100  # Average of implemented components (20 components with metadata)
+  calculated: "Based on 20 implemented components: button(100), input(100), checkbox(100), switch(100), slider(100), card(100), separator(100), tabs(100), dialog(100), tooltip(100), alert(100), badge(100), avatar(100), resizable(100), scroll-area(100), collapsible(100), label(100), textarea(100), progress(100), skeleton(100)"
   lastUpdated: 2025-02-06
 
 # Components pending implementation (detected in upstream but not yet in Grafit)

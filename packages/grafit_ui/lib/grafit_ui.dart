@@ -1,4 +1,4 @@
-library pikpo_ui;
+library grafit_ui;
 
 // Theme exports
 export 'src/theme/theme.dart';
@@ -18,6 +18,8 @@ export 'src/components/form/input.dart';
 export 'src/components/form/checkbox.dart';
 export 'src/components/form/switch.dart';
 export 'src/components/form/slider.dart';
+export 'src/components/form/label.dart';
+export 'src/components/form/textarea.dart';
 
 // Layout components
 export 'src/components/layout/card.dart';
@@ -35,6 +37,8 @@ export 'src/components/overlay/tooltip.dart';
 
 // Feedback components
 export 'src/components/feedback/alert.dart';
+export 'src/components/feedback/progress.dart';
+export 'src/components/feedback/skeleton.dart';
 
 // Data display components
 export 'src/components/data-display/badge.dart';

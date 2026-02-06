@@ -1,0 +1,42 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: textarea
+  sourcePath: apps/v4/registry/new-york-v4/ui/textarea.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/textarea.dart
+  class: GrafitTextarea
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    value: value or controller
+    onChange: onChanged
+    placeholder: placeholder or hint
+    disabled: enabled (bool)
+    rows: minLines
+    name: N/A (Flutter uses separate form state)
+    id: N/A (Flutter uses Key)
+    minLength: N/A
+    maxLength: maxLength
+
+unimplemented: []
+
+adaptations:
+  - Uses TextField instead of HTML textarea
+  - TextEditingController for value management
+  - FocusNode for focus control
+  - minLines/maxLines instead of rows
+  - Built-in character counter via maxLength
+  - Error text support via errorText prop
+  - Label support via label prop
+  - Prefix/suffix icons support

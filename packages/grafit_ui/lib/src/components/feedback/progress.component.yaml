@@ -1,0 +1,34 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: progress
+  sourcePath: apps/v4/registry/new-york-v4/ui/progress.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/feedback/progress.dart
+  class: GrafitProgress
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Progress: GrafitProgress
+    ProgressIndicator: Built-in to GrafitProgress
+
+  props:
+    value: value (0-100)
+    max: N/A (Always 100 in Flutter)
+
+unimplemented: []
+
+adaptations:
+  - Added GrafitProgressIndeterminate for loading states
+  - Custom height prop for size control
+  - Custom colors via backgroundColor/progressColor props

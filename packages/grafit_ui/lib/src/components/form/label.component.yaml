@@ -1,0 +1,30 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: label
+  sourcePath: apps/v4/registry/new-york-v4/ui/label.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-06
+
+flutter:
+  path: lib/src/components/form/label.dart
+  class: GrafitLabel
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    htmlFor: N/A (Flutter uses separate form state)
+    children: child or text prop
+
+unimplemented: []
+
+adaptations:
+  - Added required prop for asterisk indicator
+  - Added disabled prop for visual opacity
+  - Text or child content support

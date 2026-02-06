@@ -1,0 +1,77 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: spinner
+  sourcePath: apps/v4/registry/new-york-v4/ui/spinner.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-07
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/feedback/spinner.dart
+  classes:
+    - GrafitSpinner
+    - GrafitSpinnerInline
+    - GrafitSpinnerLabeled
+    - GrafitSpinnerDots
+    - GrafitSpinnerPulse
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  props:
+    GrafitSpinner:
+      className: N/A (Flutter uses Widget properties)
+      size: size (xs | sm | md | lg | xl)
+      color: color (Color?)
+      strokeWidth: strokeWidth (double?)
+      label: label (String?)
+      durationMs: durationMs (int?)
+      customSize: customSize (double?)
+    GrafitSpinnerInline:
+      color: color (Color?)
+      size: size (xs | sm | md | lg | xl)
+    GrafitSpinnerLabeled:
+      label: label (String)
+      labelPosition: labelPosition (bottom | top | left | right)
+      size: size (xs | sm | md | lg | xl)
+      color: color (Color?)
+      durationMs: durationMs (int?)
+    GrafitSpinnerDots:
+      dotCount: dotCount (int)
+      dotSize: dotSize (double?)
+      color: color (Color?)
+      spacing: spacing (double?)
+    GrafitSpinnerPulse:
+      size: size (double?)
+      color: color (Color?)
+
+  variants:
+    GrafitSpinner size:
+      xs: xs (12px)
+      sm: sm (16px)
+      md: md (24px - default)
+      lg: lg (32px)
+      xl: xl (48px)
+
+unimplemented:
+  - asChild: "React-specific pattern, not applicable to Flutter"
+  - data-icon: "HTML-specific attribute, handled by Flutter's widget tree"
+  - "[&_svg:not([class*='size-'])]:size-3": "Handled by Flutter's size variants"
+
+adaptations:
+  - Added GrafitSpinnerInline for button/inline loading states (equivalent to data-icon="inline-start/end")
+  - Added GrafitSpinnerLabeled for labeled loading states with flexible label positioning
+  - Added GrafitSpinnerDots for alternative bouncing dots animation
+  - Added GrafitSpinnerPulse for alternative pulsing circle animation
+  - ThemeExtension-based theming instead of CSS classes
+  - AnimationController-based smooth rotation (vs CSS animation)
+  - Custom stroke width support via strokeWidth prop
+  - Speed control via durationMs prop
+  - Custom size support via customSize prop
+  - label prop for displaying text below spinner
+  - GrafitSpinnerLabelPosition enum for flexible label positioning (top, bottom, left, right)

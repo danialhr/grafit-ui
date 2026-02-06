@@ -1,0 +1,97 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: item
+  sourcePath: apps/v4/registry/new-york-v4/ui/item.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-07
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/data-display/item.dart
+  classes:
+    - GrafitItem
+    - GrafitItemGroup
+    - GrafitItemMedia
+    - GrafitItemContent
+    - GrafitItemTitle
+    - GrafitItemDescription
+    - GrafitItemActions
+    - GrafitItemHeader
+    - GrafitItemFooter
+    - GrafitItemDivider
+    - GrafitItemBuilder
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Item: GrafitItem
+    ItemGroup: GrafitItemGroup
+    ItemMedia: GrafitItemMedia
+    ItemContent: GrafitItemContent
+    ItemTitle: GrafitItemTitle
+    ItemDescription: GrafitItemDescription
+    ItemActions: GrafitItemActions
+    ItemHeader: GrafitItemHeader
+    ItemFooter: GrafitItemFooter
+    ItemSeparator: GrafitItemDivider
+
+  props:
+    variant: variant (default | outline | muted)
+    size: size (default | sm | lg)
+    asChild: onTap callback (Flutter pattern)
+    className: N/A (Flutter uses widgets, not CSS classes)
+
+  variants:
+    default: default_ (enum value)
+    outline: outline
+    muted: muted
+
+  itemMediaVariants:
+    default: default_ (enum value)
+    icon: icon
+    image: image
+
+unimplemented:
+  - asChild: "React-specific pattern, replaced with onTap callback"
+  - Slot: "React/Radix-specific, not applicable to Flutter"
+  - className: "CSS-specific, Flutter uses widgets and properties"
+
+adaptations:
+  - Added disabled state with opacity
+  - Added selected state with border highlight
+  - Added hover and pressed states for interactive feedback
+  - Added backgroundColor and borderColor props for custom colors
+  - Added borderRadius prop for custom border radius
+  - Added showFocusBorder prop for focus visibility control
+  - GrafitItemBuilder for convenient item construction with all sections
+  - ItemTitle.rich() and ItemDescription.rich() for custom rich content
+  - MouseRegion for hover states on desktop platforms
+  - GestureDetector for tap/press handling
+  - ThemeExtension-based theming instead of CSS classes
+  - Enum-based variants with default_ suffix (avoiding Dart reserved keyword)
+  - size prop includes lg variant in addition to default and sm
+  - Expanded content area by default for proper layout
+  - CrossAxisAlignment and spacing customization in ItemGroup
+  - MainAxisSize control in ItemGroup for flexible layouts
+
+examples:
+  - Basic item with title and description
+  - Item with icon media
+  - Item with image media
+  - Item with actions
+  - Item group with dividers
+  - Item with header (for card layouts)
+  - Item with footer
+  - Disabled item state
+  - Selected item state
+  - Outline variant
+  - Muted variant
+  - Small size variant
+  - Large size variant
+  - Interactive item with onTap

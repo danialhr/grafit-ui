@@ -14,6 +14,8 @@ export 'src/primitives/dismissible.dart';
 
 // Form components
 export 'src/components/form/button.dart';
+export 'src/components/form/button_group.dart';
+export 'src/components/form/field.dart';
 export 'src/components/form/input.dart';
 export 'src/components/form/checkbox.dart';
 export 'src/components/form/combobox.dart';
@@ -28,7 +30,7 @@ export 'src/components/form/select.dart';
 export 'src/components/form/toggle.dart';
 export 'src/components/form/form.dart';
 export 'src/components/form/auto_form.dart';
-export 'src/components/form/input_group.dart';
+export 'src/components/form/input_group.dart' hide GrafitButtonVariant;
 export 'src/components/form/native_select.dart';
 export 'src/components/form/date_picker.dart';
 
@@ -47,6 +49,7 @@ export 'src/components/navigation/breadcrumb.dart';
 export 'src/components/navigation/dropdown_menu.dart';
 export 'src/components/navigation/navigation_menu.dart';
 export 'src/components/navigation/menubar.dart';
+export 'src/components/navigation/sidebar.dart';
 
 // Overlay components
 export 'src/components/overlay/dialog.dart';
@@ -62,10 +65,12 @@ export 'src/components/feedback/alert.dart';
 export 'src/components/feedback/progress.dart';
 export 'src/components/feedback/skeleton.dart';
 export 'src/components/feedback/sonner.dart';
+export 'src/components/feedback/spinner.dart';
 
 // Data display components
 export 'src/components/data-display/badge.dart';
 export 'src/components/data-display/avatar.dart';
+export 'src/components/data-display/item.dart';
 export 'src/components/data-display/data_table.dart';
 export 'src/components/data-display/pagination.dart';
 export 'src/components/data-display/empty.dart';
@@ -73,6 +78,7 @@ export 'src/components/data-display/table.dart';
 export 'src/components/data-display/chart.dart';
 
 // Specialized components
+export 'src/components/specialized/direction.dart';
 export 'src/components/specialized/resizable.dart';
 export 'src/components/specialized/scroll_area.dart';
 export 'src/components/specialized/collapsible.dart';

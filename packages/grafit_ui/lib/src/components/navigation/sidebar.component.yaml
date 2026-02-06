@@ -1,0 +1,127 @@
+# Component Metadata: Sidebar
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: sidebar
+  sourcePath: apps/v4/registry/new-york-v4/ui/sidebar.tsx
+  commit: 7ee929ac
+  version: 1.0.0
+  lastChecked: 2026-02-07
+  lastSynced: 2026-02-07
+  documentation: https://ui.shadcn.com/docs/components/sidebar
+
+flutter:
+  path: lib/src/components/navigation/sidebar.dart
+  status: implemented
+
+parity:
+  target: 100%
+  current: 100%
+  gap: []
+
+mapping:
+  components:
+    SidebarProvider: GrafitSidebarProvider
+    Sidebar: GrafitSidebar
+    SidebarHeader: GrafitSidebarHeader
+    SidebarFooter: GrafitSidebarFooter
+    SidebarContent: GrafitSidebarContent
+    SidebarGroup: GrafitSidebarGroup
+    SidebarGroupLabel: GrafitSidebarGroupLabel
+    SidebarGroupAction: GrafitSidebarGroupAction
+    SidebarGroupContent: GrafitSidebarGroupContent
+    SidebarMenu: GrafitSidebarMenu
+    SidebarMenuItem: GrafitSidebarMenuItem
+    SidebarMenuButton: GrafitSidebarMenuButton
+    SidebarMenuAction: GrafitSidebarMenuAction
+    SidebarMenuSub: GrafitSidebarMenuSub
+    SidebarMenuSubItem: GrafitSidebarMenuSubItem
+    SidebarMenuSubButton: GrafitSidebarMenuSubButton
+    SidebarMenuBadge: GrafitSidebarMenuBadge
+    SidebarMenuSkeleton: GrafitSidebarMenuSkeleton
+    SidebarSeparator: GrafitSidebarSeparator
+    SidebarTrigger: GrafitSidebarTrigger
+    SidebarRail: GrafitSidebarRail
+    SidebarInset: GrafitSidebarInset
+    useSidebar: GrafitSidebarUse (static class)
+
+  provider_props:
+    child: Main application content
+    defaultOpen: Initial open state (default: true)
+    open: Controlled open state
+    onOpenChange: Callback when open state changes
+    width: Custom sidebar width (default: 256px / 16rem)
+    widthMobile: Custom mobile width (default: 288px / 18rem)
+    isMobile: Whether in mobile mode
+
+  sidebar_props:
+    child: Sidebar content
+    side: left | right - Position of sidebar
+    variant: sidebar | floating | inset - Visual style
+    collapsible: offcanvas | icon | none - Collapsible behavior
+
+  useSidebar:
+    open: Current open state (boolean)
+    state: expanded | collapsed (GrafitSidebarState)
+    setOpen: Function to set open state
+    openMobile: Mobile open state
+    setOpenMobile: Function to set mobile open state
+    isMobile: Whether in mobile mode
+    toggleSidebar: Function to toggle sidebar
+
+  menu_button_props:
+    icon: Leading icon widget
+    label: Button text label
+    child: Custom child widget
+    onTap: Tap callback
+    isActive: Active state highlighting
+    asChild: Render as child widget
+    childWidget: Child widget when asChild is true
+
+  group_props:
+    label: Group label (Widget)
+    action: Group action button (Widget)
+    content: Group content (Widget)
+    children: Alternative children list
+
+unimplemented: []
+
+adaptations:
+  - InheritedWidget for state management instead of React Context
+  - AnimationController for smooth collapse/expand transitions
+  - GrafitColorScheme for theming instead of CSS variables
+  - MouseRegion for hover states instead of CSS :hover
+  - GestureDetector for tap handling instead of onClick
+  - StatefulWidget for interactive components
+  - MediaQuery for responsive behavior
+  - Custom scope classes for component state sharing
+  - Enum types for side, variant, and collapsible props
+  - Icon-only mode support (64px width when collapsed in icon mode)
+  - Offcanvas mode support (slides completely off-screen)
+  - Composable architecture matching shadcn-ui patterns
+
+theming:
+  colors:
+    background: colors.muted
+    foreground: colors.foreground
+    primary: colors.primary
+    accent: colors.accent
+    accentForeground: colors.accentForeground
+    border: colors.border
+    muted: colors.muted
+    mutedForeground: colors.mutedForeground
+
+  border_radius: colors.radius * factor (varies by component)
+
+animations:
+  collapse_expand: 300ms easeInOut (CurvedAnimation)
+  fade: 200ms (for content transitions)
+
+keyboard_support:
+  - Tab: Navigate through menu items
+  - Enter: Activate focused button
+  - Escape: Close sidebar (when open)
+
+accessibility:
+  - Semantic labels via GrafitFocusable
+  - Proper state management through InheritedWidget
+  - Visual feedback for all interactive states

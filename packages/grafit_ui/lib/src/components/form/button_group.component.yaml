@@ -1,0 +1,41 @@
+name: button_group
+category: form
+description: Button Group component that groups buttons with connected styling (no gaps between borders). Supports horizontal and vertical orientation, position-aware border radius, variants (default, outline, ghost), and sizes (sm, md, lg).
+upstream:
+  url: https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/new-york-v4/ui/button-group.tsx
+  component: button-group
+variants:
+  - primary
+  - secondary
+  - ghost
+  - destructive
+  - outline
+  - link
+sizes:
+  - sm
+  - md
+  - lg
+  - icon
+orientation:
+  - horizontal
+  - vertical
+features:
+  - Groups buttons with connected styling
+  - Position-aware border radius (first/last items get edge radius)
+  - No gaps between borders
+  - Horizontal and vertical orientation support
+  - Disabled state at item level
+  - Icon support within buttons
+  - Separator support between items
+  - Text label support
+  - Nested button groups
+  - Focus state with ring visualization
+dependencies:
+  - button
+  - theme
+  - clickable
+subcomponents:
+  - GrafitButtonGroup
+  - GrafitButtonGroupItem
+  - GrafitButtonGroupSeparator
+  - GrafitButtonGroupText

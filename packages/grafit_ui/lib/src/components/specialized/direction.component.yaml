@@ -1,0 +1,47 @@
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: direction
+  sourcePath: apps/v4/registry/new-york-v4/ui/direction.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-06
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/specialized/direction.dart
+  class: GrafitDirection
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    DirectionProvider: GrafitDirection
+    useDirection: GrafitDirection.of / GrafitDirectionExtension
+
+  props:
+    dir: direction (GrafitTextDirection enum)
+    direction: direction (alias to dir)
+
+  types:
+    Direction: GrafitTextDirection (enum with ltr, rtl)
+    TextDirection: TextDirection (Flutter built-in)
+
+unimplemented: []
+
+adaptations:
+  - Uses Flutter's built-in Directionality widget as base
+  - GrafitDirection extends InheritedTheme for better theme integration
+  - Added GrafitDirectionTheme extension for theme-level defaults
+  - Added extension methods on BuildContext for easy direction access
+  - Added GrafitDirectionBuilder for direction-aware UI building
+  - Added GrafitDirectionalPadding for automatic padding flipping
+  - Added GrafitDirectionalMargin for automatic margin flipping
+  - Added GrafitDirectionalIcon for automatic icon mirroring in RTL
+  - GrafitTextDirection enum maps to Flutter's TextDirection
+  - of() method falls back to Flutter's Directionality if no GrafitDirection ancestor
+  - maybeOf() method returns null if no GrafitDirection ancestor
+  - Integrated with GrafitTheme via GrafitDirectionTheme extension

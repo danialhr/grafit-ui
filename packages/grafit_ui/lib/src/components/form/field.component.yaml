@@ -1,0 +1,269 @@
+# Field Component Metadata
+source:
+  repository: https://github.com/shadcn-ui/ui
+  component: field
+  sourcePath: apps/v4/registry/new-york-v4/ui/field.tsx
+  commit: 7ee929ac
+  version: null
+  lastChecked: 2025-02-07
+  lastSynced: 2025-02-07
+
+flutter:
+  path: lib/src/components/form/field.dart
+  classes:
+    - GrafitField
+    - GrafitFieldContent
+    - GrafitFieldLabel
+    - GrafitFieldDescription
+    - GrafitFieldError
+    - GrafitFieldGroup
+    - GrafitFieldLegend
+    - GrafitFieldSeparator
+    - GrafitFieldSet
+    - GrafitFieldTitle
+    - GrafitFieldInput
+    - GrafitFieldMessage
+    - GrafitFormFieldWrapper
+    - GrafitFieldErrorData
+    - GrafitFieldOrientation
+  status: implemented
+
+parity:
+  target: 100
+  current: 100
+  gap: []
+
+mapping:
+  components:
+    Field: GrafitField
+    FieldContent: GrafitFieldContent
+    FieldLabel: GrafitFieldLabel
+    FieldDescription: GrafitFieldDescription
+    FieldError: GrafitFieldError
+    FieldGroup: GrafitFieldGroup
+    FieldLegend: GrafitFieldLegend
+    FieldSeparator: GrafitFieldSeparator
+    FieldSet: GrafitFieldSet
+    FieldTitle: GrafitFieldTitle
+
+  props:
+    # GrafitField props
+    orientation: orientation (GrafitFieldOrientation: vertical, horizontal, responsive)
+    data-invalid: invalid (bool)
+    disabled: disabled (bool)
+    className: N/A (Widget-based styling)
+
+    # GrafitFieldError props
+    errors: errors (List<GrafitFieldErrorData> or errorMessages: List<String>)
+
+  orientation:
+    vertical: GrafitFieldOrientation.vertical (stacks label, control, and helper text)
+    horizontal: GrafitFieldOrientation.horizontal (aligns label and control side-by-side)
+    responsive: GrafitFieldOrientation.responsive (automatic column layouts at breakpoints)
+
+unimplemented: []
+
+adaptations:
+  - "InheritedWidget (_GrafitFieldInherited) instead of React context for state sharing"
+  - "GrafitFieldOrientation enum instead of string orientation prop"
+  - "Widget-based composition instead of slot-based children"
+  - "GrafitFieldError class for error objects instead of plain objects"
+  - "Deduplication of error messages built into the component"
+  - "GrafitFormFieldWrapper convenience widget for complete field creation"
+  - "GrafitFieldInput wrapper for proper semantics on input widgets"
+  - "Semantics widget for accessibility instead of ARIA attributes"
+  - "Opacity widget for disabled state instead of CSS classes"
+  - "LayoutBuilder for responsive orientation instead of CSS container queries"
+  - "List<Widget> for children instead of React children"
+  - "Widget child prop instead of asChild pattern"
+  - "GrafitFieldMessage generic message component for both description and error"
+
+features:
+  - Field state management with InheritedWidget
+  - Field-level invalid/error state
+  - Disabled state with visual opacity
+  - Three orientation modes: vertical, horizontal, responsive
+  - Required field indicator with asterisk
+  - Error state with destructive color
+  - Description text support with FieldDescription
+  - FieldGroup for stacking related fields
+  - FieldSet with FieldLegend for semantic grouping
+  - FieldSeparator for visual dividers
+  - FieldContent for grouping control and descriptions
+  - FieldInput wrapper for proper semantics
+  - Automatic error deduplication
+  - Multiple error message display with bullet points
+  - Accessibility via Semantics widget
+  - GrafitTheme styling integration
+  - Form integration ready via fieldName prop
+  - GrafitFormFieldWrapper convenience widget
+
+usage_example: |
+  ```dart
+  // Basic field with label, input, and error
+  GrafitField(
+    invalid: hasError,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitFieldLabel(
+          text: 'Email',
+          required: true,
+        ),
+        const SizedBox(height: 6),
+        GrafitFieldInput(
+          child: GrafitInput(
+            hint: 'Enter your email',
+            errorText: hasError ? 'Invalid email' : null,
+          ),
+        ),
+        if (!hasError)
+          GrafitFieldDescription(
+            text: 'We never share your email with anyone.',
+          ),
+        if (hasError)
+          GrafitFieldError(
+            errorMessages: ['Invalid email address'],
+          ),
+      ],
+    ),
+  )
+
+  // Using the convenience wrapper
+  GrafitFormFieldWrapper(
+    label: 'Username',
+    required: true,
+    description: 'Choose a unique username',
+    errorText: usernameError,
+    input: GrafitInput(
+      hint: 'Enter username',
+    ),
+  )
+
+  // Horizontal field
+  GrafitField(
+    orientation: GrafitFieldOrientation.horizontal,
+    child: Row(
+      children: [
+        GrafitFieldLabel(text: 'Remember me'),
+        Spacer(),
+        GrafitSwitch(value: true, onChanged: (v) {}),
+      ],
+    ),
+  )
+
+  // Field group with separator
+  GrafitFieldGroup(
+    children: [
+      GrafitFormFieldWrapper(
+        label: 'First Name',
+        input: GrafitInput(hint: 'John'),
+      ),
+      GrafitFieldSeparator(text: 'Or continue with'),
+      GrafitFormFieldWrapper(
+        label: 'Email',
+        input: GrafitInput(hint: 'john@example.com'),
+      ),
+    ],
+  )
+
+  // FieldSet with legend
+  GrafitFieldSet(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      children: [
+        GrafitFieldLegend(text: 'Notification Preferences'),
+        GrafitFieldGroup(
+          children: [
+            GrafitFormFieldWrapper(
+              label: 'Email Notifications',
+              input: GrafitSwitch(value: true, onChanged: (v) {}),
+            ),
+            GrafitFormFieldWrapper(
+              label: 'SMS Notifications',
+              input: GrafitSwitch(value: false, onChanged: (v) {}),
+            ),
+          ],
+        ),
+      ],
+    ),
+  )
+  ```
+
+form_integration_example: |
+  ```dart
+  // Integration with GrafitForm
+  GrafitForm(
+    initialValues: {
+      'email': '',
+      'username': '',
+    },
+    child: Column(
+      children: [
+        GrafitFormField<String>(
+          name: 'email',
+          validators: [
+            GrafitValidators.required(),
+            GrafitValidators.email(),
+          ],
+          builder: (context, value, error) {
+            return GrafitFormFieldWrapper(
+              label: 'Email',
+              required: true,
+              description: 'Enter a valid email address',
+              errorText: error,
+              input: GrafitInput(
+                value: value ?? '',
+                onChanged: (v) {},
+                errorText: error,
+              ),
+            );
+          },
+        ),
+        GrafitFormField<String>(
+          name: 'username',
+          validators: [
+            GrafitValidators.required(),
+            GrafitValidators.minLength(3),
+          ],
+          builder: (context, value, error) {
+            return GrafitFormFieldWrapper(
+              label: 'Username',
+              required: true,
+              errorText: error,
+              input: GrafitInput(
+                value: value ?? '',
+                onChanged: (v) {},
+                errorText: error,
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+  )
+  ```
+
+responsive_example: |
+  ```dart
+  // Responsive field orientation
+  GrafitField(
+    orientation: GrafitFieldOrientation.responsive,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitFieldLabel(text: 'Full Name'),
+        const SizedBox(height: 6),
+        GrafitFieldInput(
+          child: GrafitInput(hint: 'Enter your full name'),
+        ),
+        GrafitFieldDescription(
+          text: 'This will be displayed on your profile',
+        ),
+      ],
+    ),
+  )
+
+  // In narrow screens (< 600px): label, input, and description stack vertically
+  // In wide screens (>= 600px): label and input align side-by-side
+  ```

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
 import '../specialized/calendar.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Date picker mode
 enum GrafitDatePickerMode {
@@ -848,4 +849,158 @@ class GrafitDatePickerPresetData {
     required this.label,
     required this.range,
   });
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      placeholder: 'Pick a date',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Label',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerWithLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Date of Birth',
+      placeholder: 'Select your date of birth',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Preselected Date',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerWithDate(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Appointment Date',
+      placeholder: 'Select appointment date',
+      initialDate: DateTime.now().add(const Duration(days: 7)),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Range Mode',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerRange(BuildContext context) {
+  final now = DateTime.now();
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Date Range',
+      placeholder: 'Select date range',
+      mode: GrafitDatePickerMode.range,
+      initialRange: DateTimeRange(
+        start: now,
+        end: now.add(const Duration(days: 7)),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Error State',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Due Date',
+      placeholder: 'Select a date',
+      errorText: 'Please select a valid future date',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Disabled Date Picker',
+      placeholder: 'Cannot select date',
+      enabled: false,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Helper Text',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerWithHelper(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: 'Start Date',
+      placeholder: 'Choose start date',
+      helperText: 'Select the first day of your event',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitDatePicker,
+  path: 'Form/DatePicker',
+)
+Widget datePickerInteractive(BuildContext context) {
+  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Pick a date');
+  final label = context.knobs.string(label: 'Label', initialValue: 'Date');
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  final hasHelper = context.knobs.boolean(label: 'Has Helper', initialValue: false);
+  final isRange = context.knobs.boolean(label: 'Range Mode', initialValue: false);
+  final showCalendarIcon = context.knobs.boolean(label: 'Show Icon', initialValue: true);
+  final showClear = context.knobs.boolean(label: 'Show Clear', initialValue: true);
+
+  final now = DateTime.now();
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitDatePicker(
+      label: label.isNotEmpty ? label : null,
+      placeholder: placeholder.isNotEmpty ? placeholder : null,
+      enabled: enabled,
+      errorText: hasError ? 'This field is required' : null,
+      helperText: hasHelper ? 'Select a valid date' : null,
+      mode: isRange ? GrafitDatePickerMode.range : GrafitDatePickerMode.single,
+      showCalendarIcon: showCalendarIcon,
+      showClear: showClear,
+      initialDate: now.add(const Duration(days: 3)),
+      initialRange: isRange
+          ? DateTimeRange(
+              start: now,
+              end: now.add(const Duration(days: 7)),
+            )
+          : null,
+    ),
+  );
 }

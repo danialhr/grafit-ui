@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Checkbox component
 class GrafitCheckbox extends StatelessWidget {
@@ -107,3 +108,167 @@ class GrafitCheckbox extends StatelessWidget {
 }
 
 enum GrafitInputSizeX { sm, md, lg }
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitCheckbox(
+      value: false,
+      label: 'Accept terms and conditions',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Checked',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxChecked(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitCheckbox(
+      value: true,
+      label: 'Accept terms and conditions',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Without Label',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxWithoutLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Row(
+      children: [
+        GrafitCheckbox(value: false),
+        SizedBox(width: 16),
+        GrafitCheckbox(value: true),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitCheckbox(
+      value: true,
+      label: 'Small checkbox',
+      size: GrafitInputSizeX.sm,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Large Size',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxLarge(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitCheckbox(
+      value: true,
+      label: 'Large checkbox',
+      size: GrafitInputSizeX.lg,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitCheckbox(
+          value: false,
+          label: 'Disabled unchecked',
+          enabled: false,
+        ),
+        SizedBox(height: 8),
+        GrafitCheckbox(
+          value: true,
+          label: 'Disabled checked',
+          enabled: false,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Checkboxes',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxMultiple(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitCheckbox(
+          value: true,
+          label: 'Remember me',
+        ),
+        SizedBox(height: 8),
+        GrafitCheckbox(
+          value: false,
+          label: 'Subscribe to newsletter',
+        ),
+        SizedBox(height: 8),
+        GrafitCheckbox(
+          value: true,
+          label: 'Accept privacy policy',
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitCheckbox,
+  path: 'Form/Checkbox',
+)
+Widget checkboxInteractive(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Accept terms');
+  final checked = context.knobs.boolean(label: 'Checked', initialValue: false);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitInputSizeX.md,
+    options: [GrafitInputSizeX.sm, GrafitInputSizeX.md, GrafitInputSizeX.lg],
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitCheckbox(
+      value: checked,
+      label: label.isNotEmpty ? label : null,
+      enabled: enabled,
+      size: size,
+    ),
+  );
+}

@@ -1,0 +1,23 @@
+name: widgetbook_package
+description: Widgetbook for Grafit UI - Interactive component showcase
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  widgetbook: ^3.20.2
+  grafit_ui:
+    path: ../grafit_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

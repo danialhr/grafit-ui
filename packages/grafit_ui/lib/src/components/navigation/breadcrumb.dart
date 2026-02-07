@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// BreadcrumbItem - individual breadcrumb item
 class GrafitBreadcrumbItem {
@@ -242,4 +243,210 @@ class GrafitBreadcrumbRoute {
       isCurrent: isCurrent ?? this.isCurrent,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: [
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Home'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Components'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbPage(label: 'Breadcrumb'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Long Trail',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbLong(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: [
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Home'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Products'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Electronics'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Computers'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbPage(label: 'Laptops'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Icons',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbWithIcons(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: [
+        GrafitBreadcrumbItem(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.home, size: 16),
+              SizedBox(width: 4),
+              GrafitBreadcrumbLink(label: 'Home'),
+            ],
+          ),
+        ),
+        GrafitBreadcrumbItem(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.folder, size: 16),
+              SizedBox(width: 4),
+              GrafitBreadcrumbLink(label: 'Projects'),
+            ],
+          ),
+        ),
+        GrafitBreadcrumbItem(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.insert_drive_file, size: 16),
+              SizedBox(width: 4),
+              GrafitBreadcrumbPage(label: 'File.txt'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Separator',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbCustomSeparator(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: const [
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Home'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbPage(label: 'Page'),
+        ),
+      ],
+      separator: const Text('/'),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Ellipsis',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbEllipsis(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: [
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Home'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbEllipsis(),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Parent'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbPage(label: 'Current Page'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Minimal',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbMinimal(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: [
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbLink(label: 'Back'),
+        ),
+        GrafitBreadcrumbItem(
+          child: GrafitBreadcrumbPage(label: 'Current'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitBreadcrumb,
+  path: 'Navigation/Breadcrumb',
+)
+Widget breadcrumbInteractive(BuildContext context) {
+  final itemCount = context.knobs.int.slider(
+    label: 'Items',
+    initialValue: 3,
+    min: 2,
+    max: 6,
+  );
+
+  final showEllipsis = context.knobs.boolean(label: 'Show Ellipsis', initialValue: false);
+  final customSeparator = context.knobs.boolean(label: 'Custom Separator', initialValue: false);
+
+  final labels = ['Home', 'Products', 'Category', 'Subcategory', 'Item', 'Details'];
+
+  final items = List.generate(itemCount, (index) {
+    final isLast = index == itemCount - 1;
+    return GrafitBreadcrumbItem(
+      child: isLast
+          ? GrafitBreadcrumbPage(label: labels[index])
+          : GrafitBreadcrumbLink(label: labels[index]),
+    );
+  });
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitBreadcrumb(
+      items: items,
+      separator: customSeparator ? const Text('>') : null,
+    ),
+  );
 }

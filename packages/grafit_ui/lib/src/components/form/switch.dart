@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Switch size variant
 enum GrafitSwitchSize {
@@ -94,4 +95,152 @@ class GrafitSwitch extends StatelessWidget {
 
     return switchWidget;
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSwitch(
+      value: false,
+      label: 'Dark mode',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Checked',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchChecked(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSwitch(
+      value: true,
+      label: 'Dark mode',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Without Label',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchWithoutLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Row(
+      children: [
+        GrafitSwitch(value: false),
+        SizedBox(width: 16),
+        GrafitSwitch(value: true),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSwitch(
+      value: true,
+      label: 'Small switch',
+      size: GrafitSwitchSize.sm,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSwitch(
+          value: false,
+          label: 'Disabled off',
+          enabled: false,
+        ),
+        SizedBox(height: 12),
+        GrafitSwitch(
+          value: true,
+          label: 'Disabled on',
+          enabled: false,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Switches',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchMultiple(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSwitch(
+          value: true,
+          label: 'Notifications',
+        ),
+        SizedBox(height: 12),
+        GrafitSwitch(
+          value: false,
+          label: 'Email updates',
+        ),
+        SizedBox(height: 12),
+        GrafitSwitch(
+          value: true,
+          label: 'Auto-save',
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSwitch,
+  path: 'Form/Switch',
+)
+Widget switchInteractive(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Enable feature');
+  final checked = context.knobs.boolean(label: 'Checked', initialValue: false);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitSwitchSize.value,
+    options: [GrafitSwitchSize.sm, GrafitSwitchSize.value],
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitSwitch(
+      value: checked,
+      label: label.isNotEmpty ? label : null,
+      enabled: enabled,
+      size: size,
+    ),
+  );
 }

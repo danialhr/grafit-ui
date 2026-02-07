@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Slider orientation
 enum GrafitSliderOrientation {
@@ -512,4 +513,164 @@ class _GrafitMultiThumbSliderState extends State<_GrafitMultiThumbSlider> {
     newValues[thumbIndex] = constrainedValue;
     widget.onChanged?.call(newValues, thumbIndex);
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: 0.5,
+      label: 'Volume',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Without Label',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderWithoutLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: 0.3,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Divisions',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderWithDivisions(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: 0.5,
+      label: 'Brightness',
+      divisions: 10,
+      min: 0,
+      max: 100,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSlider(
+          value: 0.3,
+          label: 'Disabled slider',
+          enabled: false,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Range Slider',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderRange(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: 0.5,
+      values: [0.2, 0.8],
+      label: 'Price Range',
+      min: 0,
+      max: 1000,
+      onRangeChanged: null,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Vertical',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderVertical(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: 0.6,
+      label: 'Vertical',
+      orientation: GrafitSliderOrientation.vertical,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Sliders',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderMultiple(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSlider(
+          value: 0.5,
+          label: 'Volume',
+        ),
+        SizedBox(height: 24),
+        GrafitSlider(
+          value: 0.7,
+          label: 'Brightness',
+        ),
+        SizedBox(height: 24),
+        GrafitSlider(
+          value: 0.3,
+          label: 'Contrast',
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSlider,
+  path: 'Form/Slider',
+)
+Widget sliderInteractive(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Value');
+  final value = context.knobs.double.slider(label: 'Value', initialValue: 0.5, min: 0, max: 1);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final divisions = context.knobs.nullable.int.input(label: 'Divisions', initialValue: null);
+  final isRange = context.knobs.boolean(label: 'Range Slider', initialValue: false);
+  final isVertical = context.knobs.boolean(label: 'Vertical', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitSlider(
+      value: value,
+      values: isRange ? [0.2, value] : null,
+      label: label.isNotEmpty ? label : null,
+      enabled: enabled,
+      divisions: divisions,
+      orientation: isVertical ? GrafitSliderOrientation.vertical : GrafitSliderOrientation.horizontal,
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Select component size variant
 enum GrafitSelectSize {
@@ -1066,4 +1067,204 @@ class _GrafitSelectDelegate extends SingleChildLayoutDelegate {
   bool shouldRelayout(_GrafitSelectDelegate oldDelegate) {
     return true;
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      placeholder: 'Select an option',
+      items: [
+        GrafitSelectItemData(value: 'apple', label: 'Apple'),
+        GrafitSelectItemData(value: 'banana', label: 'Banana'),
+        GrafitSelectItemData(value: 'orange', label: 'Orange'),
+        GrafitSelectItemData(value: 'grape', label: 'Grape'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Label',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectWithLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      label: 'Favorite Fruit',
+      placeholder: 'Select an option',
+      items: [
+        GrafitSelectItemData(value: 'apple', label: 'Apple'),
+        GrafitSelectItemData(value: 'banana', label: 'Banana'),
+        GrafitSelectItemData(value: 'orange', label: 'Orange'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Search',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectWithSearch(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      label: 'Select Country',
+      placeholder: 'Search countries...',
+      searchable: true,
+      searchPlaceholder: 'Type to search...',
+      items: [
+        GrafitSelectItemData(value: 'us', label: 'United States'),
+        GrafitSelectItemData(value: 'uk', label: 'United Kingdom'),
+        GrafitSelectItemData(value: 'ca', label: 'Canada'),
+        GrafitSelectItemData(value: 'au', label: 'Australia'),
+        GrafitSelectItemData(value: 'de', label: 'Germany'),
+        GrafitSelectItemData(value: 'fr', label: 'France'),
+        GrafitSelectItemData(value: 'jp', label: 'Japan'),
+        GrafitSelectItemData(value: 'cn', label: 'China'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Groups',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectWithGroups(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>.grouped(
+      label: 'Select Food',
+      placeholder: 'Choose a food item',
+      groups: [
+        GrafitSelectGroupData(
+          label: 'Fruits',
+          items: [
+            GrafitSelectItemData(value: 'apple', label: 'Apple'),
+            GrafitSelectItemData(value: 'banana', label: 'Banana'),
+            GrafitSelectItemData(value: 'orange', label: 'Orange'),
+          ],
+        ),
+        GrafitSelectGroupData(
+          label: 'Vegetables',
+          items: [
+            GrafitSelectItemData(value: 'carrot', label: 'Carrot'),
+            GrafitSelectItemData(value: 'broccoli', label: 'Broccoli'),
+            GrafitSelectItemData(value: 'spinach', label: 'Spinach'),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      placeholder: 'Select...',
+      size: GrafitSelectSize.sm,
+      items: [
+        GrafitSelectItemData(value: 'opt1', label: 'Option 1'),
+        GrafitSelectItemData(value: 'opt2', label: 'Option 2'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      label: 'Disabled Select',
+      placeholder: 'Cannot select',
+      enabled: false,
+      items: [
+        GrafitSelectItemData(value: 'opt1', label: 'Option 1'),
+        GrafitSelectItemData(value: 'opt2', label: 'Option 2'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Error State',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      label: 'Select Option',
+      placeholder: 'Choose an option',
+      errorText: 'This field is required',
+      items: [
+        GrafitSelectItemData(value: 'opt1', label: 'Option 1'),
+        GrafitSelectItemData(value: 'opt2', label: 'Option 2'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSelect,
+  path: 'Form/Select',
+)
+Widget selectInteractive(BuildContext context) {
+  final items = context.knobs.list(
+    label: 'Items',
+    initialOption: ['Apple', 'Banana', 'Orange', 'Grape'],
+    options: [
+      ['Apple', 'Banana', 'Orange'],
+      ['Apple', 'Banana', 'Orange', 'Grape', 'Mango'],
+      ['Option 1', 'Option 2', 'Option 3'],
+    ],
+  );
+
+  final label = context.knobs.string(label: 'Label', initialValue: 'Favorite Fruit');
+  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  final searchable = context.knobs.boolean(label: 'Searchable', initialValue: false);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitSelect<String>(
+      label: label.isNotEmpty ? label : null,
+      placeholder: placeholder.isNotEmpty ? placeholder : 'Select...',
+      searchable: searchable,
+      enabled: enabled,
+      errorText: hasError ? 'This field is required' : null,
+      items: items.asMap().entries.map((entry) {
+        return GrafitSelectItemData(
+          value: entry.key.toString(),
+          label: entry.value,
+        );
+      }).toList(),
+    ),
+  );
 }

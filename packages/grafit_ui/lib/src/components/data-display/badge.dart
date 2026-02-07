@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Badge variant
 enum GrafitBadgeVariant {
@@ -98,4 +99,187 @@ class _BadgeColors {
     required this.foreground,
     this.border,
   });
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Badge',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Primary',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgePrimary(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Primary',
+      variant: GrafitBadgeVariant.primary,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Secondary',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeSecondary(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Secondary',
+      variant: GrafitBadgeVariant.secondary,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Destructive',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeDestructive(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Error',
+      variant: GrafitBadgeVariant.destructive,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Outline',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeOutline(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Outline',
+      variant: GrafitBadgeVariant.outline,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Ghost',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeGhost(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: 'Ghost',
+      variant: GrafitBadgeVariant.ghost,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Variants',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeAllVariants(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        GrafitBadge(label: 'Default', variant: GrafitBadgeVariant.value),
+        GrafitBadge(label: 'Primary', variant: GrafitBadgeVariant.primary),
+        GrafitBadge(label: 'Secondary', variant: GrafitBadgeVariant.secondary),
+        GrafitBadge(label: 'Destructive', variant: GrafitBadgeVariant.destructive),
+        GrafitBadge(label: 'Outline', variant: GrafitBadgeVariant.outline),
+        GrafitBadge(label: 'Ghost', variant: GrafitBadgeVariant.ghost),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Status Badges',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeStatus(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitBadge(label: 'Active', variant: GrafitBadgeVariant.primary),
+            SizedBox(width: 4),
+            Text('Active', style: TextStyle(fontSize: 14)),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitBadge(label: 'Draft', variant: GrafitBadgeVariant.secondary),
+            SizedBox(width: 4),
+            Text('Draft', style: TextStyle(fontSize: 14)),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitBadge(label: 'Failed', variant: GrafitBadgeVariant.destructive),
+            SizedBox(width: 4),
+            Text('Failed', style: TextStyle(fontSize: 14)),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitBadge,
+  path: 'DataDisplay/Badge',
+)
+Widget badgeInteractive(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Badge');
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitBadgeVariant.value,
+    options: [
+      GrafitBadgeVariant.value,
+      GrafitBadgeVariant.primary,
+      GrafitBadgeVariant.secondary,
+      GrafitBadgeVariant.destructive,
+      GrafitBadgeVariant.outline,
+      GrafitBadgeVariant.ghost,
+    ],
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitBadge(
+      label: label.isNotEmpty ? label : 'Badge',
+      variant: variant,
+    ),
+  );
 }

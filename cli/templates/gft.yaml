@@ -1,0 +1,50 @@
+# Grafit UI Configuration
+# This file configures the Grafit UI CLI for your Flutter project
+
+# Grafit UI version
+version: 1.0.0
+
+# Project name (auto-detected from pubspec.yaml)
+project: my_flutter_app
+
+# Style variant
+# Options: default, new-york
+style: default
+
+# Base color for the component theming
+# Options: zinc, slate, neutral, stone, blue
+baseColor: zinc
+
+# Whether to use CSS variables for theming (when applicable)
+useThemeVariables: true
+
+# Custom components output path (relative to project root)
+# Default: lib/ui/grafit_ui
+componentsPath: lib/ui/grafit_ui
+
+# List of installed components
+# Run 'gft add <component>' to install new components
+components:
+  # - button
+  # - input
+  # - card
+  # - dialog
+  # - dropdown
+  # - tabs
+  # - tooltip
+  # - toast
+  # - alert
+  # - badge
+  # - avatar
+  # - checkbox
+  # - radio
+  # - switch
+  # - slider
+  # - progress
+  # - spinner
+  # - table
+  # - list
+  # - skeleton
+  # - separator
+  # - label
+  # - select

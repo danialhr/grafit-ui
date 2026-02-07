@@ -126,4 +126,130 @@ class FileUtils {
   static String normalizePath(String path) {
     return p.normalize(path);
   }
+
+  /// Update pubspec.yaml with a new dependency
+  ///
+  /// Returns true if pubspec was modified, false if dependency already exists
+  static Future<bool> updatePubspec(
+    String projectPath, {
+    required String packageName,
+    String? version,
+    bool isDevDependency = false,
+  }) async {
+    final pubspecPath = p.join(projectPath, 'pubspec.yaml');
+    final pubspecFile = File(pubspecPath);
+
+    if (!pubspecFile.existsSync()) {
+      throw FileSystemException('pubspec.yaml not found', pubspecPath);
+    }
+
+    final content = await pubspecFile.readAsString();
+    final lines = content.split('\n');
+
+    // Check if dependency already exists
+    final depKey = '$packageName:';
+    final depExists = lines.any((line) =>
+        line.trim().startsWith(depKey) ||
+        line.replaceAll(' ', '').startsWith(depKey));
+
+    if (depExists) {
+      return false;
+    }
+
+    // Find the dependencies section
+    final depSection = isDevDependency ? 'dev_dependencies:' : 'dependencies:';
+    int insertIndex = -1;
+
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].trim() == depSection) {
+        // Found the section, insert after it
+        insertIndex = i + 1;
+
+        // Skip existing dependencies
+        while (insertIndex < lines.length &&
+            (lines[insertIndex].startsWith('  ') ||
+                lines[insertIndex].trim().isEmpty)) {
+          // Look for next section start (not indented or empty)
+          if (insertIndex + 1 < lines.length &&
+              !lines[insertIndex + 1].startsWith('  ') &&
+              lines[insertIndex + 1].trim().isNotEmpty) {
+            break;
+          }
+          insertIndex++;
+        }
+        break;
+      }
+    }
+
+    if (insertIndex == -1) {
+      // Add dependencies section at end
+      final newIndex = lines.length;
+      lines.add('');
+      lines.add(depSection);
+      insertIndex = newIndex + 1;
+    }
+
+    // Insert the new dependency
+    final versionStr = version ?? 'any';
+    final newDepLine = '  $packageName: $versionStr';
+    lines.insert(insertIndex, newDepLine);
+
+    // Write back
+    await pubspecFile.writeAsString(lines.join('\n'));
+    return true;
+  }
+
+  /// Create or update the grafit_ui.dart export file
+  static Future<void> createExports(
+    String libPath, {
+    List<String> components = const [],
+    String exportFileName = 'grafit_ui.dart',
+  }) async {
+    final exportFilePath = p.join(libPath, exportFileName);
+    final exportFile = File(exportFilePath);
+
+    // Build content
+    final buffer = StringBuffer();
+    buffer.writeln('// Grafit UI - Component Library');
+    buffer.writeln('// Auto-generated. Do not edit manually.');
+    buffer.writeln();
+    buffer.writeln("library grafit_ui;");
+    buffer.writeln();
+
+    // Add component exports
+    if (components.isNotEmpty) {
+      buffer.writeln('// Components');
+      for (final component in components) {
+        final className = _toClassName(component);
+        buffer.writeln("export 'components/$component.dart' show $className;");
+      }
+      buffer.writeln();
+    }
+
+    // Add theme exports
+    buffer.writeln('// Themes');
+    buffer.writeln("export 'themes/grafit_theme.dart';");
+    buffer.writeln();
+
+    // Add utils exports
+    buffer.writeln('// Utilities');
+    buffer.writeln("export 'utils/grafit_utils.dart';");
+
+    await exportFile.writeAsString(buffer.toString());
+  }
+
+  /// Convert kebab-case to PascalCase
+  static String _toClassName(String name) {
+    return name
+        .split('-')
+        .map((part) => part.isEmpty
+            ? ''
+            : part[0].toUpperCase() + part.substring(1))
+        .join();
+  }
+
+  /// Create directory recursively (alias for ensureDirectory)
+  static Future<void> createDirectory(String path) async {
+    await ensureDirectory(path);
+  }
 }

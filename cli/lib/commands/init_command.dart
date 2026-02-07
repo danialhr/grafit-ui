@@ -1,22 +1,24 @@
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:path/path.dart' as p;
 import '../config/config_manager.dart';
 import '../utils/file_utils.dart';
+import '../utils/output.dart';
 
 class InitCommand extends Command<void> {
   @override
   String get name => 'init';
 
   @override
-  String get description => 'Initialize a Flutter project with Grafit';
+  String get description => 'Initialize Grafit UI in a Flutter project';
 
   @override
   ArgParser get argParser {
     return ArgParser()
       ..addFlag('src-dir',
           negatable: false,
-          help: 'Use src/ directory for components (not implemented yet)')
+          help: 'Use src/ directory for components')
       ..addFlag('css-variables',
           defaultsTo: true,
           negatable: true,
@@ -25,6 +27,9 @@ class InitCommand extends Command<void> {
           defaultsTo: 'zinc',
           allowed: ['zinc', 'slate', 'neutral', 'stone'],
           help: 'Base color scheme')
+      ..addOption('components-path',
+          defaultsTo: 'lib/ui',
+          help: 'Path to components directory')
       ..addFlag('yes',
           abbr: 'y',
           negatable: false,
@@ -38,35 +43,43 @@ class InitCommand extends Command<void> {
   @override
   Future<void> run() async {
     final args = argResults!;
-    final projectPath = argResults!.rest.isNotEmpty ? argResults!.rest.first : '.';
+    final projectPath = argResults!.rest.isNotEmpty
+        ? p.absolute(argResults!.rest.first)
+        : p.absolute('.');
     final useThemeVars = args['css-variables'] as bool;
     final baseColor = args['base-color'] as String;
+    final componentsPathArg = args['components-path'] as String;
     final skipConfirm = args['yes'] as bool;
     final force = args['force'] as bool;
 
     // Validate Flutter project
-    if (!ConfigManager.isFlutterProject(projectPath)) {
-      print('Error: Not a valid Flutter project (pubspec.yaml not found)');
+    if (!File(p.join(projectPath, 'pubspec.yaml')).existsSync()) {
+      printError('Not a valid Flutter project (pubspec.yaml not found)');
       return;
     }
 
     // Check if already initialized
-    if (ConfigManager.isInitialized(projectPath) && !force) {
-      print('Grafit is already initialized in this project.');
-      print('Use --force to overwrite existing configuration.');
+    final existingConfig = GrafitConfig.load(projectPath);
+    if (existingConfig.installedComponents.isNotEmpty && !force) {
+      printWarning('Grafit is already initialized in this project.');
+      printInfo('Use --force to overwrite existing configuration.');
       return;
     }
 
+    // Display initialization info
+    printHeader('Grafit UI Initialization');
+    printSeparator();
+    printDebug('Project: $projectPath');
+    printDebug('Base color: $baseColor');
+    printDebug('Components path: $componentsPathArg');
+    printSeparator();
+
     // Confirm initialization
     if (!skipConfirm) {
-      print('Initializing Grafit in: $projectPath');
-      print('Base color: $baseColor');
-      print('Components path: lib/components/ui');
-      print('');
-      stdout.write('Continue? (y/n) ');
+      stdout.write('Continue? [Y/n]: ');
       final response = stdin.readLineSync()?.toLowerCase();
-      if (response != 'y' && response != 'yes') {
-        print('Aborted.');
+      if (response == 'n' || response == 'no') {
+        printDebug('Aborted.');
         return;
       }
     }
@@ -74,38 +87,95 @@ class InitCommand extends Command<void> {
     try {
       // Create configuration
       final config = GrafitConfig(
+        componentsPath: componentsPathArg,
         style: 'default',
-        componentsPath: 'lib/components/ui',
-        themeExtension: 'PikpoTheme',
         baseColor: baseColor,
         useThemeVariables: useThemeVars,
-        rtl: false,
+        installedComponents: [],
       );
 
-      // Save config
-      await ConfigManager.saveConfig(projectPath, config);
-      print('✓ Created components.json');
+      // Save config (gft.yaml)
+      await config.save();
+      printSuccess('Created gft.yaml');
 
       // Create components directory
-      final componentsPath = FileUtils.joinPath(projectPath, 'lib', 'components');
+      final componentsPath = p.join(projectPath, componentsPathArg);
       await FileUtils.ensureDirectory(componentsPath);
-      print('✓ Created lib/components/');
+      printSuccess('Created $componentsPathArg/');
 
       // Create .gitkeep to keep directory in version control
       await FileUtils.createFile(
-        FileUtils.joinPath(componentsPath, '.gitkeep'),
+        p.join(componentsPath, '.gitkeep'),
         '',
       );
 
-      print('');
-      print('Grafit initialized successfully!');
-      print('');
-      print('Next steps:');
-      print('  1. Add PikpoTheme to your MaterialApp');
-      print('  2. Run: pikpo add button');
-      print('  3. Check docs/ for more information');
+      // Create the main export file
+      await _createExportFile(componentsPath);
+      printSuccess('Created grafit_ui.dart export file');
+
+      // Update pubspec.yaml
+      await _updatePubspec(projectPath);
+      printSuccess('Updated pubspec.yaml');
+
+      printSeparator();
+      printSuccess('Grafit UI initialized successfully!');
+      printSeparator();
+      printHeader('Next steps');
+      printInfo('1. Add GrafitTheme to your MaterialApp');
+      printIndent('materialApp.theme: GrafitTheme.light()');
+      printIndent('materialApp.darkTheme: GrafitTheme.dark()');
+      printSeparator();
+      printInfo('2. Add a component:');
+      printIndent('gft add button');
+      printSeparator();
+      printInfo('3. List available components:');
+      printIndent('gft list');
     } catch (e) {
-      print('Error: $e');
+      printError(e.toString());
     }
+  }
+
+  Future<void> _createExportFile(String componentsPath) async {
+    final exportFile = File(p.join(componentsPath, 'grafit_ui.dart'));
+    final content = '''
+/// Grafit UI Components Export
+/// Auto-generated by Grafit CLI
+///
+
+library grafit_ui;
+
+// Export all components
+// Add your component exports here as you add them
+
+// Form Components
+// export 'button/grafit_button.dart';
+// export 'input/grafit_input.dart';
+
+// Example usage:
+// import 'package:your_app/ui/grafit_ui.dart';
+''';
+    await exportFile.writeAsString(content.trim());
+  }
+
+  Future<void> _updatePubspec(String projectPath) async {
+    final pubspecFile = File(p.join(projectPath, 'pubspec.yaml'));
+    if (!pubspecFile.existsSync()) {
+      return;
+    }
+
+    final content = await pubspecFile.readAsString();
+
+    // Check if grafit_ui dependency already exists
+    if (content.contains('grafit_ui:')) {
+      return;
+    }
+
+    // Add grafit_ui dependency
+    final updatedContent = content.replaceFirst(
+      'dependencies:',
+      'dependencies:\n  grafit_ui:\n    path: ../packages/grafit_ui',
+    );
+
+    await pubspecFile.writeAsString(updatedContent);
   }
 }

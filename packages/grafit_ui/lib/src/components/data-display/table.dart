@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Alignment options for table cells and headers
 enum GrafitTableAlignment {
@@ -533,4 +534,430 @@ extension GrafitTableHeadExtension on Widget {
       textStyle: textStyle,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Basic Table',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableBasic(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 600,
+      child: GrafitTable(
+        columnCount: 3,
+        rows: [
+          TableRow(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('John Doe'),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('john@example.com'),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Active'),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Jane Smith'),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('jane@example.com'),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Inactive'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Header',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableWithHeader(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 600,
+      child: GrafitTable(
+        columnCount: 4,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Name')),
+              GrafitTableHead(child: Text('Email')),
+              GrafitTableHead(child: Text('Status')),
+              GrafitTableHead(alignment: GrafitTableAlignment.right, child: Text('Actions')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('John Doe')),
+              GrafitTableCell(child: Text('john@example.com')),
+              GrafitTableCell(child: Text('Active')),
+              GrafitTableCell(
+                alignment: GrafitTableAlignment.right,
+                child: Text('Edit'),
+              ),
+            ],
+          ),
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('Jane Smith')),
+              GrafitTableCell(child: Text('jane@example.com')),
+              GrafitTableCell(child: Text('Inactive')),
+              GrafitTableCell(
+                alignment: GrafitTableAlignment.right,
+                child: Text('Edit'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Caption',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableWithCaption(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 600,
+      child: GrafitTable(
+        caption: 'User Accounts',
+        columnCount: 4,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Name')),
+              GrafitTableHead(child: Text('Email')),
+              GrafitTableHead(child: Text('Role')),
+              GrafitTableHead(child: Text('Status')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('John Doe')),
+              GrafitTableCell(child: Text('john@example.com')),
+              GrafitTableCell(child: Text('Admin')),
+              GrafitTableCell(child: Text('Active')),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Footer',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableWithFooter(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 600,
+      child: GrafitTable(
+        columnCount: 3,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Product')),
+              GrafitTableHead(child: Text('Price')),
+              GrafitTableHead(child: Text('Qty')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('Widget A')),
+              GrafitTableCell(child: Text('\$10.00')),
+              GrafitTableCell(child: Text('5')),
+            ],
+          ),
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('Widget B')),
+              GrafitTableCell(child: Text('\$15.00')),
+              GrafitTableCell(child: Text('3')),
+            ],
+          ),
+        ],
+        footer: GrafitTableFooter(
+          children: [
+            GrafitTableCell(child: Text('Total')),
+            GrafitTableCell(child: Text('\$95.00')),
+            GrafitTableCell(child: Text('8')),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Borders',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableBorders(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        const Text('Horizontal Only'),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitTable(
+            columnCount: 2,
+            showHorizontalBorders: true,
+            showVerticalBorders: false,
+            rows: const [
+              TableRow(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 1'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 2'),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 3'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 4'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        const Text('Both Horizontal and Vertical'),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitTable(
+            columnCount: 2,
+            showHorizontalBorders: true,
+            showVerticalBorders: true,
+            rows: const [
+              TableRow(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 1'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 2'),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 3'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Cell 4'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Selected Row',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableSelectedRow(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 500,
+      child: GrafitTable(
+        columnCount: 3,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Name')),
+              GrafitTableHead(child: Text('Email')),
+              GrafitTableHead(child: Text('Status')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('John Doe')),
+              GrafitTableCell(child: Text('john@example.com')),
+              GrafitTableCell(child: Text('Active')),
+            ],
+          ),
+          GrafitTableRow(
+            selected: true,
+            children: [
+              GrafitTableCell(child: Text('Jane Smith')),
+              GrafitTableCell(child: Text('jane@example.com')),
+              GrafitTableCell(child: Text('Active')),
+            ],
+          ),
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('Bob Johnson')),
+              GrafitTableCell(child: Text('bob@example.com')),
+              GrafitTableCell(child: Text('Inactive')),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Cell Alignment',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableCellAlignment(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 500,
+      child: GrafitTable(
+        columnCount: 3,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Left')),
+              GrafitTableHead(alignment: GrafitTableAlignment.center, child: Text('Center')),
+              GrafitTableHead(alignment: GrafitTableAlignment.right, child: Text('Right')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(alignment: GrafitTableAlignment.left, child: Text('Left')),
+              GrafitTableCell(alignment: GrafitTableAlignment.center, child: Text('Center')),
+              GrafitTableCell(alignment: GrafitTableAlignment.right, child: Text('Right')),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitTable,
+  path: 'DataDisplay/Table',
+)
+Widget tableInteractive(BuildContext context) {
+  final showBorders = context.knobs.boolean(
+    label: 'Show Borders',
+    initialValue: true,
+  );
+  final showVertical = context.knobs.boolean(
+    label: 'Show Vertical Borders',
+    initialValue: false,
+  );
+  final hasCaption = context.knobs.boolean(
+    label: 'Show Caption',
+    initialValue: false,
+  );
+  final caption = context.knobs.string(
+    label: 'Caption Text',
+    initialValue: 'Data Table',
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 500,
+      child: GrafitTable(
+        caption: hasCaption ? caption : null,
+        columnCount: 3,
+        showHorizontalBorders: showBorders,
+        showVerticalBorders: showVertical,
+        header: [
+          GrafitTableHeader(
+            children: [
+              GrafitTableHead(child: Text('Name')),
+              GrafitTableHead(child: Text('Email')),
+              GrafitTableHead(child: Text('Status')),
+            ],
+          ),
+        ],
+        rows: [
+          GrafitTableRow(
+            children: [
+              GrafitTableCell(child: Text('John Doe')),
+              GrafitTableCell(child: Text('john@example.com')),
+              GrafitTableCell(child: Text('Active')),
+            ],
+          ),
+          GrafitTableRow(
+            selected: true,
+            children: [
+              GrafitTableCell(child: Text('Jane Smith')),
+              GrafitTableCell(child: Text('jane@example.com')),
+              GrafitTableCell(child: Text('Active')),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 
 /// OTP (One-Time Password) input component
@@ -659,3 +660,204 @@ class GrafitInputOtpSeparator extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: 6,
+      child: Row(
+        children: [
+          GrafitInputOtpGroup(
+            children: [
+              GrafitInputOtpSlot(index: 0),
+              GrafitInputOtpSlot(index: 1),
+              GrafitInputOtpSlot(index: 2),
+            ],
+          ),
+          GrafitInputOtpSeparator(),
+          GrafitInputOtpGroup(
+            children: [
+              GrafitInputOtpSlot(index: 3),
+              GrafitInputOtpSlot(index: 4),
+              GrafitInputOtpSlot(index: 5),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Four Digits',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpFourDigits(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: 4,
+      child: Row(
+        children: [
+          GrafitInputOtpSlot(index: 0),
+          GrafitInputOtpSlot(index: 1),
+          GrafitInputOtpSlot(index: 2),
+          GrafitInputOtpSlot(index: 3),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Error',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpWithError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: 6,
+      child: Row(
+        children: [
+          GrafitInputOtpSlot(index: 0),
+          GrafitInputOtpSlot(index: 1, hasError: true),
+          GrafitInputOtpSlot(index: 2, hasError: true),
+          GrafitInputOtpSlot(index: 3),
+          GrafitInputOtpSlot(index: 4),
+          GrafitInputOtpSlot(index: 5),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Initial Value',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpWithInitialValue(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: 6,
+      initialValue: '123456',
+      child: Row(
+        children: [
+          GrafitInputOtpSlot(index: 0),
+          GrafitInputOtpSlot(index: 1),
+          GrafitInputOtpSlot(index: 2),
+          GrafitInputOtpSlot(index: 3),
+          GrafitInputOtpSlot(index: 4),
+          GrafitInputOtpSlot(index: 5),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Opacity(
+      opacity: 0.5,
+      child: GrafitInputOtp(
+        length: 6,
+        enabled: false,
+        child: Row(
+          children: [
+            GrafitInputOtpSlot(index: 0),
+            GrafitInputOtpSlot(index: 1),
+            GrafitInputOtpSlot(index: 2),
+            GrafitInputOtpSlot(index: 3),
+            GrafitInputOtpSlot(index: 4),
+            GrafitInputOtpSlot(index: 5),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Separator',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpCustomSeparator(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: 6,
+      child: Row(
+        children: [
+          GrafitInputOtpGroup(
+            children: [
+              GrafitInputOtpSlot(index: 0),
+              GrafitInputOtpSlot(index: 1),
+              GrafitInputOtpSlot(index: 2),
+            ],
+          ),
+          GrafitInputOtpSeparator(
+            width: 32,
+            height: 4,
+          ),
+          GrafitInputOtpGroup(
+            children: [
+              GrafitInputOtpSlot(index: 3),
+              GrafitInputOtpSlot(index: 4),
+              GrafitInputOtpSlot(index: 5),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitInputOtp,
+  path: 'Form/InputOtp',
+)
+Widget inputOtpInteractive(BuildContext context) {
+  final length = context.knobs.int.label: 'Length', initialValue: 6);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final showErrors = context.knobs.boolean(label: 'Show Errors', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitInputOtp(
+      length: length,
+      enabled: enabled,
+      child: Row(
+        children: List.generate(
+          length,
+          (index) => GrafitInputOtpSlot(
+            index: index,
+            hasError: showErrors && index >= 2,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+

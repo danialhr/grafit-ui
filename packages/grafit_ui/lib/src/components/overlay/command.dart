@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Command palette component - a dropdown menu for commands
 class GrafitCommand extends StatefulWidget {
@@ -711,4 +712,276 @@ class GrafitCommandListWrapper extends StatelessWidget {
       searchQuery: searchQuery,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandDefault(BuildContext context) {
+  return GrafitCommand(
+    groups: const [
+      GrafitCommandGroup(
+        label: 'Suggestions',
+        items: [
+          GrafitCommandItem(
+            label: 'Calendar',
+            icon: Icons.calendar_today,
+            shortcut: 'C',
+          ),
+          GrafitCommandItem(
+            label: 'Search Emoji',
+            icon: Icons.emoji_emotions,
+            shortcut: 'E',
+          ),
+          GrafitCommandItem(
+            label: 'Calculator',
+            icon: Icons.calculate,
+            shortcut: 'C',
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Groups',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandMultipleGroups(BuildContext context) {
+  return GrafitCommand(
+    groups: const [
+      GrafitCommandGroup(
+        label: 'General',
+        items: [
+          GrafitCommandItem(
+            label: 'New Document',
+            icon: Icons.add,
+            shortcut: 'N',
+          ),
+          GrafitCommandItem(
+            label: 'Open',
+            icon: Icons.folder_open,
+            shortcut: 'O',
+          ),
+        ],
+      ),
+      GrafitCommandGroup(
+        label: 'Settings',
+        items: [
+          GrafitCommandItem(
+            label: 'Profile',
+            icon: Icons.person,
+            shortcut: 'P',
+          ),
+          GrafitCommandItem(
+            label: 'Billing',
+            icon: Icons.payment,
+            shortcut: 'B',
+          ),
+          GrafitCommandItem(
+            label: 'Settings',
+            icon: Icons.settings,
+            shortcut: 'S',
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Without Icons',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandWithoutIcons(BuildContext context) {
+  return GrafitCommand(
+    groups: const [
+      GrafitCommandGroup(
+        items: [
+          GrafitCommandItem(label: 'Option One'),
+          GrafitCommandItem(label: 'Option Two'),
+          GrafitCommandItem(label: 'Option Three'),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Empty State',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandEmptyState(BuildContext context) {
+  return GrafitCommand(
+    groups: const [
+      GrafitCommandGroup(
+        items: [],
+      ),
+    ],
+    emptyState: const GrafitCommandEmpty(
+      title: 'No results found',
+      description: 'Try a different search term',
+      icon: Icon(Icons.search_off),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Command Palette',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandPalette(BuildContext context) {
+  return GrafitCommand(
+    groups: const [
+      GrafitCommandGroup(
+        label: 'Navigation',
+        items: [
+          GrafitCommandItem(
+            label: 'Go to Dashboard',
+            icon: Icons.dashboard,
+            shortcut: 'G D',
+          ),
+          GrafitCommandItem(
+            label: 'Go to Projects',
+            icon: Icons.work,
+            shortcut: 'G P',
+          ),
+          GrafitCommandItem(
+            label: 'Go to Settings',
+            icon: Icons.settings,
+            shortcut: 'G S',
+          ),
+        ],
+      ),
+      GrafitCommandGroup(
+        label: 'Actions',
+        items: [
+          GrafitCommandItem(
+            label: 'Create New',
+            icon: Icons.add_circle,
+            shortcut: 'C',
+          ),
+          GrafitCommandItem(
+            label: 'Search',
+            icon: Icons.search,
+            shortcut: '/',
+          ),
+          GrafitCommandItem(
+            label: 'Toggle Theme',
+            icon: Icons.brightness_6,
+            shortcut: 'T',
+          ),
+        ],
+      ),
+    ],
+    placeholder: 'Type a command or search...',
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Long List',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandLongList(BuildContext context) {
+  return GrafitCommand(
+    groups: List.generate(3, (groupIndex) {
+      return GrafitCommandGroup(
+        label: 'Group ${groupIndex + 1}',
+        items: List.generate(10, (itemIndex) {
+          return GrafitCommandItem(
+            label: 'Item ${groupIndex + 1}-${itemIndex + 1}',
+            icon: Icons.label,
+          );
+        }),
+      );
+    }),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitCommand,
+  path: 'Overlay/Command',
+)
+Widget commandInteractive(BuildContext context) {
+  final placeholder = context.knobs.string(
+    label: 'Placeholder',
+    initialValue: 'Search...',
+  );
+  final showGroups = context.knobs.boolean(label: 'Show Groups', initialValue: true);
+  final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  final itemCount = context.knobs.int.slider(
+    label: 'Item Count',
+    initialValue: 5,
+    min: 1,
+    max: 20,
+  );
+
+  return GrafitCommand(
+    placeholder: placeholder.isNotEmpty ? placeholder : 'Search...',
+    groups: [
+      GrafitCommandGroup(
+        label: showGroups ? 'Items' : null,
+        items: List.generate(itemCount, (index) {
+          return GrafitCommandItem(
+            label: 'Item ${index + 1}',
+            icon: showIcons ? Icons.star : null,
+            shortcut: showShortcuts ? '${index + 1}' : null,
+          );
+        }),
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Command Dialog',
+  type: GrafitCommandDialog,
+  path: 'Overlay/Command',
+)
+Widget commandDialogUseCase(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: ElevatedButton(
+        onPressed: () {
+          GrafitCommandDialog.show(
+            context,
+            groups: const [
+              GrafitCommandGroup(
+                label: 'Actions',
+                items: [
+                  GrafitCommandItem(
+                    label: 'Copy',
+                    icon: Icons.copy,
+                    shortcut: 'C',
+                  ),
+                  GrafitCommandItem(
+                    label: 'Paste',
+                    icon: Icons.paste,
+                    shortcut: 'V',
+                  ),
+                  GrafitCommandItem(
+                    label: 'Cut',
+                    icon: Icons.content_cut,
+                    shortcut: 'X',
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+        child: const Text('Open Command Palette'),
+      ),
+    ),
+  );
 }

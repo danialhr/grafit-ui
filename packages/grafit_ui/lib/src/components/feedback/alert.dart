@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Alert variant
 enum GrafitAlertVariant {
@@ -128,4 +129,205 @@ class _AlertColors {
     required this.foreground,
     required this.border,
   });
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitAlert(
+      title: 'Information',
+      description: 'This is an informational alert message.',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Destructive',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertDestructive(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitAlert(
+      title: 'Error',
+      description: 'Something went wrong. Please try again.',
+      variant: GrafitAlertVariant.destructive,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Warning',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertWarning(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitAlert(
+      title: 'Warning',
+      description: 'Please review this important warning.',
+      variant: GrafitAlertVariant.warning,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Without Description',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertWithoutDescription(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        GrafitAlert(
+          title: 'Information',
+          variant: GrafitAlertVariant.value,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Error',
+          variant: GrafitAlertVariant.destructive,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Warning',
+          variant: GrafitAlertVariant.warning,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Close Button',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertWithClose(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitAlert(
+      title: 'Dismissible Alert',
+      description: 'You can dismiss this alert by clicking the X button.',
+      onClose: null, // In real use, provide a callback
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Variants',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertAllVariants(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        GrafitAlert(
+          title: 'Information',
+          description: 'This is an informational message.',
+          variant: GrafitAlertVariant.value,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Error',
+          description: 'This is an error message.',
+          variant: GrafitAlertVariant.destructive,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Warning',
+          description: 'This is a warning message.',
+          variant: GrafitAlertVariant.warning,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Icon',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertCustomIcon(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        GrafitAlert(
+          title: 'Success',
+          description: 'Operation completed successfully!',
+          icon: Icons.check_circle,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Info',
+          description: 'Here is some additional information.',
+          icon: Icons.info,
+        ),
+        SizedBox(height: 8),
+        GrafitAlert(
+          title: 'Tip',
+          description: 'Pro tip: You can customize icons!',
+          icon: Icons.lightbulb,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitAlert,
+  path: 'Feedback/Alert',
+)
+Widget alertInteractive(BuildContext context) {
+  final title = context.knobs.string(
+    label: 'Title',
+    initialValue: 'Alert Title',
+  );
+  final description = context.knobs.string(
+    label: 'Description',
+    initialValue: 'This is the alert description text.',
+  );
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitAlertVariant.value,
+    options: [
+      GrafitAlertVariant.value,
+      GrafitAlertVariant.destructive,
+      GrafitAlertVariant.warning,
+    ],
+  );
+  final hasIcon = context.knobs.boolean(
+    label: 'Show Custom Icon',
+    initialValue: false,
+  );
+  final hasCloseButton = context.knobs.boolean(
+    label: 'Show Close Button',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitAlert(
+      title: title.isNotEmpty ? title : 'Alert Title',
+      description: description.isNotEmpty ? description : null,
+      variant: variant,
+      icon: hasIcon ? Icons.notifications : null,
+      onClose: hasCloseButton ? () {} : null,
+    ),
+  );
 }

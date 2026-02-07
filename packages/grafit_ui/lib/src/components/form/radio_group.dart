@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../primitives/clickable.dart';
 
@@ -351,3 +352,213 @@ class GrafitRadioItem<T> extends StatelessWidget {
     };
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'option1', label: 'Option 1'),
+        GrafitRadioItemData(value: 'option2', label: 'Option 2'),
+        GrafitRadioItemData(value: 'option3', label: 'Option 3'),
+      ],
+      value: 'option1',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Label',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupWithLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      label: 'Notification Preference',
+      items: [
+        GrafitRadioItemData(value: 'all', label: 'All notifications'),
+        GrafitRadioItemData(value: 'mentions', label: 'Mentions only'),
+        GrafitRadioItemData(value: 'none', label: 'None'),
+      ],
+      value: 'all',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'sm', label: 'Small'),
+        GrafitRadioItemData(value: 'md', label: 'Medium'),
+        GrafitRadioItemData(value: 'lg', label: 'Large'),
+      ],
+      value: 'sm',
+      size: GrafitRadioSize.sm,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Large Size',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupLarge(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'sm', label: 'Small'),
+        GrafitRadioItemData(value: 'md', label: 'Medium'),
+        GrafitRadioItemData(value: 'lg', label: 'Large'),
+      ],
+      value: 'lg',
+      size: GrafitRadioSize.lg,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Horizontal',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupHorizontal(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'left', label: 'Left'),
+        GrafitRadioItemData(value: 'center', label: 'Center'),
+        GrafitRadioItemData(value: 'right', label: 'Right'),
+      ],
+      value: 'left',
+      direction: Axis.horizontal,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Descriptions',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupWithDescriptions(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(
+          value: 'free',
+          label: 'Free Plan',
+          description: 'For individuals and small teams',
+        ),
+        GrafitRadioItemData(
+          value: 'pro',
+          label: 'Pro Plan',
+          description: 'For growing businesses',
+        ),
+        GrafitRadioItemData(
+          value: 'enterprise',
+          label: 'Enterprise',
+          description: 'For large organizations',
+        ),
+      ],
+      value: 'free',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'yes', label: 'Yes'),
+        GrafitRadioItemData(value: 'no', label: 'No'),
+        GrafitRadioItemData(value: 'maybe', label: 'Maybe'),
+      ],
+      value: 'yes',
+      enabled: false,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Disabled Item',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupWithDisabledItem(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      items: [
+        GrafitRadioItemData(value: 'standard', label: 'Standard Shipping'),
+        GrafitRadioItemData(value: 'express', label: 'Express Shipping'),
+        GrafitRadioItemData(value: 'overnight', label: 'Overnight Shipping', enabled: false),
+      ],
+      value: 'standard',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitRadioGroup,
+  path: 'Form/RadioGroup',
+)
+Widget radioGroupInteractive(BuildContext context) {
+  final label = context.knobs.string(label: 'Label', initialValue: 'Select an option');
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitRadioSize.md,
+    options: const [GrafitRadioSize.sm, GrafitRadioSize.md, GrafitRadioSize.lg],
+  );
+  final direction = context.knobs.list(
+    label: 'Direction',
+    initialOption: Axis.vertical,
+    options: const [Axis.vertical, Axis.horizontal],
+  );
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitRadioGroup<String>(
+      label: label.isNotEmpty ? label : null,
+      items: const [
+        GrafitRadioItemData(value: 'option1', label: 'Option 1'),
+        GrafitRadioItemData(value: 'option2', label: 'Option 2'),
+        GrafitRadioItemData(value: 'option3', label: 'Option 3'),
+      ],
+      value: 'option1',
+      size: size,
+      direction: direction,
+      enabled: enabled,
+    ),
+  );
+}
+

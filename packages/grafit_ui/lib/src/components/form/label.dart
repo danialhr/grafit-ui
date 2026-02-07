@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 
@@ -56,3 +57,91 @@ class GrafitLabel extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitLabel,
+  path: 'Form/Label',
+)
+Widget labelDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitLabel(text: 'Email'),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Required',
+  type: GrafitLabel,
+  path: 'Form/Label',
+)
+Widget labelRequired(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitLabel(
+      text: 'Password',
+      required: true,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitLabel,
+  path: 'Form/Label',
+)
+Widget labelDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitLabel(
+      text: 'Disabled Label',
+      disabled: true,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Labels',
+  type: GrafitLabel,
+  path: 'Form/Label',
+)
+Widget labelMultiple(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitLabel(text: 'First Name'),
+        SizedBox(height: 8),
+        GrafitLabel(text: 'Last Name', required: true),
+        SizedBox(height: 8),
+        GrafitLabel(text: 'Disabled Field', disabled: true),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitLabel,
+  path: 'Form/Label',
+)
+Widget labelInteractive(BuildContext context) {
+  final text = context.knobs.string(label: 'Text', initialValue: 'Email');
+  final required = context.knobs.boolean(label: 'Required', initialValue: false);
+  final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitLabel(
+      text: text.isNotEmpty ? text : 'Label',
+      required: required,
+      disabled: disabled,
+    ),
+  );
+}
+

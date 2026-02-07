@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import '../form/button.dart';
 
 /// Popover alignment options
 enum GrafitPopoverAlignment {
@@ -423,4 +425,251 @@ class GrafitPopoverDescription extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Open Popover'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GrafitPopoverTitle(title: 'Popover Title'),
+          SizedBox(height: 8),
+          GrafitPopoverDescription(description: 'This is a popover content.'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Header',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverWithHeader(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Open Popover'),
+      content: GrafitPopoverHeader(
+        title: 'Account Settings',
+        description: 'Manage your account preferences',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Top Alignment',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverTopAlignment(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Show Above'),
+      alignment: GrafitPopoverAlignment.top,
+      content: GrafitPopoverHeader(
+        title: 'Above',
+        description: 'Popover appears above the trigger',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Left Alignment',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverLeftAlignment(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Show Left'),
+      alignment: GrafitPopoverAlignment.left,
+      content: GrafitPopoverHeader(
+        title: 'Left Side',
+        description: 'Popover appears to the left',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Right Alignment',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverRightAlignment(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Show Right'),
+      alignment: GrafitPopoverAlignment.right,
+      content: GrafitPopoverHeader(
+        title: 'Right Side',
+        description: 'Popover appears to the right',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Alignments',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverAllAlignments(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: [
+        GrafitPopover(
+          trigger: GrafitButton(label: 'Top'),
+          alignment: GrafitPopoverAlignment.top,
+          content: GrafitPopoverHeader(title: 'Top'),
+        ),
+        GrafitPopover(
+          trigger: GrafitButton(label: 'Bottom'),
+          alignment: GrafitPopoverAlignment.bottom,
+          content: GrafitPopoverHeader(title: 'Bottom'),
+        ),
+        GrafitPopover(
+          trigger: GrafitButton(label: 'Left'),
+          alignment: GrafitPopoverAlignment.left,
+          content: GrafitPopoverHeader(title: 'Left'),
+        ),
+        GrafitPopover(
+          trigger: GrafitButton(label: 'Right'),
+          alignment: GrafitPopoverAlignment.right,
+          content: GrafitPopoverHeader(title: 'Right'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Rich Content',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverRichContent(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'User Menu'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GrafitPopoverHeader(
+            title: 'John Doe',
+            description: 'john@example.com',
+          ),
+          SizedBox(height: 8),
+          Text('Profile Settings', style: TextStyle(fontSize: 12)),
+          SizedBox(height: 4),
+          Text('Billing', style: TextStyle(fontSize: 12)),
+          SizedBox(height: 4),
+          Text('Logout', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Non Dismissible',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverNonDismissible(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'Open (Click to close)'),
+      dismissible: false,
+      content: GrafitPopoverHeader(
+        title: 'Click trigger to close',
+        description: 'This popover cannot be dismissed by clicking outside',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Offset',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverCustomOffset(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: GrafitButton(label: 'With Offset'),
+      offset: 16,
+      content: GrafitPopoverHeader(
+        title: 'Custom Offset',
+        description: '16px offset from trigger',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitPopover,
+  path: 'Overlay/Popover',
+)
+Widget popoverInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Popover Title');
+  final description = context.knobs.string(label: 'Description', initialValue: 'This is a popover');
+  final alignment = context.knobs.list(
+    label: 'Alignment',
+    initialOption: GrafitPopoverAlignment.bottom,
+    options: [
+      GrafitPopoverAlignment.top,
+      GrafitPopoverAlignment.bottom,
+      GrafitPopoverAlignment.left,
+      GrafitPopoverAlignment.right,
+      GrafitPopoverAlignment.topLeft,
+      GrafitPopoverAlignment.topRight,
+      GrafitPopoverAlignment.bottomLeft,
+      GrafitPopoverAlignment.bottomRight,
+    ],
+  );
+  final offset = context.knobs.double.slider(label: 'Offset', initialValue: 4, min: 0, max: 32);
+  final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+
+  return Padding(
+    padding: const EdgeInsets.all(100.0),
+    child: GrafitPopover(
+      trigger: const GrafitButton(label: 'Open Popover'),
+      alignment: alignment,
+      offset: offset,
+      dismissible: dismissible,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (title.isNotEmpty) GrafitPopoverTitle(title: title),
+          SizedBox(height: title.isNotEmpty && description.isNotEmpty ? 8 : 0),
+          if (description.isNotEmpty) GrafitPopoverDescription(description: description),
+        ],
+      ),
+    ),
+  );
 }

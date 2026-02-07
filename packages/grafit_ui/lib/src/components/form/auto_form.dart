@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide FormFieldValidator;
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../layout/accordion.dart';
 import '../layout/card.dart';
@@ -2363,3 +2364,205 @@ extension GrafitAutoFormExtension on BuildContext {
     return GrafitFormScope.of(this).controller;
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitAutoForm,
+  path: 'Form/AutoForm',
+)
+Widget autoFormDefault(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 500),
+      child: GrafitAutoForm(
+        schema: GrafitAutoFormSchema(
+          fields: [
+            GrafitAutoFormField(
+              name: 'username',
+              type: GrafitAutoFormFieldType.text,
+              label: 'Username',
+              required: true,
+              minLength: 3,
+            ),
+            GrafitAutoFormField(
+              name: 'email',
+              type: GrafitAutoFormFieldType.email,
+              label: 'Email',
+              required: true,
+            ),
+            GrafitAutoFormField(
+              name: 'age',
+              type: GrafitAutoFormFieldType.number,
+              label: 'Age',
+              min: 18,
+              max: 100,
+            ),
+          ],
+        ),
+        onSubmit: (values) {
+          print('Form submitted: $values');
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Sections',
+  type: GrafitAutoForm,
+  path: 'Form/AutoForm',
+)
+Widget autoFormWithSections(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 500),
+      child: GrafitAutoForm(
+        schema: GrafitAutoFormSchema(
+          fields: [
+            GrafitAutoFormField(
+              name: 'username',
+              type: GrafitAutoFormFieldType.text,
+              label: 'Username',
+              required: true,
+            ),
+            GrafitAutoFormField(
+              name: 'profile',
+              type: GrafitAutoFormFieldType.section,
+              sectionConfig: GrafitAutoFormSectionConfig(
+                fields: ['bio', 'location'],
+                title: 'Profile Information',
+                description: 'Tell us about yourself',
+                collapsible: true,
+              ),
+            ),
+            GrafitAutoFormField(
+              name: 'bio',
+              type: GrafitAutoFormFieldType.textarea,
+              label: 'Bio',
+            ),
+            GrafitAutoFormField(
+              name: 'location',
+              type: GrafitAutoFormFieldType.text,
+              label: 'Location',
+            ),
+          ],
+        ),
+        onSubmit: (values) {
+          print('Form submitted: $values');
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Complete Form',
+  type: GrafitAutoForm,
+  path: 'Form/AutoForm',
+)
+Widget autoFormComplete(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 500),
+      child: GrafitAutoForm(
+        schema: GrafitAutoFormSchema(
+          fields: [
+            GrafitAutoFormField(
+              name: 'fullName',
+              type: GrafitAutoFormFieldType.text,
+              label: 'Full Name',
+              required: true,
+              placeholder: 'John Doe',
+            ),
+            GrafitAutoFormField(
+              name: 'email',
+              type: GrafitAutoFormFieldType.email,
+              label: 'Email',
+              required: true,
+              placeholder: 'john@example.com',
+            ),
+            GrafitAutoFormField(
+              name: 'role',
+              type: GrafitAutoFormFieldType.select,
+              label: 'Role',
+              required: true,
+              options: [
+                GrafitAutoFormOption(value: 'user', label: 'User'),
+                GrafitAutoFormOption(value: 'admin', label: 'Admin'),
+                GrafitAutoFormOption(value: 'moderator', label: 'Moderator'),
+              ],
+            ),
+            GrafitAutoFormField(
+              name: 'notifications',
+              type: GrafitAutoFormFieldType.toggleSwitch,
+              label: 'Email Notifications',
+              defaultValue: true,
+            ),
+            GrafitAutoFormField(
+              name: 'bio',
+              type: GrafitAutoFormFieldType.textarea,
+              label: 'Bio',
+              placeholder: 'Tell us about yourself',
+            ),
+          ],
+        ),
+        onSubmit: (values) {
+          print('Form submitted: $values');
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitAutoForm,
+  path: 'Form/AutoForm',
+)
+Widget autoFormInteractive(BuildContext context) {
+  final showValidation = context.knobs.boolean(label: 'Show Validation', initialValue: false);
+  final submitButtonText = context.knobs.string(label: 'Submit Button', initialValue: 'Submit');
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 500),
+      child: GrafitAutoForm(
+        schema: GrafitAutoFormSchema(
+          fields: [
+            GrafitAutoFormField(
+              name: 'username',
+              type: GrafitAutoFormFieldType.text,
+              label: 'Username',
+              required: showValidation,
+            ),
+            GrafitAutoFormField(
+              name: 'email',
+              type: GrafitAutoFormFieldType.email,
+              label: 'Email',
+              required: showValidation,
+            ),
+            GrafitAutoFormField(
+              name: 'terms',
+              type: GrafitAutoFormFieldType.checkbox,
+              label: 'I accept the terms',
+              required: showValidation,
+            ),
+          ],
+        ),
+        submitButtonText: submitButtonText,
+        onSubmit: (values) {
+          print('Form submitted: $values');
+        },
+      ),
+    ),
+  );
+}
+

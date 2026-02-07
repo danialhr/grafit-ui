@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/clickable.dart';
@@ -1448,4 +1449,265 @@ class _GrafitComboboxDelegate extends SingleChildLayoutDelegate {
   bool shouldRelayout(_GrafitComboboxDelegate oldDelegate) {
     return true;
   }
+}
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'apple', label: 'Apple'),
+          GrafitComboboxItemData(value: 'banana', label: 'Banana'),
+          GrafitComboboxItemData(value: 'orange', label: 'Orange'),
+          GrafitComboboxItemData(value: 'grape', label: 'Grape'),
+        ],
+        placeholder: 'Select a fruit',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Value',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxWithValue(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'apple', label: 'Apple'),
+          GrafitComboboxItemData(value: 'banana', label: 'Banana'),
+          GrafitComboboxItemData(value: 'orange', label: 'Orange'),
+        ],
+        value: 'banana',
+        placeholder: 'Select a fruit',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 280,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'sm', label: 'Small'),
+          GrafitComboboxItemData(value: 'md', label: 'Medium'),
+          GrafitComboboxItemData(value: 'lg', label: 'Large'),
+        ],
+        size: GrafitComboboxSize.sm,
+        placeholder: 'Select size',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Label',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxWithLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'us', label: 'United States'),
+          GrafitComboboxItemData(value: 'uk', label: 'United Kingdom'),
+          GrafitComboboxItemData(value: 'ca', label: 'Canada'),
+        ],
+        label: 'Country',
+        placeholder: 'Select your country',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Error',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxWithError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'admin', label: 'Admin'),
+          GrafitComboboxItemData(value: 'user', label: 'User'),
+          GrafitComboboxItemData(value: 'guest', label: 'Guest'),
+        ],
+        label: 'Role',
+        errorText: 'This field is required',
+        placeholder: 'Select a role',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Helper Text',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxWithHelper(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'light', label: 'Light'),
+          GrafitComboboxItemData(value: 'dark', label: 'Dark'),
+          GrafitComboboxItemData(value: 'system', label: 'System'),
+        ],
+        label: 'Theme',
+        helperText: 'Choose your preferred theme',
+        placeholder: 'Select theme',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'option1', label: 'Option 1'),
+          GrafitComboboxItemData(value: 'option2', label: 'Option 2'),
+        ],
+        enabled: false,
+        placeholder: 'Disabled combobox',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Create Option',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxWithCreate(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: [
+          GrafitComboboxItemData(value: 'red', label: 'Red'),
+          GrafitComboboxItemData(value: 'blue', label: 'Blue'),
+          GrafitComboboxItemData(value: 'green', label: 'Green'),
+        ],
+        allowCreation: true,
+        createLabel: 'Create "{}"',
+        placeholder: 'Select or create a color',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Grouped Options',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxGrouped(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>.grouped(
+        groups: [
+          GrafitComboboxGroupData(
+            label: 'Fruits',
+            items: [
+              GrafitComboboxItemData(value: 'apple', label: 'Apple'),
+              GrafitComboboxItemData(value: 'banana', label: 'Banana'),
+            ],
+          ),
+          GrafitComboboxGroupData(
+            label: 'Vegetables',
+            items: [
+              GrafitComboboxItemData(value: 'carrot', label: 'Carrot'),
+              GrafitComboboxItemData(value: 'broccoli', label: 'Broccoli'),
+            ],
+          ),
+        ],
+        placeholder: 'Select a food',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitCombobox,
+  path: 'Form/Combobox',
+)
+Widget comboboxInteractive(BuildContext context) {
+  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitComboboxSize.md,
+    options: const [GrafitComboboxSize.sm, GrafitComboboxSize.md],
+  );
+  final showClear = context.knobs.boolean(label: 'Show Clear', initialValue: false);
+  final showTrigger = context.knobs.boolean(label: 'Show Trigger', initialValue: true);
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitCombobox<String>(
+        items: const [
+          GrafitComboboxItemData(value: 'option1', label: 'Option 1'),
+          GrafitComboboxItemData(value: 'option2', label: 'Option 2'),
+          GrafitComboboxItemData(value: 'option3', label: 'Option 3'),
+        ],
+        placeholder: placeholder.isNotEmpty ? placeholder : null,
+        enabled: enabled,
+        size: size,
+        showClear: showClear,
+        showTrigger: showTrigger,
+        errorText: hasError ? 'This field has an error' : null,
+      ),
+    ),
+  );
 }

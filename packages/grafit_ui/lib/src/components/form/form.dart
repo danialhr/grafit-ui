@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import 'label.dart';
@@ -804,3 +805,262 @@ extension GrafitFormExtension on BuildContext {
     return GrafitFormScope.of(this).controller;
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitForm,
+  path: 'Form/Form',
+)
+Widget formDefault(BuildContext context) {
+  final controller = GrafitFormController();
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: GrafitForm(
+        controller: controller,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GrafitFormLabel(text: 'Email'),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'email',
+              initialValue: '',
+              validators: [
+                GrafitValidators.required(),
+                GrafitValidators.email(),
+              ],
+              builder: (context, value, error) {
+                return TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('email', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            GrafitFormLabel(text: 'Password'),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'password',
+              initialValue: '',
+              validators: [
+                GrafitValidators.required(),
+                GrafitValidators.minLength(8),
+              ],
+              builder: (context, value, error) {
+                return TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your password',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('password', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                if (controller.validate()) {
+                  print('Form submitted: ${controller.values}');
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Validation',
+  type: GrafitForm,
+  path: 'Form/Form',
+)
+Widget formWithValidation(BuildContext context) {
+  final controller = GrafitFormController();
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: GrafitForm(
+        controller: controller,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GrafitFormLabel(text: 'Username'),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'username',
+              initialValue: '',
+              validators: [
+                GrafitValidators.required(message: 'Username is required'),
+                GrafitValidators.minLength(3, message: 'Must be at least 3 characters'),
+              ],
+              builder: (context, value, error) {
+                return TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter username',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('username', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                controller.validate();
+              },
+              child: const Text('Validate'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Nested Form',
+  type: GrafitForm,
+  path: 'Form/Form',
+)
+Widget formNested(BuildContext context) {
+  final controller = GrafitFormController();
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: GrafitForm(
+        controller: controller,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GrafitFormLabel(text: 'Address'),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'address.street',
+              initialValue: '',
+              validators: [GrafitValidators.required()],
+              builder: (context, value, error) {
+                return TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Street',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('address.street', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'address.city',
+              initialValue: '',
+              validators: [GrafitValidators.required()],
+              builder: (context, value, error) {
+                return TextField(
+                  decoration: InputDecoration(
+                    labelText: 'City',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('address.city', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                if (controller.validate()) {
+                  print('Form values: ${controller.values}');
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitForm,
+  path: 'Form/Form',
+)
+Widget formInteractive(BuildContext context) {
+  final controller = GrafitFormController();
+  final showValidation = context.knobs.boolean(label: 'Show Validation', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: GrafitForm(
+        controller: controller,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GrafitFormLabel(text: 'Email'),
+            const SizedBox(height: 8),
+            GrafitFormField<String>(
+              name: 'email',
+              initialValue: '',
+              validators: showValidation
+                  ? [
+                      GrafitValidators.required(),
+                      GrafitValidators.email(),
+                    ]
+                  : [],
+              builder: (context, value, error) {
+                return TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    errorText: error,
+                  ),
+                  onChanged: (newValue) {
+                    context.formController.setValue('email', newValue);
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                if (controller.validate()) {
+                  print('Form submitted: ${controller.values}');
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+

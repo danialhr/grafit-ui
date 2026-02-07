@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../form/button.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Calendar selection mode
 enum GrafitCalendarMode {
@@ -797,4 +798,220 @@ class GrafitCalendarNextButton extends StatelessWidget {
       onPressed: onPressed,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.single,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Single Selection',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarSingleSelection(BuildContext context) {
+  final initialDate = context.knobs.dateTimeOrNull(
+    label: 'Initial Date',
+    initialValue: DateTime.now(),
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.single,
+        initialDate: initialDate,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Selection',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarMultipleSelection(BuildContext context) {
+  final showOutsideDays = context.knobs.boolean(
+    label: 'Show Outside Days',
+    initialValue: true,
+  );
+
+  final showWeekNumbers = context.knobs.boolean(
+    label: 'Show Week Numbers',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 380,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.multiple,
+        initialDates: [
+          DateTime(2025, 2, 5),
+          DateTime(2025, 2, 12),
+          DateTime(2025, 2, 20),
+        ],
+        initialMonth: DateTime(2025, 2, 1),
+        showOutsideDays: showOutsideDays,
+        showWeekNumbers: showWeekNumbers,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Range Selection',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarRangeSelection(BuildContext context) {
+  final showOutsideDays = context.knobs.boolean(
+    label: 'Show Outside Days',
+    initialValue: true,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.range,
+        initialRange: DateTimeRange(
+          start: DateTime(2025, 2, 10),
+          end: DateTime(2025, 2, 18),
+        ),
+        initialMonth: DateTime(2025, 2, 1),
+        showOutsideDays: showOutsideDays,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Date Constraints',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarWithConstraints(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.single,
+        firstDate: DateTime(2025, 2, 5),
+        lastDate: DateTime(2025, 2, 25),
+        initialMonth: DateTime(2025, 2, 1),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Week Start',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarCustomWeekStart(BuildContext context) {
+  final firstDayOfWeek = context.knobs.int.slider(
+    label: 'First Day of Week',
+    initialValue: 0,
+    min: 0,
+    max: 6,
+    description: '0 = Sunday, 1 = Monday, etc.',
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.single,
+        firstDayOfWeek: firstDayOfWeek,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Disabled Dates',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarWithDisabledDates(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 350,
+      child: GrafitCalendar(
+        mode: GrafitCalendarMode.single,
+        disabledDates: [
+          DateTime(2025, 2, 8),
+          DateTime(2025, 2, 15),
+          DateTime(2025, 2, 22),
+        ],
+        initialMonth: DateTime(2025, 2, 1),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitCalendar,
+  path: 'Specialized/Calendar',
+)
+Widget calendarInteractive(BuildContext context) {
+  final mode = context.knobs.list(
+    label: 'Mode',
+    options: GrafitCalendarMode.values,
+    initialOption: GrafitCalendarMode.single,
+  );
+
+  final showOutsideDays = context.knobs.boolean(
+    label: 'Show Outside Days',
+    initialValue: true,
+  );
+
+  final showWeekNumbers = context.knobs.boolean(
+    label: 'Show Week Numbers',
+    initialValue: false,
+  );
+
+  final firstDayOfWeek = context.knobs.int.slider(
+    label: 'First Day of Week',
+    initialValue: 0,
+    min: 0,
+    max: 6,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 380,
+      child: GrafitCalendar(
+        mode: mode,
+        showOutsideDays: showOutsideDays,
+        showWeekNumbers: showWeekNumbers,
+        firstDayOfWeek: firstDayOfWeek,
+      ),
+    ),
+  );
 }

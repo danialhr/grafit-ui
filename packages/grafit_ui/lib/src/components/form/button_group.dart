@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/clickable.dart';
@@ -728,3 +729,139 @@ class GrafitButtonGroupText extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitButtonGroup,
+  path: 'Form/ButtonGroup',
+)
+Widget buttonGroupDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitButtonGroup(
+      children: [
+        GrafitButtonGroupItem(
+          label: 'Button 1',
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Button 2',
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Button 3',
+          onPressed: () {},
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Vertical',
+  type: GrafitButtonGroup,
+  path: 'Form/ButtonGroup',
+)
+Widget buttonGroupVertical(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitButtonGroup(
+      orientation: GrafitButtonGroupOrientation.vertical,
+      children: [
+        GrafitButtonGroupItem(
+          label: 'Top',
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Middle',
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Bottom',
+          onPressed: () {},
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Icons',
+  type: GrafitButtonGroup,
+  path: 'Form/ButtonGroup',
+)
+Widget buttonGroupWithIcons(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitButtonGroup(
+      children: [
+        GrafitButtonGroupItem(
+          icon: Icons.format_align_left,
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          icon: Icons.format_align_center,
+          onPressed: () {},
+        ),
+        GrafitButtonGroupItem(
+          icon: Icons.format_align_right,
+          onPressed: () {},
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitButtonGroup,
+  path: 'Form/ButtonGroup',
+)
+Widget buttonGroupInteractive(BuildContext context) {
+  final orientation = context.knobs.list(
+    label: 'Orientation',
+    initialOption: GrafitButtonGroupOrientation.horizontal,
+    options: const [
+      GrafitButtonGroupOrientation.horizontal,
+      GrafitButtonGroupOrientation.vertical,
+    ],
+  );
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitButtonSize.md,
+    options: const [GrafitButtonSize.sm, GrafitButtonSize.md, GrafitButtonSize.lg],
+  );
+  final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitButtonGroup(
+      orientation: orientation,
+      children: [
+        GrafitButtonGroupItem(
+          label: 'Option 1',
+          size: size,
+          disabled: disabled,
+          onPressed: disabled ? null : () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Option 2',
+          size: size,
+          disabled: disabled,
+          onPressed: disabled ? null : () {},
+        ),
+        GrafitButtonGroupItem(
+          label: 'Option 3',
+          size: size,
+          disabled: disabled,
+          onPressed: disabled ? null : () {},
+        ),
+      ],
+    ),
+  );
+}
+

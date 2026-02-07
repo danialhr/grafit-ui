@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Item variant
 enum GrafitItemVariant {
@@ -594,4 +595,473 @@ class GrafitItemBuilder extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitItem(
+        child: Row(
+          children: [
+            GrafitItemMedia(
+              child: Icon(Icons.person),
+            ),
+            SizedBox(width: 16),
+            GrafitItemContent(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GrafitItemTitle(title: 'John Doe'),
+                  GrafitItemDescription(text: 'john@example.com'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Outline Variant',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemOutline(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            variant: GrafitItemVariant.outline,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.folder)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Project Folder'),
+                      GrafitItemDescription(text: 'Contains important documents'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Muted Variant',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemMuted(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitItem(
+        variant: GrafitItemVariant.muted,
+        child: Row(
+          children: [
+            GrafitItemMedia(child: Icon(Icons.archive)),
+            SizedBox(width: 16),
+            GrafitItemContent(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GrafitItemTitle(title: 'Archived Items'),
+                  GrafitItemDescription(text: 'Older content moved to archive'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Selected',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemSelected(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.radio_button_unchecked)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Option 1'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            selected: true,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.radio_button_checked)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Option 2'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Actions',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemWithActions(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitItem(
+        child: Row(
+          children: [
+            GrafitItemMedia(child: Icon(Icons.image)),
+            SizedBox(width: 16),
+            Expanded(
+              child: GrafitItemContent(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GrafitItemTitle(title: 'Photo 1'),
+                    GrafitItemDescription(text: 'Added on Jan 15, 2024'),
+                  ],
+                ),
+              ),
+            ),
+            GrafitItemActions(
+              actions: [
+                Icon(Icons.edit, size: 18),
+                Icon(Icons.delete, size: 18),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Item Sizes',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemSizes(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            size: GrafitItemSize.sm,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.person, size: 16)),
+                SizedBox(width: 12),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Small Item'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            size: GrafitItemSize.default_,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.person, size: 24)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Default Item'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            size: GrafitItemSize.lg,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.person, size: 32)),
+                SizedBox(width: 20),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Large Item'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Item List',
+  type: GrafitItemGroup,
+  path: 'DataDisplay/Item',
+)
+Widget itemList(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitItemGroup(
+        spacing: 0,
+        children: [
+          GrafitItem(
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.mail)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Email from John'),
+                      GrafitItemDescription(text: 'Hey, how are you doing?'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 56, right: 16),
+            child: GrafitItemDivider(),
+          ),
+          GrafitItem(
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.mail)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Email from Jane'),
+                      GrafitItemDescription(text: 'Meeting at 3pm tomorrow'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 56, right: 16),
+            child: GrafitItemDivider(),
+          ),
+          GrafitItem(
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.mail)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Email from Bob'),
+                      GrafitItemDescription(text: 'Project update attached'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.check_circle)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Available Item'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          width: 400,
+          child: GrafitItem(
+            disabled: true,
+            child: Row(
+              children: [
+                GrafitItemMedia(child: Icon(Icons.block)),
+                SizedBox(width: 16),
+                GrafitItemContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GrafitItemTitle(title: 'Disabled Item'),
+                      GrafitItemDescription(text: 'This item is not available'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitItem,
+  path: 'DataDisplay/Item',
+)
+Widget itemInteractive(BuildContext context) {
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitItemVariant.default_,
+    options: [
+      GrafitItemVariant.default_,
+      GrafitItemVariant.outline,
+      GrafitItemVariant.muted,
+    ],
+  );
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitItemSize.default_,
+    options: [
+      GrafitItemSize.sm,
+      GrafitItemSize.default_,
+      GrafitItemSize.lg,
+    ],
+  );
+  final selected = context.knobs.boolean(
+    label: 'Selected',
+    initialValue: false,
+  );
+  final disabled = context.knobs.boolean(
+    label: 'Disabled',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitItem(
+        variant: variant,
+        size: size,
+        selected: selected,
+        disabled: disabled,
+        child: Row(
+          children: [
+            GrafitItemMedia(child: Icon(Icons.person)),
+            SizedBox(width: 16),
+            GrafitItemContent(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GrafitItemTitle(title: 'John Doe'),
+                  GrafitItemDescription(text: 'john@example.com'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Text variants for Grafit UI
 enum GrafitTextVariant {
@@ -526,4 +527,287 @@ class GrafitHeading extends StatelessWidget {
       overflow: overflow,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'All Variants',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textAllVariants(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText('Display Large', variant: GrafitTextVariant.displayLarge),
+        GrafitText('Display Medium', variant: GrafitTextVariant.displayMedium),
+        GrafitText('Display Small', variant: GrafitTextVariant.displaySmall),
+        SizedBox(height: 16),
+        GrafitText('Headline Large', variant: GrafitTextVariant.headlineLarge),
+        GrafitText('Headline Medium', variant: GrafitTextVariant.headlineMedium),
+        GrafitText('Headline Small', variant: GrafitTextVariant.headlineSmall),
+        SizedBox(height: 16),
+        GrafitText('Title Large', variant: GrafitTextVariant.titleLarge),
+        GrafitText('Title Medium', variant: GrafitTextVariant.titleMedium),
+        GrafitText('Title Small', variant: GrafitTextVariant.titleSmall),
+        SizedBox(height: 16),
+        GrafitText('Body Large', variant: GrafitTextVariant.bodyLarge),
+        GrafitText('Body Medium', variant: GrafitTextVariant.bodyMedium),
+        GrafitText('Body Small', variant: GrafitTextVariant.bodySmall),
+        SizedBox(height: 16),
+        GrafitText('Label Large', variant: GrafitTextVariant.labelLarge),
+        GrafitText('Label Medium', variant: GrafitTextVariant.labelMedium),
+        GrafitText('Label Small', variant: GrafitTextVariant.labelSmall),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Special Variants',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textSpecialVariants(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText('Lead text for introductions', variant: GrafitTextVariant.lead),
+        SizedBox(height: 16),
+        GrafitText('Large emphasized text', variant: GrafitTextVariant.large),
+        SizedBox(height: 16),
+        GrafitText('Small subtle text', variant: GrafitTextVariant.small),
+        SizedBox(height: 16),
+        GrafitText('Muted descriptive text', variant: GrafitTextVariant.muted),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Factory Constructors',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textFactoryConstructors(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText.displayLarge('Display Large via factory'),
+        GrafitText.headlineMedium('Headline Medium via factory'),
+        GrafitText.titleLarge('Title Large via factory'),
+        GrafitText.bodyMedium('Body Medium via factory'),
+        GrafitText.labelSmall('Label Small via factory'),
+        GrafitText.lead('Lead text via factory'),
+        GrafitText.large('Large text via factory'),
+        GrafitText.small('Small text via factory'),
+        GrafitText.muted('Muted text via factory'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Custom Styles',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textCustomStyles(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText(
+          'Bold Text',
+          variant: GrafitTextVariant.bodyMedium,
+          fontWeight: FontWeight.bold,
+        ),
+        GrafitText(
+          'Italic Text',
+          variant: GrafitTextVariant.bodyMedium,
+          fontStyle: FontStyle.italic,
+        ),
+        GrafitText(
+          'Underlined Text',
+          variant: GrafitTextVariant.bodyMedium,
+          decoration: TextDecoration.underline,
+        ),
+        GrafitText(
+          'Strikethrough Text',
+          variant: GrafitTextVariant.bodyMedium,
+          decoration: TextDecoration.lineThrough,
+        ),
+        GrafitText(
+          'Custom Color',
+          variant: GrafitTextVariant.bodyMedium,
+          color: Colors.blue,
+        ),
+        GrafitText(
+          'Custom Letter Spacing',
+          variant: GrafitTextVariant.bodyMedium,
+          letterSpacing: 2.0,
+        ),
+        GrafitText(
+          'Custom Line Height',
+          variant: GrafitTextVariant.bodyMedium,
+          height: 2.0,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Alignment',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textAlignment(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText(
+          'Left aligned text',
+          variant: GrafitTextVariant.bodyMedium,
+          textAlign: TextAlign.left,
+        ),
+        SizedBox(height: 8),
+        GrafitText(
+          'Center aligned text that spans multiple lines to show the effect',
+          variant: GrafitTextVariant.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 8),
+        GrafitText(
+          'Right aligned text',
+          variant: GrafitTextVariant.bodyMedium,
+          textAlign: TextAlign.right,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Overflow',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textOverflow(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitText(
+          'Clipped text that is too long and will be clipped at the edge',
+          variant: GrafitTextVariant.bodyMedium,
+          maxLines: 1,
+          overflow: TextOverflow.clip,
+        ),
+        SizedBox(height: 8),
+        GrafitText(
+          'Ellipsis text that is too long and will show ellipsis...',
+          variant: GrafitTextVariant.bodyMedium,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(height: 8),
+        GrafitText(
+          'Fading text that is too long and will fade at the edge',
+          variant: GrafitTextVariant.bodyMedium,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitText,
+  path: 'Typography/Text',
+)
+Widget textInteractive(BuildContext context) {
+  final variant = context.knobs.list(
+    label: 'Variant',
+    options: GrafitTextVariant.values,
+    initialOption: GrafitTextVariant.bodyMedium,
+  );
+
+  final text = context.knobs.string(
+    label: 'Text',
+    initialValue: 'Interactive text example',
+  );
+
+  final color = context.knobs.colorOrNull(
+    label: 'Color',
+    initialValue: null,
+  );
+
+  final maxLines = context.knobs.int.slider(
+    label: 'Max Lines',
+    initialValue: 10,
+    min: 1,
+    max: 10,
+  );
+
+  final textAlign = context.knobs.list(
+    label: 'Text Align',
+    options: [
+      TextAlign.left,
+      TextAlign.center,
+      TextAlign.right,
+      TextAlign.justify,
+    ],
+    initialOption: TextAlign.left,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitText(
+      text * 3,
+      variant: variant,
+      color: color,
+      maxLines: maxLines,
+      textAlign: textAlign,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Heading Levels',
+  type: GrafitHeading,
+  path: 'Typography/Text',
+)
+Widget textHeadingLevels(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitHeading('Heading Level 1', level: 1),
+        SizedBox(height: 8),
+        GrafitHeading('Heading Level 2', level: 2),
+        SizedBox(height: 8),
+        GrafitHeading('Heading Level 3', level: 3),
+        SizedBox(height: 8),
+        GrafitHeading('Heading Level 4', level: 4),
+        SizedBox(height: 8),
+        GrafitHeading('Heading Level 5', level: 5),
+        SizedBox(height: 8),
+        GrafitHeading('Heading Level 6', level: 6),
+      ],
+    ),
+  );
 }

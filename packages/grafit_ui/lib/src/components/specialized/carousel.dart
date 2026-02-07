@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Carousel orientation
 enum GrafitCarouselOrientation {
@@ -652,4 +653,256 @@ extension ValueNotifierExtension<T> on ValueNotifier<T> {
 
     return controller.stream;
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default Horizontal',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselDefaultHorizontal(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitCarousel(
+      items: [
+        _buildCarouselItem('Slide 1', Colors.blue),
+        _buildCarouselItem('Slide 2', Colors.green),
+        _buildCarouselItem('Slide 3', Colors.orange),
+        _buildCarouselItem('Slide 4', Colors.purple),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Vertical',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselVertical(BuildContext context) {
+  return SizedBox(
+    width: 200,
+    height: 300,
+    child: GrafitCarousel(
+      orientation: GrafitCarouselOrientation.vertical,
+      items: [
+        _buildCarouselItem('Slide 1', Colors.blue),
+        _buildCarouselItem('Slide 2', Colors.green),
+        _buildCarouselItem('Slide 3', Colors.orange),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Auto Play',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselAutoPlay(BuildContext context) {
+  final autoPlayDelay = context.knobs.double.slider(
+    label: 'Auto Play Delay (seconds)',
+    initialValue: 2.0,
+    min: 0.5,
+    max: 5.0,
+  );
+
+  return SizedBox(
+    height: 200,
+    child: GrafitCarousel(
+      autoPlayDelay: autoPlayDelay,
+      items: [
+        _buildCarouselItem('Auto 1', Colors.red),
+        _buildCarouselItem('Auto 2', Colors.blue),
+        _buildCarouselItem('Auto 3', Colors.green),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Loop',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselWithLoop(BuildContext context) {
+  final loop = context.knobs.boolean(
+    label: 'Loop',
+    initialValue: true,
+  );
+
+  final showArrows = context.knobs.boolean(
+    label: 'Show Arrows',
+    initialValue: true,
+  );
+
+  final showIndicators = context.knobs.boolean(
+    label: 'Show Indicators',
+    initialValue: true,
+  );
+
+  return SizedBox(
+    height: 200,
+    child: GrafitCarousel(
+      loop: loop,
+      showArrows: showArrows,
+      showIndicators: showIndicators,
+      items: [
+        _buildCarouselItem('Loop 1', Colors.teal),
+        _buildCarouselItem('Loop 2', Colors.indigo),
+        _buildCarouselItem('Loop 3', Colors.amber),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Spacing',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselCustomSpacing(BuildContext context) {
+  final spacing = context.knobs.double.slider(
+    label: 'Spacing',
+    initialValue: 16.0,
+    min: 0.0,
+    max: 32.0,
+  );
+
+  final viewportFraction = context.knobs.double.slider(
+    label: 'Viewport Fraction',
+    initialValue: 0.85,
+    min: 0.5,
+    max: 1.0,
+  );
+
+  return SizedBox(
+    height: 200,
+    child: GrafitCarousel(
+      spacing: spacing,
+      viewportFraction: viewportFraction,
+      items: [
+        _buildCarouselItem('Card 1', Colors.pink),
+        _buildCarouselItem('Card 2', Colors.cyan),
+        _buildCarouselItem('Card 3', Colors.lime),
+        _buildCarouselItem('Card 4', Colors.deepOrange),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'No Swipe',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselNoSwipe(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitCarousel(
+      enableSwipe: false,
+      items: [
+        _buildCarouselItem('Static 1', Colors.brown),
+        _buildCarouselItem('Static 2', Colors.grey),
+        _buildCarouselItem('Static 3', Colors.blueGrey),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitCarousel,
+  path: 'Specialized/Carousel',
+)
+Widget carouselInteractive(BuildContext context) {
+  final orientation = context.knobs.list(
+    label: 'Orientation',
+    options: GrafitCarouselOrientation.values,
+    initialOption: GrafitCarouselOrientation.horizontal,
+  );
+
+  final loop = context.knobs.boolean(
+    label: 'Loop',
+    initialValue: false,
+  );
+
+  final autoPlayDelay = context.knobs.double.slider(
+    label: 'Auto Play Delay (seconds)',
+    initialValue: 0.0,
+    min: 0.0,
+    max: 5.0,
+  );
+
+  final enableSwipe = context.knobs.boolean(
+    label: 'Enable Swipe',
+    initialValue: true,
+  );
+
+  final spacing = context.knobs.double.slider(
+    label: 'Spacing',
+    initialValue: 0.0,
+    min: 0.0,
+    max: 24.0,
+  );
+
+  final viewportFraction = context.knobs.double.slider(
+    label: 'Viewport Fraction',
+    initialValue: 1.0,
+    min: 0.6,
+    max: 1.0,
+  );
+
+  final showArrows = context.knobs.boolean(
+    label: 'Show Arrows',
+    initialValue: true,
+  );
+
+  final showIndicators = context.knobs.boolean(
+    label: 'Show Indicators',
+    initialValue: true,
+  );
+
+  final isHorizontal = orientation == GrafitCarouselOrientation.horizontal;
+
+  return SizedBox(
+    height: isHorizontal ? 200 : null,
+    width: isHorizontal ? null : 200,
+    child: GrafitCarousel(
+      orientation: orientation,
+      loop: loop,
+      autoPlayDelay: autoPlayDelay > 0 ? autoPlayDelay : null,
+      enableSwipe: enableSwipe,
+      spacing: spacing,
+      viewportFraction: viewportFraction,
+      showArrows: showArrows,
+      showIndicators: showIndicators,
+      items: [
+        _buildCarouselItem('Interactive 1', Colors.deepPurple),
+        _buildCarouselItem('Interactive 2', Colors.lightBlue),
+        _buildCarouselItem('Interactive 3', Colors.lightGreen),
+      ],
+    ),
+  );
+}
+
+// Helper widget for building carousel items
+Widget _buildCarouselItem(String text, Color color) {
+  return Container(
+    decoration: BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Center(
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
 }

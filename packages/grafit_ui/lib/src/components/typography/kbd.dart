@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// KBD size variant
 enum GrafitKbdSize {
@@ -261,4 +262,427 @@ class _KbdStyle {
     required this.foregroundColor,
     required this.borderColor,
   });
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Single Keys',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdSingleKeys(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        GrafitKbd(text: 'A'),
+        GrafitKbd(text: 'S'),
+        GrafitKbd(text: 'D'),
+        GrafitKbd(text: 'F'),
+        GrafitKbd(text: 'Ctrl'),
+        GrafitKbd(text: 'Shift'),
+        GrafitKbd(text: 'Alt'),
+        GrafitKbd(text: 'Cmd'),
+        GrafitKbd(text: 'Esc'),
+        GrafitKbd(text: 'Tab'),
+        GrafitKbd(text: 'Enter'),
+        GrafitKbd(text: 'Space'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Size Variants',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdSizeVariants(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Small:', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 4,
+          children: [
+            GrafitKbd.small(text: 'Ctrl'),
+            GrafitKbd.small(text: '+'),
+            GrafitKbd.small(text: 'S'),
+          ],
+        ),
+        SizedBox(height: 16),
+        Text('Medium:', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 4,
+          children: [
+            GrafitKbd(text: 'Ctrl'),
+            GrafitKbd(text: '+'),
+            GrafitKbd(text: 'S'),
+          ],
+        ),
+        SizedBox(height: 16),
+        Text('Large:', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 4,
+          children: [
+            GrafitKbd.large(text: 'Ctrl'),
+            GrafitKbd.large(text: '+'),
+            GrafitKbd.large(text: 'S'),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Key Groups',
+  type: GrafitKbdGroup,
+  path: 'Typography/Kbd',
+)
+Widget kbdKeyGroups(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Shortcuts:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        SizedBox(height: 12),
+        Wrap(
+          spacing: 16,
+          runSpacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Save: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'S'),
+                ]),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Open: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'O'),
+                ]),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Find: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'F'),
+                ]),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        Text('Common Combinations:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        SizedBox(height: 12),
+        Wrap(
+          spacing: 16,
+          runSpacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Select All: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'A'),
+                ]),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Copy: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'C'),
+                ]),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Paste: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'V'),
+                ]),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Colors',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdCustomColors(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        GrafitKbd(
+          text: 'Primary',
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          borderColor: Colors.blue,
+        ),
+        GrafitKbd(
+          text: 'Success',
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+          borderColor: Colors.green,
+        ),
+        GrafitKbd(
+          text: 'Warning',
+          backgroundColor: Colors.orange,
+          foregroundColor: Colors.white,
+          borderColor: Colors.orange,
+        ),
+        GrafitKbd(
+          text: 'Danger',
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+          borderColor: Colors.red,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Icons',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdWithIcons(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        GrafitKbd(child: Icon(Icons.arrow_upward, size: 14)),
+        GrafitKbd(child: Icon(Icons.arrow_downward, size: 14)),
+        GrafitKbd(child: Icon(Icons.arrow_back, size: 14)),
+        GrafitKbd(child: Icon(Icons.arrow_forward, size: 14)),
+        GrafitKbd(child: Icon(Icons.keyboard_return, size: 14)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdInteractive(BuildContext context) {
+  final size = context.knobs.list(
+    label: 'Size',
+    options: GrafitKbdSize.values,
+    initialOption: GrafitKbdSize.medium,
+  );
+
+  final showGroup = context.knobs.boolean(
+    label: 'Show as Group',
+    initialValue: true,
+  );
+
+  final key1 = context.knobs.string(
+    label: 'Key 1',
+    initialValue: 'Ctrl',
+  );
+
+  final key2 = context.knobs.string(
+    label: 'Key 2',
+    initialValue: 'K',
+  );
+
+  final showPlus = context.knobs.boolean(
+    label: 'Show Plus Separator',
+    initialValue: true,
+  );
+
+  final customBg = context.knobs.colorOrNull(
+    label: 'Background Color',
+    initialValue: null,
+  );
+
+  final customFg = context.knobs.colorOrNull(
+    label: 'Foreground Color',
+    initialValue: null,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showGroup)
+          GrafitKbdGroup(
+            showPlus: showPlus,
+            children: [
+              GrafitKbd(
+                text: key1,
+                size: size,
+                backgroundColor: customBg,
+                foregroundColor: customFg,
+              ),
+              GrafitKbd(
+                text: key2,
+                size: size,
+                backgroundColor: customBg,
+                foregroundColor: customFg,
+              ),
+            ],
+          )
+        else
+          Wrap(
+            spacing: 4,
+            children: [
+              GrafitKbd(
+                text: key1,
+                size: size,
+                backgroundColor: customBg,
+                foregroundColor: customFg,
+              ),
+              GrafitKbd(
+                text: key2,
+                size: size,
+                backgroundColor: customBg,
+                foregroundColor: customFg,
+              ),
+            ],
+          ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Real World Examples',
+  type: GrafitKbd,
+  path: 'Typography/Kbd',
+)
+Widget kbdRealWorld(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Command Palette', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            GrafitKbdGroup(children: [
+              GrafitKbd(text: 'Ctrl'),
+              GrafitKbd(text: 'K'),
+            ]),
+            SizedBox(width: 16),
+            Text('to open command palette'),
+          ],
+        ),
+        SizedBox(height: 24),
+        Text('Keyboard Navigation', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Navigate:', style: TextStyle(fontWeight: FontWeight.w500)),
+                SizedBox(width: 8),
+                GrafitKbd(child: Icon(Icons.arrow_upward, size: 14)),
+                GrafitKbd(child: Icon(Icons.arrow_downward, size: 14)),
+                GrafitKbd(child: Icon(Icons.arrow_back, size: 14)),
+                GrafitKbd(child: Icon(Icons.arrow_forward, size: 14)),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Wrap(
+          spacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Select:', style: TextStyle(fontWeight: FontWeight.w500)),
+                SizedBox(width: 8),
+                GrafitKbd(text: 'Enter'),
+              ],
+            ),
+            SizedBox(width: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Dismiss:', style: TextStyle(fontWeight: FontWeight.w500)),
+                SizedBox(width: 8),
+                GrafitKbd(text: 'Esc'),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 24),
+        Text('File Operations', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Wrap(
+          runSpacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('New:', style: TextStyle(fontWeight: FontWeight.w500)),
+                SizedBox(width: 8),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'N'),
+                ]),
+              ],
+            ),
+            SizedBox(width: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Save:', style: TextStyle(fontWeight: FontWeight.w500)),
+                SizedBox(width: 8),
+                GrafitKbdGroup(children: [
+                  GrafitKbd(text: 'Ctrl'),
+                  GrafitKbd(text: 'S'),
+                ]),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }

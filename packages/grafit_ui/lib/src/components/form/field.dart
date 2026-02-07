@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../layout/separator.dart';
@@ -730,3 +731,330 @@ class GrafitFormFieldWrapper extends StatelessWidget {
     );
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Vertical Field',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldVertical(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitField(
+        orientation: GrafitFieldOrientation.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(text: 'Email'),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Horizontal Field',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldHorizontal(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitField(
+        orientation: GrafitFieldOrientation.horizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(text: 'Name'),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter your name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Error',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldWithError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitField(
+        orientation: GrafitFieldOrientation.vertical,
+        invalid: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(text: 'Email'),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              invalid: true,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  border: OutlineInputBorder(),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                ),
+              ),
+            ),
+            GrafitFieldError(
+              errorMessages: ['Please enter a valid email address'],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Description',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldWithDescription(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitField(
+        orientation: GrafitFieldOrientation.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(text: 'Password'),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: 'Enter your password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            GrafitFieldDescription(
+              text: 'Must be at least 8 characters long',
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Field Group',
+  type: GrafitFieldGroup,
+  path: 'Form/Field',
+)
+Widget fieldGroup(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitFieldGroup(
+        spacing: 16,
+        children: [
+          GrafitField(
+            orientation: GrafitFieldOrientation.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitFieldLabel(text: 'First Name'),
+                SizedBox(height: 6),
+                GrafitFieldInput(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GrafitField(
+            orientation: GrafitFieldOrientation.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitFieldLabel(text: 'Last Name'),
+                SizedBox(height: 6),
+                GrafitFieldInput(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled Field',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitField(
+        orientation: GrafitFieldOrientation.vertical,
+        disabled: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(text: 'Email'),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              child: TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: 'Disabled field',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Field Set',
+  type: GrafitFieldSet,
+  path: 'Form/Field',
+)
+Widget fieldSet(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitFieldSet(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GrafitFieldLegend(
+            text: 'Personal Information',
+          ),
+          SizedBox(height: 16),
+          GrafitFieldLabel(text: 'Name'),
+          SizedBox(height: 6),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitField,
+  path: 'Form/Field',
+)
+Widget fieldInteractive(BuildContext context) {
+  final orientation = context.knobs.list(
+    label: 'Orientation',
+    initialOption: GrafitFieldOrientation.vertical,
+    options: const [
+      GrafitFieldOrientation.vertical,
+      GrafitFieldOrientation.horizontal,
+      GrafitFieldOrientation.responsive,
+    ],
+  );
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+  final required = context.knobs.boolean(label: 'Required', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitField(
+        orientation: orientation,
+        invalid: hasError,
+        disabled: disabled,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitFieldLabel(
+              text: 'Email',
+              required: required,
+            ),
+            SizedBox(height: 6),
+            GrafitFieldInput(
+              invalid: hasError,
+              child: TextField(
+                enabled: !disabled,
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            if (hasError)
+              GrafitFieldError(
+                errorMessages: ['This field has an error'],
+              ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import '../form/button.dart';
 
 /// Hover card alignment options
 enum GrafitHoverCardAlignment {
@@ -527,4 +529,288 @@ class GrafitHoverCardDescription extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'Hover Me'),
+      content: GrafitHoverCardHeader(
+        title: 'Hover Card Title',
+        description: 'This is a hover card with some information',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Top Alignment',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardTop(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'Hover for Top'),
+      alignment: GrafitHoverCardAlignment.top,
+      content: GrafitHoverCardHeader(
+        title: 'Above',
+        description: 'Hover card appears above the trigger',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Left Alignment',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardLeft(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'Hover for Left'),
+      alignment: GrafitHoverCardAlignment.left,
+      content: GrafitHoverCardHeader(
+        title: 'Left Side',
+        description: 'Hover card appears to the left',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Right Alignment',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardRight(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'Hover for Right'),
+      alignment: GrafitHoverCardAlignment.right,
+      content: GrafitHoverCardHeader(
+        title: 'Right Side',
+        description: 'Hover card appears to the right',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Rich Content',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardRichContent(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'User Profile'),
+      width: 300,
+      content: GrafitHoverCardContent(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GrafitHoverCardHeader(
+              title: 'John Doe',
+              description: 'Software Engineer',
+            ),
+            SizedBox(height: 12),
+            Row(
+              children: [
+                Icon(Icons.email, size: 14, color: Colors.grey),
+                SizedBox(width: 8),
+                Text('john@example.com', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(Icons.phone, size: 14, color: Colors.grey),
+                SizedBox(width: 8),
+                Text('+1 234 567 890', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Width',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardCustomWidth(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16,
+      children: [
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Small (200px)'),
+          width: 200,
+          content: GrafitHoverCardHeader(
+            title: 'Small Card',
+            description: '200px width',
+          ),
+        ),
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Large (400px)'),
+          width: 400,
+          content: GrafitHoverCardHeader(
+            title: 'Large Card',
+            description: '400px width with more space for content',
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Delays',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardDelays(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16,
+      children: [
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Fast Open'),
+          openDelay: Duration(milliseconds: 100),
+          closeDelay: Duration(milliseconds: 100),
+          content: GrafitHoverCardHeader(
+            title: 'Fast',
+            description: 'Opens quickly (100ms)',
+          ),
+        ),
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Slow Open'),
+          openDelay: Duration(milliseconds: 800),
+          closeDelay: Duration(milliseconds: 400),
+          content: GrafitHoverCardHeader(
+            title: 'Slow',
+            description: 'Opens slowly (800ms)',
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Alignments',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardAllAlignments(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Wrap(
+      spacing: 24,
+      runSpacing: 24,
+      children: [
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Top'),
+          alignment: GrafitHoverCardAlignment.top,
+          content: GrafitHoverCardHeader(title: 'Top'),
+        ),
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Bottom'),
+          alignment: GrafitHoverCardAlignment.bottom,
+          content: GrafitHoverCardHeader(title: 'Bottom'),
+        ),
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Left'),
+          alignment: GrafitHoverCardAlignment.left,
+          content: GrafitHoverCardHeader(title: 'Left'),
+        ),
+        GrafitHoverCard(
+          trigger: GrafitButton(label: 'Right'),
+          alignment: GrafitHoverCardAlignment.right,
+          content: GrafitHoverCardHeader(title: 'Right'),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Non Dismissible on Tap',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardNonDismissible(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: GrafitButton(label: 'Hover (Tap to close)'),
+      closeOnTap: false,
+      content: GrafitHoverCardHeader(
+        title: 'Cannot Close on Tap',
+        description: 'This hover card can only be closed by moving the mouse away',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitHoverCard,
+  path: 'Overlay/HoverCard',
+)
+Widget hoverCardInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Hover Card');
+  final description = context.knobs.string(label: 'Description', initialValue: 'Move your mouse over the button');
+  final alignment = context.knobs.list(
+    label: 'Alignment',
+    initialOption: GrafitHoverCardAlignment.bottom,
+    options: [
+      GrafitHoverCardAlignment.top,
+      GrafitHoverCardAlignment.bottom,
+      GrafitHoverCardAlignment.left,
+      GrafitHoverCardAlignment.right,
+      GrafitHoverCardAlignment.topLeft,
+      GrafitHoverCardAlignment.topRight,
+      GrafitHoverCardAlignment.bottomLeft,
+      GrafitHoverCardAlignment.bottomRight,
+    ],
+  );
+  final width = context.knobs.double.slider(label: 'Width', initialValue: 256, min: 150, max: 500);
+  final openDelay = context.knobs.int.slider(label: 'Open Delay (ms)', initialValue: 400, min: 0, max: 1000);
+  final closeOnTap = context.knobs.boolean(label: 'Close on Tap', initialValue: true);
+
+  return Padding(
+    padding: const EdgeInsets.all(100.0),
+    child: GrafitHoverCard(
+      trigger: const GrafitButton(label: 'Hover Me'),
+      alignment: alignment,
+      width: width,
+      openDelay: Duration(milliseconds: openDelay),
+      closeOnTap: closeOnTap,
+      content: GrafitHoverCardHeader(
+        title: title.isNotEmpty ? title : null,
+        description: description.isNotEmpty ? description : null,
+      ),
+    ),
+  );
 }

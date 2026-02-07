@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../theme/theme.dart';
 import '../form/button.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Dropdown menu alignment options
 enum GrafitDropdownMenuAlignment {
@@ -1087,4 +1088,458 @@ class GrafitDropdownMenuSubContent extends StatelessWidget {
       children: children,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuDefault(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Options'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafiDropdownMenuItem(
+          label: 'Profile',
+          leading: Icon(Icons.person_outlined, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Settings',
+          leading: Icon(Icons.settings_outlined, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Logout',
+          leading: Icon(Icons.logout, size: 16),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Shortcuts',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithShortcuts(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Edit'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafiDropdownMenuItem(
+          label: 'Cut',
+          leading: Icon(Icons.content_cut, size: 16),
+          shortcut: '⌘X',
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Copy',
+          leading: Icon(Icons.content_copy, size: 16),
+          shortcut: '⌘C',
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Paste',
+          leading: Icon(Icons.content_paste, size: 16),
+          shortcut: '⌘V',
+        ),
+        GrafitDropdownMenuSeparator(),
+        GrafiDropdownMenuItem(
+          label: 'Select All',
+          leading: Icon(Icons.select_all, size: 16),
+          shortcut: '⌘A',
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Destructive',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithDestructive(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Actions'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafiDropdownMenuItem(
+          label: 'View',
+          leading: Icon(Icons.visibility_outlined, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Edit',
+          leading: Icon(Icons.edit_outlined, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Duplicate',
+          leading: Icon(Icons.copy, size: 16),
+        ),
+        GrafitDropdownMenuSeparator(),
+        GrafiDropdownMenuItem(
+          label: 'Delete',
+          leading: Icon(Icons.delete_outlined, size: 16),
+          variant: GrafitDropdownMenuItemVariant.destructive,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Checkboxes',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithCheckboxes(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('View'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafitDropdownMenuCheckboxItem(
+          label: 'Show Status Bar',
+          checked: true,
+        ),
+        GrafitDropdownMenuCheckboxItem(
+          label: 'Show Toolbar',
+          checked: true,
+        ),
+        GrafitDropdownMenuCheckboxItem(
+          label: 'Show Sidebar',
+          checked: false,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Radio Group',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithRadioGroup(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Theme'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: [
+        GrafitDropdownMenuRadioGroup<String>(
+          value: 'system',
+          onValueChanged: (value) {},
+          items: const [
+            GrafitDropdownMenuRadioItem(
+              value: 'light',
+              label: 'Light',
+            ),
+            GrafitDropdownMenuRadioItem(
+              value: 'dark',
+              label: 'Dark',
+            ),
+            GrafitDropdownMenuRadioItem(
+              value: 'system',
+              label: 'System',
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Labels',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithLabels(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Share'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafitDropdownMenuLabel(label: 'Send to'),
+        GrafiDropdownMenuItem(
+          label: 'Email',
+          leading: Icon(Icons.email_outlined, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Messages',
+          leading: Icon(Icons.message_outlined, size: 16),
+        ),
+        GrafitDropdownMenuSeparator(),
+        GrafitDropdownMenuLabel(label: 'Social'),
+        GrafiDropdownMenuItem(
+          label: 'Twitter',
+          leading: Icon(Icons.alternate_email, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Facebook',
+          leading: Icon(Icons.facebook, size: 16),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled Items',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuDisabledItems(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('File'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: const [
+        GrafiDropdownMenuItem(
+          label: 'New',
+          leading: Icon(Icons.add, size: 16),
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Open',
+          leading: Icon(Icons.folder_open, size: 16),
+          enabled: false,
+        ),
+        GrafiDropdownMenuItem(
+          label: 'Save',
+          leading: Icon(Icons.save, size: 16),
+          enabled: false,
+        ),
+        GrafitDropdownMenuSeparator(),
+        GrafiDropdownMenuItem(
+          label: 'Print',
+          leading: Icon(Icons.print, size: 16),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Submenu',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuWithSubmenu(BuildContext context) {
+  return Center(
+    child: GrafitDropdownMenu(
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Insert'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: [
+        GrafiDropdownMenuItem(
+          label: 'Image',
+          leading: Icon(Icons.image_outlined, size: 16),
+        ),
+        GrafitDropdownMenuSub(
+          trigger: GrafitDropdownMenuSubTrigger(
+            leading: Icon(Icons.table_chart_outlined, size: 16),
+            label: 'Table',
+          ),
+          children: const [
+            GrafiDropdownMenuItem(
+              label: '1x1',
+              inset: true,
+            ),
+            GrafiDropdownMenuItem(
+              label: '2x2',
+              inset: true,
+            ),
+            GrafiDropdownMenuItem(
+              label: '3x3',
+              inset: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitDropdownMenu,
+  path: 'Navigation/Dropdown Menu',
+)
+Widget dropdownMenuInteractive(BuildContext context) {
+  final alignmentIndex = context.knobs.list(
+    label: 'Alignment',
+    options: ['bottom', 'top', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
+    initialOption: 'bottom',
+  );
+  final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  final showSeparators = context.knobs.boolean(label: 'Show Separators', initialValue: true);
+  final itemCount = context.knobs.int.slider(
+    label: 'Items',
+    initialValue: 4,
+    min: 2,
+    max: 8,
+  );
+  final hasDisabled = context.knobs.boolean(label: 'Has Disabled Items', initialValue: true);
+
+  final alignment = GrafitDropdownMenuAlignment.values[
+      alignmentIndex == 'bottom' ? 0 :
+      alignmentIndex == 'top' ? 1 :
+      alignmentIndex == 'left' ? 2 :
+      alignmentIndex == 'right' ? 3 :
+      alignmentIndex == 'topLeft' ? 4 :
+      alignmentIndex == 'topRight' ? 5 :
+      alignmentIndex == 'bottomLeft' ? 6 : 7];
+
+  final items = List.generate(itemCount, (index) {
+    final labels = ['New', 'Open', 'Save', 'Export', 'Print', 'Share', 'Settings', 'Help'];
+    final icons = [
+      Icons.add, Icons.folder_open, Icons.save, Icons.file_download,
+      Icons.print, Icons.share, Icons.settings, Icons.help_outline
+    ];
+    final shortcuts = ['⌘N', '⌘O', '⌘S', '⌘E', '⌘P', null, '⌘,', '?'];
+
+    return GrafiDropdownMenuItem(
+      label: labels[index],
+      leading: showIcons ? Icon(icons[index], size: 16) : null,
+      shortcut: showShortcuts ? shortcuts[index] : null,
+      enabled: hasDisabled && index == 1 ? false : true,
+    );
+  });
+
+  final childrenWithSeparators = <Widget>[];
+  for (int i = 0; i < items.length; i++) {
+    childrenWithSeparators.add(items[i]);
+    if (showSeparators && i == 1 && i < items.length - 1) {
+      childrenWithSeparators.add(const GrafitDropdownMenuSeparator());
+    }
+  }
+
+  return Center(
+    child: GrafitDropdownMenu(
+      alignment: alignment,
+      trigger: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFe5e7eb)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Menu'),
+            SizedBox(width: 8),
+            Icon(Icons.arrow_drop_down, size: 20),
+          ],
+        ),
+      ),
+      children: childrenWithSeparators,
+    ),
+  );
 }

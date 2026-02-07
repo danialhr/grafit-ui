@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Tabs variant
 enum GrafitTabsVariant {
@@ -271,4 +272,284 @@ class GrafitTab {
     required this.label,
     required this.content,
   });
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsDefault(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      tabs: const [
+        GrafitTab(
+          label: 'Account',
+          content: Center(child: Text('Account settings')),
+        ),
+        GrafitTab(
+          label: 'Password',
+          content: Center(child: Text('Password settings')),
+        ),
+        GrafitTab(
+          label: 'Appearance',
+          content: Center(child: Text('Appearance settings')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Line Variant',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsLineVariant(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      variant: GrafitTabsVariant.line,
+      tabs: const [
+        GrafitTab(
+          label: 'Overview',
+          content: Center(child: Text('Overview content')),
+        ),
+        GrafitTab(
+          label: 'Analytics',
+          content: Center(child: Text('Analytics content')),
+        ),
+        GrafitTab(
+          label: 'Reports',
+          content: Center(child: Text('Reports content')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Vertical',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsVertical(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      orientation: GrafitTabsOrientation.vertical,
+      tabs: const [
+        GrafitTab(
+          label: 'Profile',
+          content: Center(child: Text('Profile information')),
+        ),
+        GrafitTab(
+          label: 'Security',
+          content: Center(child: Text('Security settings')),
+        ),
+        GrafitTab(
+          label: 'Notifications',
+          content: Center(child: Text('Notification preferences')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Vertical Line Variant',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsVerticalLine(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      variant: GrafitTabsVariant.line,
+      orientation: GrafitTabsOrientation.vertical,
+      tabs: const [
+        GrafitTab(
+          label: 'Dashboard',
+          content: Center(child: Text('Dashboard content')),
+        ),
+        GrafitTab(
+          label: 'Projects',
+          content: Center(child: Text('Projects list')),
+        ),
+        GrafitTab(
+          label: 'Team',
+          content: Center(child: Text('Team members')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Single Tab',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsSingle(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      tabs: const [
+        GrafitTab(
+          label: 'Settings',
+          content: Center(child: Text('Settings content')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Many Tabs',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsMany(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      tabs: const [
+        GrafitTab(
+          label: 'Home',
+          content: Center(child: Text('Home content')),
+        ),
+        GrafitTab(
+          label: 'Profile',
+          content: Center(child: Text('Profile content')),
+        ),
+        GrafitTab(
+          label: 'Settings',
+          content: Center(child: Text('Settings content')),
+        ),
+        GrafitTab(
+          label: 'Notifications',
+          content: Center(child: Text('Notifications content')),
+        ),
+        GrafitTab(
+          label: 'Security',
+          content: Center(child: Text('Security content')),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Rich Content',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsRichContent(BuildContext context) {
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      tabs: [
+        GrafitTab(
+          label: 'Account',
+          content: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Account Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                SizedBox(height: 16),
+                Text('Manage your account settings here.'),
+                SizedBox(height: 16),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Personal Information'),
+                  subtitle: Text('Update your personal details'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.email),
+                  title: Text('Email Address'),
+                  subtitle: Text('Change your email'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GrafitTab(
+          label: 'Privacy',
+          content: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Privacy Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                SizedBox(height: 16),
+                Text('Control your privacy preferences.'),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitTabs,
+  path: 'Navigation/Tabs',
+)
+Widget tabsInteractive(BuildContext context) {
+  final tabCount = context.knobs.int.slider(
+    label: 'Tabs',
+    initialValue: 3,
+    min: 1,
+    max: 6,
+  );
+  final initialIndex = context.knobs.int.slider(
+    label: 'Initial Index',
+    initialValue: 0,
+    min: 0,
+    max: 5,
+  );
+  final variantIndex = context.knobs.list(
+    label: 'Variant',
+    options: ['value', 'line'],
+    initialOption: 'value',
+  );
+  final orientationIndex = context.knobs.list(
+    label: 'Orientation',
+    options: ['horizontal', 'vertical'],
+    initialOption: 'horizontal',
+  );
+
+  final labels = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6'];
+
+  final variant = variantIndex == 'value' ? GrafitTabsVariant.value : GrafitTabsVariant.line;
+  final orientation = orientationIndex == 'horizontal' ? GrafitTabsOrientation.horizontal : GrafitTabsOrientation.vertical;
+
+  return SizedBox(
+    height: 300,
+    child: GrafitTabs(
+      initialIndex: initialIndex.clamp(0, tabCount - 1),
+      variant: variant,
+      orientation: orientation,
+      tabs: List.generate(tabCount, (index) {
+        return GrafitTab(
+          label: labels[index],
+          content: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.tab, size: 48),
+                SizedBox(height: 16),
+                Text('Content for ${labels[index]}'),
+              ],
+            ),
+          ),
+        );
+      }),
+    ),
+  );
 }

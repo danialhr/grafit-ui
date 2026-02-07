@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/clickable.dart';
@@ -533,3 +534,212 @@ class _GrafitToggleGroupItemPosition extends InheritedWidget {
     return isFirst != oldWidget.isFirst || isLast != oldWidget.isLast;
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      value: 'bold',
+      children: [
+        GrafitToggleGroupItem(value: 'bold', child: Icon(Icons.format_bold)),
+        GrafitToggleGroupItem(value: 'italic', child: Icon(Icons.format_italic)),
+        GrafitToggleGroupItem(value: 'underline', child: Icon(Icons.format_underlined)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupMultiple(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.multiple,
+      values: {'bold', 'italic'},
+      children: [
+        GrafitToggleGroupItem(value: 'bold', child: Icon(Icons.format_bold)),
+        GrafitToggleGroupItem(value: 'italic', child: Icon(Icons.format_italic)),
+        GrafitToggleGroupItem(value: 'underline', child: Icon(Icons.format_underlined)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Outline Variant',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupOutline(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      variant: GrafitToggleGroupVariant.outline,
+      value: 'left',
+      children: [
+        GrafitToggleGroupItem(value: 'left', child: Icon(Icons.align_horizontal_left)),
+        GrafitToggleGroupItem(value: 'center', child: Icon(Icons.align_horizontal_center)),
+        GrafitToggleGroupItem(value: 'right', child: Icon(Icons.align_horizontal_right)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      size: GrafitToggleGroupSize.sm,
+      value: 'day',
+      children: [
+        GrafitToggleGroupItem(value: 'day', child: Text('Day')),
+        GrafitToggleGroupItem(value: 'week', child: Text('Week')),
+        GrafitToggleGroupItem(value: 'month', child: Text('Month')),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Large Size',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupLarge(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      size: GrafitToggleGroupSize.lg,
+      value: 'list',
+      children: [
+        GrafitToggleGroupItem(value: 'list', child: Icon(Icons.view_list)),
+        GrafitToggleGroupItem(value: 'grid', child: Icon(Icons.grid_view)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Separated',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupSeparated(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      spacing: 8,
+      value: 'all',
+      children: [
+        GrafitToggleGroupItem(value: 'all', child: Text('All')),
+        GrafitToggleGroupItem(value: 'active', child: Text('Active')),
+        GrafitToggleGroupItem(value: 'completed', child: Text('Completed')),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      enabled: false,
+      value: 'bold',
+      children: [
+        GrafitToggleGroupItem(value: 'bold', child: Icon(Icons.format_bold)),
+        GrafitToggleGroupItem(value: 'italic', child: Icon(Icons.format_italic)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Tooltips',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupWithTooltips(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: GrafitToggleGroupType.single,
+      children: [
+        GrafitToggleGroupItem(value: 'bold', tooltip: 'Bold', child: Icon(Icons.format_bold)),
+        GrafitToggleGroupItem(value: 'italic', tooltip: 'Italic', child: Icon(Icons.format_italic)),
+        GrafitToggleGroupItem(value: 'underline', tooltip: 'Underline', child: Icon(Icons.format_underlined)),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitToggleGroup,
+  path: 'Form/ToggleGroup',
+)
+Widget toggleGroupInteractive(BuildContext context) {
+  final type = context.knobs.list(
+    label: 'Type',
+    initialOption: GrafitToggleGroupType.single,
+    options: const [GrafitToggleGroupType.single, GrafitToggleGroupType.multiple],
+  );
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitToggleGroupVariant.plain,
+    options: const [GrafitToggleGroupVariant.plain, GrafitToggleGroupVariant.outline],
+  );
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitToggleGroupSize.md,
+    options: const [GrafitToggleGroupSize.sm, GrafitToggleGroupSize.md, GrafitToggleGroupSize.lg],
+  );
+  final spacing = context.knobs.double(label: 'Spacing', initialValue: 0);
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitToggleGroup(
+      type: type,
+      variant: variant,
+      size: size,
+      spacing: spacing,
+      enabled: enabled,
+      value: 'option1',
+      children: const [
+        GrafitToggleGroupItem(value: 'option1', child: Text('Option 1')),
+        GrafitToggleGroupItem(value: 'option2', child: Text('Option 2')),
+        GrafitToggleGroupItem(value: 'option3', child: Text('Option 3')),
+      ],
+    ),
+  );
+}
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/clickable.dart';
@@ -319,3 +320,203 @@ class _SizeConfig {
     required this.iconSize,
   });
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggle(
+      pressed: true,
+      child: Icon(Icons.format_bold),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Unpressed',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleUnpressed(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: GrafitToggle(
+      pressed: false,
+      child: Icon(Icons.format_italic),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Outline Variant',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleOutline(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Row(
+      children: [
+        GrafitToggle(
+          pressed: true,
+          variant: GrafitToggleVariant.outline,
+          child: Icon(Icons.format_bold),
+        ),
+        SizedBox(width: 8),
+        GrafitToggle(
+          pressed: false,
+          variant: GrafitToggleVariant.outline,
+          child: Icon(Icons.format_italic),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Row(
+      children: [
+        GrafitToggle(
+          pressed: true,
+          size: GrafitToggleSize.sm,
+          child: Icon(Icons.format_bold),
+        ),
+        SizedBox(width: 8),
+        GrafitToggle(
+          pressed: false,
+          size: GrafitToggleSize.sm,
+          child: Icon(Icons.format_italic),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Large Size',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleLarge(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Row(
+      children: [
+        GrafitToggle(
+          pressed: true,
+          size: GrafitToggleSize.lg,
+          child: Icon(Icons.format_bold),
+        ),
+        SizedBox(width: 8),
+        GrafitToggle(
+          pressed: false,
+          size: GrafitToggleSize.lg,
+          child: Icon(Icons.format_italic),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Text',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleWithText(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Row(
+      children: [
+        GrafitToggle(
+          pressed: true,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Text('Bold'),
+          ),
+        ),
+        SizedBox(width: 8),
+        GrafitToggle(
+          pressed: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Text('Italic'),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: Row(
+      children: [
+        GrafitToggle(
+          pressed: true,
+          disabled: true,
+          child: Icon(Icons.format_bold),
+        ),
+        SizedBox(width: 8),
+        GrafitToggle(
+          pressed: false,
+          disabled: true,
+          child: Icon(Icons.format_italic),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitToggle,
+  path: 'Form/Toggle',
+)
+Widget toggleInteractive(BuildContext context) {
+  final pressed = context.knobs.boolean(label: 'Pressed', initialValue: false);
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitToggleVariant.primary,
+    options: const [GrafitToggleVariant.primary, GrafitToggleVariant.outline],
+  );
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitToggleSize.md,
+    options: const [GrafitToggleSize.sm, GrafitToggleSize.md, GrafitToggleSize.lg],
+  );
+  final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: GrafitToggle(
+      pressed: pressed,
+      variant: variant,
+      size: size,
+      disabled: disabled,
+      child: const Icon(Icons.format_bold),
+    ),
+  );
+}
+

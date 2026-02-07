@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cristalyse/cristalyse.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Chart types supported by GrafitChart
 enum GrafitChartType {
@@ -1867,4 +1868,358 @@ class GrafitChartCombo extends StatelessWidget {
       title: title,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Line Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartLine(BuildContext context) {
+  final data = [
+    {'month': 'Jan', 'value': 65},
+    {'month': 'Feb', 'value': 59},
+    {'month': 'Mar', 'value': 80},
+    {'month': 'Apr', 'value': 81},
+    {'month': 'May', 'value': 56},
+    {'month': 'Jun', 'value': 55},
+    {'month': 'Jul', 'value': 40},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.line,
+      xKey: 'month',
+      yKeys: ['value'],
+      title: 'Monthly Sales',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Area Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartArea(BuildContext context) {
+  final data = [
+    {'month': 'Jan', 'value': 65},
+    {'month': 'Feb', 'value': 59},
+    {'month': 'Mar', 'value': 80},
+    {'month': 'Apr', 'value': 81},
+    {'month': 'May', 'value': 56},
+    {'month': 'Jun', 'value': 55},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.area,
+      xKey: 'month',
+      yKeys: ['value'],
+      title: 'Revenue Trend',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Bar Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartBar(BuildContext context) {
+  final data = [
+    {'product': 'A', 'sales': 120},
+    {'product': 'B', 'sales': 98},
+    {'product': 'C', 'sales': 86},
+    {'product': 'D', 'sales': 145},
+    {'product': 'E', 'sales': 105},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.bar,
+      xKey: 'product',
+      yKeys: ['sales'],
+      title: 'Sales by Product',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Pie Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartPie(BuildContext context) {
+  final data = [
+    {'category': 'Electronics', 'value': 450},
+    {'category': 'Clothing', 'value': 320},
+    {'category': 'Food', 'value': 210},
+    {'category': 'Other', 'value': 120},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.pie,
+      xKey: 'category',
+      yKeys: ['value'],
+      colorKey: 'category',
+      title: 'Sales by Category',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Donut Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartDonut(BuildContext context) {
+  final data = [
+    {'category': 'Mobile', 'value': 55},
+    {'category': 'Desktop', 'value': 30},
+    {'category': 'Tablet', 'value': 15},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.donut,
+      xKey: 'category',
+      yKeys: ['value'],
+      colorKey: 'category',
+      title: 'Device Usage',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multi-Series Line',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartMultiSeriesLine(BuildContext context) {
+  final data = [
+    {'month': 'Jan', 'revenue': 65, 'expenses': 28},
+    {'month': 'Feb', 'revenue': 59, 'expenses': 48},
+    {'month': 'Mar', 'revenue': 80, 'expenses': 40},
+    {'month': 'Apr', 'revenue': 81, 'expenses': 19},
+    {'month': 'May', 'revenue': 56, 'expenses': 86},
+    {'month': 'Jun', 'revenue': 55, 'expenses': 27},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.line,
+      xKey: 'month',
+      yKeys: ['revenue', 'expenses'],
+      series: [
+        GrafitChartSeries(key: 'revenue', label: 'Revenue'),
+        GrafitChartSeries(key: 'expenses', label: 'Expenses'),
+      ],
+      title: 'Revenue vs Expenses',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Stacked Bar',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartStackedBar(BuildContext context) {
+  final data = [
+    {'quarter': 'Q1', 'productA': 30, 'productB': 20, 'productC': 15},
+    {'quarter': 'Q2', 'productA': 45, 'productB': 25, 'productC': 20},
+    {'quarter': 'Q3', 'productA': 60, 'productB': 35, 'productC': 25},
+    {'quarter': 'Q4', 'productA': 75, 'productB': 40, 'productC': 30},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.stackedBar,
+      xKey: 'quarter',
+      yKeys: ['productA'],
+      colorKey: 'quarter',
+      title: 'Quarterly Sales',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Scatter Plot',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartScatter(BuildContext context) {
+  final data = [
+    {'x': 10, 'y': 20},
+    {'x': 15, 'y': 25},
+    {'x': 20, 'y': 15},
+    {'x': 25, 'y': 30},
+    {'x': 30, 'y': 35},
+    {'x': 35, 'y': 28},
+    {'x': 40, 'y': 40},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.scatter,
+      xKey: 'x',
+      yKeys: ['y'],
+      title: 'Scatter Plot',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Sparkline',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartSparkline(BuildContext context) {
+  final data = [
+    {'value': 10},
+    {'value': 15},
+    {'value': 12},
+    {'value': 18},
+    {'value': 14},
+    {'value': 20},
+    {'value': 16},
+    {'value': 22},
+    {'value': 19},
+    {'value': 25},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitChart(
+        data: data,
+        type: GrafitChartType.sparkline,
+        xKey: 'value',
+        yKeys: ['value'],
+        height: 60,
+        minimal: true,
+        showLegend: false,
+        showTooltip: false,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Combo Chart',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartCombo(BuildContext context) {
+  final data = [
+    {'month': 'Jan', 'sales': 65, 'target': 70},
+    {'month': 'Feb', 'sales': 59, 'target': 65},
+    {'month': 'Mar', 'sales': 80, 'target': 75},
+    {'month': 'Apr', 'sales': 81, 'target': 80},
+    {'month': 'May', 'sales': 56, 'target': 85},
+    {'month': 'Jun', 'sales': 55, 'target': 90},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: GrafitChartType.combo,
+      xKey: 'month',
+      yKeys: ['sales', 'target'],
+      title: 'Sales vs Target',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitChart,
+  path: 'DataDisplay/Chart',
+)
+Widget chartInteractive(BuildContext context) {
+  final chartType = context.knobs.list(
+    label: 'Chart Type',
+    initialOption: GrafitChartType.line,
+    options: [
+      GrafitChartType.line,
+      GrafitChartType.area,
+      GrafitChartType.bar,
+      GrafitChartType.pie,
+      GrafitChartType.donut,
+      GrafitChartType.scatter,
+    ],
+  );
+
+  final data = [
+    {'month': 'Jan', 'value': 65},
+    {'month': 'Feb', 'value': 59},
+    {'month': 'Mar', 'value': 80},
+    {'month': 'Apr', 'value': 81},
+    {'month': 'May', 'value': 56},
+    {'month': 'Jun', 'value': 55},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChart(
+      data: data,
+      type: chartType,
+      xKey: 'month',
+      yKeys: ['value'],
+      title: 'Interactive Chart',
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Chart Card',
+  type: GrafitChartCard,
+  path: 'DataDisplay/Chart',
+)
+Widget chartCard(BuildContext context) {
+  final data = [
+    {'month': 'Jan', 'value': 65},
+    {'month': 'Feb', 'value': 59},
+    {'month': 'Mar', 'value': 80},
+    {'month': 'Apr', 'value': 81},
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitChartCard(
+      title: 'Monthly Revenue',
+      description: 'Total revenue for the current quarter',
+      chart: GrafitChart(
+        data: data,
+        type: GrafitChartType.line,
+        xKey: 'month',
+        yKeys: ['value'],
+      ),
+      footer: Text(
+        '\$${data.fold<int>(0, (sum, item) => sum + (item['value'] as int))} total',
+        style: const TextStyle(fontWeight: FontWeight.w600),
+      ),
+    ),
+  );
 }

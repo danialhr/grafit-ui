@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Resizable panel configuration
 class GrafitResizablePanel {
@@ -198,5 +199,232 @@ class _GrafitResizableState extends State<GrafitResizable> {
       }
     }
     return 1000; // Fallback
+  }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Two Panels Horizontal',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableTwoPanelsHorizontal(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitResizable(
+      panels: [
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.blue.shade100,
+            child: const Center(child: Text('Left Panel')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.green.shade100,
+            child: const Center(child: Text('Right Panel')),
+          ),
+        ),
+      ],
+      initialSizes: const [0.5, 0.5],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Two Panels Vertical',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableTwoPanelsVertical(BuildContext context) {
+  return SizedBox(
+    width: 300,
+    child: GrafitResizable(
+      direction: Axis.vertical,
+      panels: [
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.orange.shade100,
+            child: const Center(child: Text('Top Panel')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.purple.shade100,
+            child: const Center(child: Text('Bottom Panel')),
+          ),
+        ),
+      ],
+      initialSizes: const [0.5, 0.5],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Three Panels',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableThreePanels(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitResizable(
+      panels: [
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.red.shade100,
+            child: const Center(child: Text('Panel 1')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.blue.shade100,
+            child: const Center(child: Text('Panel 2')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.green.shade100,
+            child: const Center(child: Text('Panel 3')),
+          ),
+        ),
+      ],
+      initialSizes: const [0.33, 0.34, 0.33],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Collapsible Panels',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableCollapsible(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitResizable(
+      panels: [
+        GrafitResizablePanel(
+          collapsible: true,
+          child: Container(
+            color: Colors.teal.shade100,
+            child: const Center(child: Text('Collapsible 1')),
+          ),
+        ),
+        GrafitResizablePanel(
+          collapsible: true,
+          initiallyCollapsed: true,
+          child: Container(
+            color: Colors.cyan.shade100,
+            child: const Center(child: Text('Collapsible 2')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.indigo.shade100,
+            child: const Center(child: Text('Main')),
+          ),
+        ),
+      ],
+      initialSizes: const [0.3, 0.3, 0.4],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Size Constraints',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableWithConstraints(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: GrafitResizable(
+      panels: [
+        GrafitResizablePanel(
+          minSize: 0.2,
+          maxSize: 0.4,
+          child: Container(
+            color: Colors.amber.shade100,
+            child: const Center(child: Text('Constrained\n(20%-40%)')),
+          ),
+        ),
+        GrafitResizablePanel(
+          child: Container(
+            color: Colors.lime.shade100,
+            child: const Center(child: Text('Flexible')),
+          ),
+        ),
+      ],
+      initialSizes: const [0.3, 0.7],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitResizable,
+  path: 'Specialized/Resizable',
+)
+Widget resizableInteractive(BuildContext context) {
+  final direction = context.knobs.list(
+    label: 'Direction',
+    options: [Axis.horizontal, Axis.vertical],
+    initialOption: Axis.horizontal,
+  );
+
+  final handleSize = context.knobs.double.slider(
+    label: 'Handle Size',
+    initialValue: 4.0,
+    min: 2.0,
+    max: 10.0,
+  );
+
+  final panelCount = context.knobs.int.slider(
+    label: 'Panel Count',
+    initialValue: 2,
+    min: 2,
+    max: 4,
+  );
+
+  final colors = [
+    Colors.blue.shade100,
+    Colors.green.shade100,
+    Colors.orange.shade100,
+    Colors.purple.shade100,
+  ];
+
+  final panels = List.generate(
+    panelCount,
+    (i) => GrafitResizablePanel(
+      child: Container(
+        color: colors[i],
+        child: Center(child: Text('Panel ${i + 1}')),
+      ),
+    ),
+  );
+
+  final sizes = List.filled(panelCount, 1.0 / panelCount);
+
+  if (direction == Axis.horizontal) {
+    return SizedBox(
+      height: 200,
+      child: GrafitResizable(
+        direction: direction,
+        handleSize: handleSize,
+        panels: panels,
+        initialSizes: sizes,
+      ),
+    );
+  } else {
+    return SizedBox(
+      width: 300,
+      child: GrafitResizable(
+        direction: direction,
+        handleSize: handleSize,
+        panels: panels,
+        initialSizes: sizes,
+      ),
+    );
   }
 }

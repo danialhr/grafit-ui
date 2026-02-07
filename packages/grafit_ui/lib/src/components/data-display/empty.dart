@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Empty media variant
 enum GrafitEmptyMediaVariant {
@@ -533,4 +534,279 @@ class EmptyImage extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Basic',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyBasic(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: EmptyHeader(
+          child: Column(
+            children: [
+              EmptyMedia(
+                child: Icon(Icons.inbox, size: 48),
+              ),
+              EmptyTitle(child: Text('No data found')),
+              EmptyDescription(child: Text('Try adjusting your filters or search query')),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Icon Background',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyWithIconBg(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: EmptyHeader(
+          child: Column(
+            children: [
+              EmptyMedia(
+                variant: GrafitEmptyMediaVariant.icon,
+                child: Icon(Icons.search, size: 24),
+              ),
+              EmptyTitle(child: Text('No results found')),
+              EmptyDescription(child: Text('We couldn\'t find anything matching your search')),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Action',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyWithAction(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: const EmptyHeader(
+          child: Column(
+            children: [
+              EmptyMedia(
+                child: Icon(Icons.folder_open, size: 48),
+              ),
+              EmptyTitle(child: Text('No projects yet')),
+              EmptyDescription(child: Text('Create your first project to get started')),
+            ],
+          ),
+        ),
+        footer: const EmptyFooter(
+          child: EmptyActions(
+            actions: [
+              ElevatedButton(child: Text('Create Project'), onPressed: null),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Actions',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyMultipleActions(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: const EmptyHeader(
+          child: Column(
+            children: [
+              EmptyMedia(
+                child: Icon(Icons.error_outline, size: 48),
+              ),
+              EmptyTitle(child: Text('Something went wrong')),
+              EmptyDescription(child: Text('We encountered an error while loading your data')),
+            ],
+          ),
+        ),
+        footer: EmptyFooter(
+          child: EmptyActions(
+            actions: [
+              OutlinedButton(
+                child: const Text('Retry'),
+                onPressed: () {},
+              ),
+              ElevatedButton(
+                child: const Text('Contact Support'),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Content',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyWithContent(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: EmptyHeader(
+          child: Column(
+            children: [
+              EmptyTitle(child: Text('Your cart is empty')),
+              EmptyDescription(child: Text('Add items to get started')),
+            ],
+          ),
+        ),
+        content: EmptyContent(
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.local_offer),
+                title: Text('Free shipping on orders over \$50'),
+                subtitle: Text('Use code: FREESHIP'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Variants',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyVariants(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        const SizedBox(
+          width: 350,
+          child: GrafitEmpty(
+            header: EmptyHeader(
+              child: Column(
+                children: [
+                  EmptyMedia(child: Icon(Icons.inbox, size: 32)),
+                  EmptyTitle(child: Text('No Items')),
+                  EmptyDescription(child: Text('Simple empty state')),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+        const SizedBox(
+          width: 350,
+          child: GrafitEmpty(
+            header: EmptyHeader(
+              child: Column(
+                children: [
+                  EmptyMedia(
+                    variant: GrafitEmptyMediaVariant.icon,
+                    child: Icon(Icons.search_off, size: 20),
+                  ),
+                  EmptyTitle(child: Text('No Results')),
+                  EmptyDescription(child: Text('With icon background variant')),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitEmpty,
+  path: 'DataDisplay/Empty',
+)
+Widget emptyInteractive(BuildContext context) {
+  final title = context.knobs.string(
+    label: 'Title',
+    initialValue: 'No data found',
+  );
+  final description = context.knobs.string(
+    label: 'Description',
+    initialValue: 'Try adjusting your search or filters',
+  );
+  final showIcon = context.knobs.boolean(
+    label: 'Show Icon',
+    initialValue: true,
+  );
+  final showAction = context.knobs.boolean(
+    label: 'Show Action',
+    initialValue: false,
+  );
+  final iconBackground = context.knobs.boolean(
+    label: 'Icon Background',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 400,
+      child: GrafitEmpty(
+        header: EmptyHeader(
+          child: Column(
+            children: [
+              if (showIcon)
+                EmptyMedia(
+                  variant: iconBackground
+                      ? GrafitEmptyMediaVariant.icon
+                      : GrafitEmptyMediaVariant.defaultVariant,
+                  child: const Icon(Icons.inbox, size: 48),
+                ),
+              EmptyTitle(child: Text(title.isNotEmpty ? title : 'Title')),
+              if (description.isNotEmpty)
+                EmptyDescription(child: Text(description)),
+            ],
+          ),
+        ),
+        footer: showAction
+            ? const EmptyFooter(
+                child: EmptyActions(
+                  actions: [
+                    ElevatedButton(child: Text('Action'), onPressed: null),
+                  ],
+                ),
+              )
+            : null,
+      ),
+    ),
+  );
 }

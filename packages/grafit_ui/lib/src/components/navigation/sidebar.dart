@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Sidebar side - left or right positioning
 enum GrafitSidebarSide {
@@ -1215,4 +1216,647 @@ class GrafitSidebarInset extends StatelessWidget {
       child: child,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarDefault(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Row(
+        children: [
+          GrafitSidebar(
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.dashboard, size: 24),
+                      SizedBox(width: 12),
+                      Text('Dashboard', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                GrafitSidebarContent(
+                  child: GrafitSidebarMenu(
+                    children: [
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.home_outlined),
+                          label: 'Home',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.folder_outlined),
+                          label: 'Projects',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.settings_outlined),
+                          label: 'Settings',
+                          isActive: true,
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Collapsed',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarCollapsed(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: false,
+    child: Scaffold(
+      body: Row(
+        children: [
+          GrafitSidebar(
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Icon(Icons.dashboard, size: 24),
+                ),
+                GrafitSidebarContent(
+                  child: GrafitSidebarMenu(
+                    children: [
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.home_outlined),
+                          label: 'Home',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.folder_outlined),
+                          label: 'Projects',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.settings_outlined),
+                          label: 'Settings',
+                          isActive: true,
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Right Side',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarRight(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+          GrafitSidebar(
+            side: GrafitSidebarSide.right,
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.dashboard, size: 24),
+                      SizedBox(width: 12),
+                      Text('Dashboard', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                GrafitSidebarContent(
+                  child: GrafitSidebarMenu(
+                    children: [
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.home_outlined),
+                          label: 'Home',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.folder_outlined),
+                          label: 'Projects',
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Groups',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarWithGroups(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Row(
+        children: [
+          GrafitSidebar(
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.dashboard, size: 24),
+                      SizedBox(width: 12),
+                      Text('App', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                GrafitSidebarContent(
+                  child: Column(
+                    children: [
+                      GrafitSidebarGroup(
+                        label: GrafitSidebarGroupLabel(text: 'Overview'),
+                        children: [
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.home_outlined),
+                              label: 'Home',
+                              isActive: true,
+                              onTap: () {},
+                            ),
+                          ),
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.analytics_outlined),
+                              label: 'Analytics',
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      GrafitSidebarSeparator(),
+                      GrafitSidebarGroup(
+                        label: GrafitSidebarGroupLabel(text: 'Management'),
+                        children: [
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.folder_outlined),
+                              label: 'Projects',
+                              onTap: () {},
+                            ),
+                          ),
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.people_outlined),
+                              label: 'Team',
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Submenus',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarWithSubmenus(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Row(
+        children: [
+          GrafitSidebar(
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.dashboard, size: 24),
+                      SizedBox(width: 12),
+                      Text('App', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                GrafitSidebarContent(
+                  child: GrafitSidebarMenu(
+                    children: [
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.home_outlined),
+                          label: 'Home',
+                          isActive: true,
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.folder_outlined),
+                          label: 'Projects',
+                          onTap: () {},
+                        ),
+                        sub: GrafitSidebarMenuSub(
+                          children: [
+                            GrafitSidebarMenuSubItem(
+                              button: GrafitSidebarMenuSubButton(
+                                icon: Icon(Icons.list),
+                                label: 'All Projects',
+                                onTap: () {},
+                              ),
+                            ),
+                            GrafitSidebarMenuSubItem(
+                              button: GrafitSidebarMenuSubButton(
+                                icon: Icon(Icons.star_border),
+                                label: 'Favorites',
+                                onTap: () {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Floating Variant',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarFloating(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Container(
+        color: Color(0xFFf5f5f5),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              GrafitSidebar(
+                variant: GrafitSidebarVariant.floating,
+                collapsible: GrafitSidebarCollapsible.icon,
+                child: Column(
+                  children: [
+                    GrafitSidebarHeader(
+                      child: Icon(Icons.dashboard, size: 24),
+                    ),
+                    GrafitSidebarContent(
+                      child: GrafitSidebarMenu(
+                        children: [
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.home_outlined),
+                              label: 'Home',
+                              isActive: true,
+                              onTap: () {},
+                            ),
+                          ),
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.folder_outlined),
+                              label: 'Projects',
+                              onTap: () {},
+                            ),
+                          ),
+                          GrafitSidebarMenuItem(
+                            button: GrafitSidebarMenuButton(
+                              icon: Icon(Icons.settings_outlined),
+                              label: 'Settings',
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(child: Text('Main Content Area')),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Badges',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarWithBadges(BuildContext context) {
+  return GrafitSidebarProvider(
+    defaultOpen: true,
+    child: Scaffold(
+      body: Row(
+        children: [
+          GrafitSidebar(
+            collapsible: GrafitSidebarCollapsible.icon,
+            child: Column(
+              children: [
+                GrafitSidebarHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.dashboard, size: 24),
+                      SizedBox(width: 12),
+                      Text('App', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                GrafitSidebarContent(
+                  child: GrafitSidebarMenu(
+                    children: [
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.home_outlined),
+                          label: 'Home',
+                          onTap: () {},
+                        ),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.mail_outlined),
+                          label: 'Messages',
+                          onTap: () {},
+                        ),
+                        badge: GrafitSidebarMenuBadge(text: '5'),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.notifications_outlined),
+                          label: 'Notifications',
+                          onTap: () {},
+                        ),
+                        badge: GrafitSidebarMenuBadge(text: '12'),
+                      ),
+                      GrafitSidebarMenuItem(
+                        button: GrafitSidebarMenuButton(
+                          icon: Icon(Icons.settings_outlined),
+                          label: 'Settings',
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Center(child: Text('Main Content Area')),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSidebar,
+  path: 'Navigation/Sidebar',
+)
+Widget sidebarInteractive(BuildContext context) {
+  final isOpen = context.knobs.boolean(label: 'Open', initialValue: true);
+  final sideIndex = context.knobs.list(
+    label: 'Side',
+    options: ['left', 'right'],
+    initialOption: 'left',
+  );
+  final variantIndex = context.knobs.list(
+    label: 'Variant',
+    options: ['sidebar', 'floating', 'inset'],
+    initialOption: 'sidebar',
+  );
+  final collapsibleIndex = context.knobs.list(
+    label: 'Collapsible',
+    options: ['offcanvas', 'icon', 'none'],
+    initialOption: 'icon',
+  );
+  final showGroups = context.knobs.boolean(label: 'Show Groups', initialValue: true);
+  final showBadges = context.knobs.boolean(label: 'Show Badges', initialValue: false);
+
+  final side = GrafitSidebarSide.values[sideIndex == 'left' ? 0 : 1];
+  final variant = GrafitSidebarVariant.values[variantIndex == 'sidebar' ? 0 : variantIndex == 'floating' ? 1 : 2];
+  final collapsible = GrafitSidebarCollapsible.values[collapsibleIndex == 'offcanvas' ? 0 : collapsibleIndex == 'icon' ? 1 : 2];
+
+  return GrafitSidebarProvider(
+    defaultOpen: isOpen,
+    child: Scaffold(
+      body: Row(
+        children: [
+          if (side == GrafitSidebarSide.left) ...[
+            GrafitSidebar(
+              side: side,
+              variant: variant,
+              collapsible: collapsible,
+              child: _buildSidebarContent(showGroups, showBadges),
+            ),
+            Expanded(child: Container(color: Color(0xFFf5f5f5), child: Center(child: Text('Main Content Area')))),
+          ] else ...[
+            Expanded(child: Container(color: Color(0xFFf5f5f5), child: Center(child: Text('Main Content Area')))),
+            GrafitSidebar(
+              side: side,
+              variant: variant,
+              collapsible: collapsible,
+              child: _buildSidebarContent(showGroups, showBadges),
+            ),
+          ],
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildSidebarContent(bool showGroups, bool showBadges) {
+  return Column(
+    children: [
+      GrafitSidebarHeader(
+        child: Row(
+          children: [
+            Icon(Icons.dashboard, size: 24),
+            SizedBox(width: 12),
+            Text('App', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+      if (showGroups) ...[
+        GrafitSidebarContent(
+          child: Column(
+            children: [
+              GrafitSidebarGroup(
+                label: GrafitSidebarGroupLabel(text: 'Menu'),
+                children: [
+                  GrafitSidebarMenuItem(
+                    button: GrafitSidebarMenuButton(
+                      icon: Icon(Icons.home_outlined),
+                      label: 'Home',
+                      isActive: true,
+                      onTap: () {},
+                    ),
+                    badge: showBadges ? GrafitSidebarMenuBadge(text: '3') : null,
+                  ),
+                  GrafitSidebarMenuItem(
+                    button: GrafitSidebarMenuButton(
+                      icon: Icon(Icons.folder_outlined),
+                      label: 'Projects',
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              ),
+              GrafitSidebarSeparator(),
+              GrafitSidebarGroup(
+                label: GrafitSidebarGroupLabel(text: 'Settings'),
+                children: [
+                  GrafitSidebarMenuItem(
+                    button: GrafitSidebarMenuButton(
+                      icon: Icon(Icons.settings_outlined),
+                      label: 'Settings',
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ] else ...[
+        GrafitSidebarContent(
+          child: GrafitSidebarMenu(
+            children: [
+              GrafitSidebarMenuItem(
+                button: GrafitSidebarMenuButton(
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                  isActive: true,
+                  onTap: () {},
+                ),
+                badge: showBadges ? GrafitSidebarMenuBadge(text: '3') : null,
+              ),
+              GrafitSidebarMenuItem(
+                button: GrafitSidebarMenuButton(
+                  icon: Icon(Icons.folder_outlined),
+                  label: 'Projects',
+                  onTap: () {},
+                ),
+              ),
+              GrafitSidebarMenuItem(
+                button: GrafitSidebarMenuButton(
+                  icon: Icon(Icons.settings_outlined),
+                  label: 'Settings',
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ],
+  );
 }

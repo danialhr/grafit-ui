@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import '../form/button.dart';
 
 /// Drawer direction
 enum GrafitDrawerDirection {
@@ -478,4 +480,271 @@ class GrafitDrawerCloseButton extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Right Drawer',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerRight(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.right,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: 'Settings',
+          description: 'Manage your preferences',
+        ),
+        Text('Drawer content goes here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Left Drawer',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerLeft(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.left,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: 'Navigation',
+          description: 'Quick links',
+        ),
+        Text('Navigation items...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Top Drawer',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerTop(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.top,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Top drawer content...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Bottom Drawer',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerBottom(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.bottom,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Bottom drawer content...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Trigger',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerWithTrigger(BuildContext context) {
+  return GrafitDrawer(
+    direction: GrafitDrawerDirection.right,
+    trigger: const GrafitButton(label: 'Open Drawer'),
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: 'Menu',
+          description: 'Click trigger to open',
+        ),
+        Text('Menu items go here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Header and Footer',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerWithHeaderFooter(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.right,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const GrafitDrawerHeader(
+          title: 'Account',
+          description: 'Manage your account',
+          trailing: Icon(Icons.settings),
+        ),
+        const Expanded(
+          child: Text('Account settings content...'),
+        ),
+        GrafitDrawerFooter(
+          actions: [
+            GrafitButton(
+              label: 'Cancel',
+              variant: GrafitButtonVariant.outline,
+              onPressed: null,
+            ),
+            SizedBox(width: 8),
+            GrafitButton(
+              label: 'Save',
+              onPressed: null,
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Close Button',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerWithCloseButton(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.right,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: 'Drawer',
+          description: 'With close button',
+          trailing: GrafitDrawerCloseButton(),
+        ),
+        Text('Content here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Non Dismissible',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerNonDismissible(BuildContext context) {
+  return GrafitDrawer(
+    open: true,
+    direction: GrafitDrawerDirection.right,
+    dismissible: false,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: 'Important',
+          description: 'Must be closed with close button',
+          trailing: GrafitDrawerCloseButton(),
+        ),
+        Text('Cannot dismiss by clicking outside...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Directions',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerAllDirections(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16,
+      children: [
+        GrafitButton(
+          label: 'Top Drawer',
+          onPressed: null,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
+          children: [
+            GrafitButton(
+              label: 'Left Drawer',
+              onPressed: null,
+            ),
+            GrafitButton(
+              label: 'Right Drawer',
+              onPressed: null,
+            ),
+          ],
+        ),
+        GrafitButton(
+          label: 'Bottom Drawer',
+          onPressed: null,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitDrawer,
+  path: 'Specialized/Drawer',
+)
+Widget drawerInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Drawer');
+  final description = context.knobs.string(label: 'Description', initialValue: 'Drawer description');
+  final direction = context.knobs.list(
+    label: 'Direction',
+    initialOption: GrafitDrawerDirection.right,
+    options: [
+      GrafitDrawerDirection.top,
+      GrafitDrawerDirection.bottom,
+      GrafitDrawerDirection.left,
+      GrafitDrawerDirection.right,
+    ],
+  );
+  final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  final showCloseButton = context.knobs.boolean(label: 'Show Close Button', initialValue: false);
+
+  return GrafitDrawer(
+    open: true,
+    direction: direction,
+    dismissible: dismissible,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GrafitDrawerHeader(
+          title: title.isNotEmpty ? title : null,
+          description: description.isNotEmpty ? description : null,
+          trailing: showCloseButton ? const GrafitDrawerCloseButton() : null,
+        ),
+        const Text('Drawer content goes here...'),
+      ],
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Menubar menu item variant
 enum GrafitMenubarMenuItemVariant {
@@ -1128,4 +1129,396 @@ class GrafitMenubarSubContent extends StatelessWidget {
       children: children,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarDefault(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('File')),
+        children: const [
+          GrafitMenubarItem(
+            label: 'New Tab',
+            leading: Icon(Icons.add, size: 16),
+          ),
+          GrafitMenubarItem(
+            label: 'New Window',
+            leading: Icon(Icons.open_in_new, size: 16),
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(
+            label: 'Save',
+            leading: Icon(Icons.save, size: 16),
+            shortcut: '⌘S',
+          ),
+          GrafitMenubarItem(
+            label: 'Print',
+            leading: Icon(Icons.print, size: 16),
+            shortcut: '⌘P',
+          ),
+        ],
+      ),
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Edit')),
+        children: const [
+          GrafitMenubarItem(
+            label: 'Undo',
+            leading: Icon(Icons.undo, size: 16),
+            shortcut: '⌘Z',
+          ),
+          GrafitMenubarItem(
+            label: 'Redo',
+            leading: Icon(Icons.redo, size: 16),
+            shortcut: '⌘⇧Z',
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(
+            label: 'Cut',
+            leading: Icon(Icons.content_cut, size: 16),
+            shortcut: '⌘X',
+          ),
+          GrafitMenubarItem(
+            label: 'Copy',
+            leading: Icon(Icons.content_copy, size: 16),
+            shortcut: '⌘C',
+          ),
+        ],
+      ),
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('View')),
+        children: const [
+          GrafitMenubarItem(
+            label: 'Zoom In',
+            leading: Icon(Icons.zoom_in, size: 16),
+            shortcut: '⌘+',
+          ),
+          GrafitMenubarItem(
+            label: 'Zoom Out',
+            leading: Icon(Icons.zoom_out, size: 16),
+            shortcut: '⌘-',
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Destructive',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarDestructive(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Actions')),
+        children: const [
+          GrafitMenubarItem(
+            label: 'Duplicate',
+            leading: Icon(Icons.copy, size: 16),
+          ),
+          GrafitMenubarItem(
+            label: 'Share',
+            leading: Icon(Icons.share, size: 16),
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(
+            label: 'Delete',
+            leading: Icon(Icons.delete, size: 16),
+            variant: GrafitMenubarMenuItemVariant.destructive,
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Checkbox Items',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarCheckboxItems(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('View')),
+        children: const [
+          GrafitMenubarCheckboxItem(
+            label: 'Show Sidebar',
+            checked: true,
+          ),
+          GrafitMenubarCheckboxItem(
+            label: 'Show Toolbar',
+            checked: true,
+          ),
+          GrafitMenubarCheckboxItem(
+            label: 'Show Status Bar',
+            checked: false,
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(
+            label: 'Customize...',
+            leading: Icon(Icons.tune, size: 16),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Radio Group',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarRadioGroup(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Appearance')),
+        children: [
+          GrafitMenubarRadioGroup<String>(
+            value: 'system',
+            onValueChanged: (value) {},
+            items: const [
+              GrafitMenubarRadioItem(
+                value: 'light',
+                label: 'Light',
+              ),
+              GrafitMenubarRadioItem(
+                value: 'dark',
+                label: 'Dark',
+              ),
+              GrafitMenubarRadioItem(
+                value: 'system',
+                label: 'System',
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Submenu',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarSubmenu(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('File')),
+        children: [
+          GrafitMenubarItem(
+            label: 'New',
+            leading: Icon(Icons.add, size: 16),
+          ),
+          GrafitMenubarSub(
+            trigger: GrafitMenubarSubTrigger(
+              leading: Icon(Icons.open_in_new, size: 16),
+              label: 'Open Recent',
+            ),
+            children: const [
+              GrafitMenubarItem(
+                label: 'project1.dart',
+                inset: true,
+              ),
+              GrafitMenubarItem(
+                label: 'project2.dart',
+                inset: true,
+              ),
+              GrafitMenubarSeparator(),
+              GrafitMenubarItem(
+                label: 'Clear Recent',
+                inset: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Labels',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarLabels(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Bookmarks')),
+        children: const [
+          GrafitMenubarLabel(label: 'Recently Bookmarked'),
+          GrafitMenubarItem(
+            label: 'Home Page',
+            leading: Icon(Icons.home, size: 16),
+          ),
+          GrafitMenubarItem(
+            label: 'Documentation',
+            leading: Icon(Icons.book, size: 16),
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarLabel(label: 'Folders'),
+          GrafitMenubarItem(
+            label: 'Work',
+            leading: Icon(Icons.folder, size: 16),
+          ),
+          GrafitMenubarItem(
+            label: 'Personal',
+            leading: Icon(Icons.folder, size: 16),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled Items',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarDisabledItems(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Edit')),
+        children: const [
+          GrafitMenubarItem(
+            label: 'Undo',
+            leading: Icon(Icons.undo, size: 16),
+            shortcut: '⌘Z',
+            enabled: false,
+          ),
+          GrafitMenubarItem(
+            label: 'Redo',
+            leading: Icon(Icons.redo, size: 16),
+            shortcut: '⌘⇧Z',
+            enabled: false,
+          ),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(
+            label: 'Cut',
+            leading: Icon(Icons.content_cut, size: 16),
+            shortcut: '⌘X',
+          ),
+          GrafitMenubarItem(
+            label: 'Copy',
+            leading: Icon(Icons.content_copy, size: 16),
+            shortcut: '⌘C',
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Menus',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarMultiple(BuildContext context) {
+  return GrafitMenubar(
+    children: [
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('File')),
+        children: const [
+          GrafitMenubarItem(label: 'New', leading: Icon(Icons.add, size: 16)),
+          GrafitMenubarItem(label: 'Open', leading: Icon(Icons.folder_open, size: 16)),
+          GrafitMenubarSeparator(),
+          GrafitMenubarItem(label: 'Save', leading: Icon(Icons.save, size: 16), shortcut: '⌘S'),
+        ],
+      ),
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Edit')),
+        children: const [
+          GrafitMenubarItem(label: 'Undo', leading: Icon(Icons.undo, size: 16), shortcut: '⌘Z'),
+          GrafitMenubarItem(label: 'Redo', leading: Icon(Icons.redo, size: 16), shortcut: '⌘⇧Z'),
+        ],
+      ),
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('View')),
+        children: const [
+          GrafitMenubarItem(label: 'Fullscreen', leading: Icon(Icons.fullscreen, size: 16)),
+          GrafitMenubarItem(label: 'Zoom In', leading: Icon(Icons.zoom_in, size: 16)),
+        ],
+      ),
+      GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text('Help')),
+        children: const [
+          GrafitMenubarItem(label: 'Documentation', leading: Icon(Icons.book, size: 16)),
+          GrafitMenubarItem(label: 'About', leading: Icon(Icons.info, size: 16)),
+        ],
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitMenubar,
+  path: 'Navigation/Menubar',
+)
+Widget menubarInteractive(BuildContext context) {
+  final menuCount = context.knobs.int.slider(
+    label: 'Menus',
+    initialValue: 4,
+    min: 1,
+    max: 6,
+  );
+  final itemsPerMenu = context.knobs.int.slider(
+    label: 'Items per Menu',
+    initialValue: 3,
+    min: 1,
+    max: 6,
+  );
+  final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  final hasSeparators = context.knobs.boolean(label: 'Has Separators', initialValue: true);
+  final hasDisabled = context.knobs.boolean(label: 'Has Disabled Items', initialValue: false);
+
+  final menuLabels = ['File', 'Edit', 'View', 'Insert', 'Format', 'Tools'];
+  final itemLabels = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+  final shortcuts = ['⌘A', '⌘B', '⌘C', '⌘D', '⌘E', '⌘F'];
+  final icons = [
+    Icons.abc, Icons.access_time, Icons.account_circle,
+    Icons.add_circle, Icons.apps, Icons.arrow_forward
+  ];
+
+  return GrafitMenubar(
+    children: List.generate(menuCount, (menuIndex) {
+      final items = <Widget>[];
+      for (int i = 0; i < itemsPerMenu; i++) {
+        items.add(GrafitMenubarItem(
+          label: itemLabels[i],
+          leading: showIcons ? Icon(icons[i], size: 16) : null,
+          shortcut: showShortcuts ? shortcuts[i] : null,
+          enabled: hasDisabled && i == 1 ? false : true,
+        ));
+        if (hasSeparators && i == 1 && i < itemsPerMenu - 1) {
+          items.add(const GrafitMenubarSeparator());
+        }
+      }
+
+      return GrafitMenubarMenu(
+        trigger: GrafitMenubarTrigger(child: Text(menuLabels[menuIndex])),
+        children: items,
+      );
+    }),
+  );
 }

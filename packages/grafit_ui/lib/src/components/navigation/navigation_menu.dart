@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Navigation Menu viewport mode
 enum GrafitNavigationMenuViewportMode {
@@ -690,5 +691,424 @@ BoxDecoration navigationMenuTriggerStyle({
   return BoxDecoration(
     color: isOpen ? colors.accent.withOpacity(0.5) : Colors.transparent,
     borderRadius: BorderRadius.circular(colors.radius * 6),
+  );
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuDefault(BuildContext context) {
+  return GrafitNavigationMenu(
+    children: [
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Text('Products'),
+        ),
+      ),
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Text('Solutions'),
+        ),
+      ),
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Text('Pricing'),
+        ),
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Icons',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuWithIcons(BuildContext context) {
+  return GrafitNavigationMenu(
+    children: [
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.home_outlined, size: 18),
+              SizedBox(width: 6),
+              Text('Home'),
+            ],
+          ),
+        ),
+      ),
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.shopping_bag_outlined, size: 18),
+              SizedBox(width: 6),
+              Text('Products'),
+            ],
+          ),
+        ),
+      ),
+      GrafitNavigationMenuItem(
+        child: GrafitNavigationMenuTrigger(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.support_agent_outlined, size: 18),
+              SizedBox(width: 6),
+              Text('Support'),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Content',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuWithContent(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GrafitNavigationMenu(
+            children: [
+              GrafitNavigationMenuItem(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GrafitNavigationMenuTrigger(
+                      child: Text('Products'),
+                    ),
+                    GrafitNavigationMenuContent(
+                      child: Container(
+                        width: 400,
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Explore our products',
+                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                            ),
+                            SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GrafitNavigationMenuLink(
+                                    leading: Icon(Icons.computer, size: 20),
+                                    title: 'Software',
+                                    description: 'Desktop and web applications',
+                                    onSelect: () {},
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: GrafitNavigationMenuLink(
+                                    leading: Icon(Icons.phone_android, size: 20),
+                                    title: 'Mobile',
+                                    description: 'iOS and Android apps',
+                                    onSelect: () {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 200),
+          Text('Main content area'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Links',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuWithLinks(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: GrafitNavigationMenu(
+        children: [
+          GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(
+                  child: Text('Documentation'),
+                ),
+                GrafitNavigationMenuContent(
+                  child: Container(
+                    width: 300,
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.book_outlined, size: 18),
+                          title: 'Getting Started',
+                          description: 'Introduction to the platform',
+                          onSelect: () {},
+                        ),
+                        SizedBox(height: 4),
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.code_outlined, size: 18),
+                          title: 'API Reference',
+                          description: 'Complete API documentation',
+                          onSelect: () {},
+                        ),
+                        SizedBox(height: 4),
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.school_outlined, size: 18),
+                          title: 'Tutorials',
+                          description: 'Step-by-step guides',
+                          onSelect: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Selected Link',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuSelectedLink(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: GrafitNavigationMenu(
+        children: [
+          GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(
+                  child: Text('Account'),
+                ),
+                GrafitNavigationMenuContent(
+                  child: Container(
+                    width: 250,
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.person_outlined, size: 18),
+                          title: 'Profile',
+                          onSelect: () {},
+                        ),
+                        SizedBox(height: 4),
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.lock_outlined, size: 18),
+                          title: 'Security',
+                          selected: true,
+                          onSelect: () {},
+                        ),
+                        SizedBox(height: 4),
+                        GrafitNavigationMenuLink(
+                          leading: Icon(Icons.notifications_outlined, size: 18),
+                          title: 'Notifications',
+                          onSelect: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Items',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuMultiple(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: GrafitNavigationMenu(
+        children: [
+          GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(child: Text('Home')),
+                GrafitNavigationMenuContent(
+                  child: Container(
+                    width: 200,
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GrafitNavigationMenuLink(title: 'Dashboard', onSelect: () {}),
+                        GrafitNavigationMenuLink(title: 'Analytics', onSelect: () {}),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(child: Text('Products')),
+                GrafitNavigationMenuContent(
+                  child: Container(
+                    width: 200,
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GrafitNavigationMenuLink(title: 'Software', onSelect: () {}),
+                        GrafitNavigationMenuLink(title: 'Hardware', onSelect: () {}),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(child: Text('Company')),
+                GrafitNavigationMenuContent(
+                  child: Container(
+                    width: 200,
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GrafitNavigationMenuLink(title: 'About', onSelect: () {}),
+                        GrafitNavigationMenuLink(title: 'Careers', onSelect: () {}),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitNavigationMenu,
+  path: 'Navigation/Navigation Menu',
+)
+Widget navigationMenuInteractive(BuildContext context) {
+  final itemCount = context.knobs.int.slider(
+    label: 'Items',
+    initialValue: 3,
+    min: 1,
+    max: 5,
+  );
+  final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: false);
+  final showContent = context.knobs.boolean(label: 'Show Content', initialValue: true);
+
+  final labels = ['Home', 'Products', 'Services', 'About', 'Contact'];
+  final icons = [
+    Icons.home_outlined,
+    Icons.shopping_bag_outlined,
+    Icons.business_center_outlined,
+    Icons.info_outlined,
+    Icons.mail_outlined,
+  ];
+
+  return Scaffold(
+    backgroundColor: Colors.white,
+    body: Center(
+      child: GrafitNavigationMenu(
+        children: List.generate(itemCount, (index) {
+          final triggerChild = showIcons
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icons[index], size: 18),
+                    SizedBox(width: 6),
+                    Text(labels[index]),
+                  ],
+                )
+              : Text(labels[index]);
+
+          return GrafitNavigationMenuItem(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GrafitNavigationMenuTrigger(child: triggerChild),
+                if (showContent)
+                  GrafitNavigationMenuContent(
+                    child: Container(
+                      width: 250,
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GrafitNavigationMenuLink(
+                            title: '${labels[index]} Link 1',
+                            leading: showIcons ? Icon(icons[index], size: 18) : null,
+                            onSelect: () {},
+                          ),
+                          SizedBox(height: 4),
+                          GrafitNavigationMenuLink(
+                            title: '${labels[index]} Link 2',
+                            leading: showIcons ? Icon(icons[index], size: 18) : null,
+                            onSelect: () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        }),
+      ),
+    ),
   );
 }

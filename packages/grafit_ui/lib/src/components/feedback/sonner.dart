@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import '../form/button.dart';
 
 /// Toast position
 enum GrafitToastPosition {
@@ -971,4 +973,351 @@ extension GrafitSonnerExtension on BuildContext {
   void dismissAllToasts() {
     GrafitSonner.dismissAll(this);
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerDefault(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GrafitButton(
+            label: 'Show Toast',
+            onPressed: () {
+              context.showToast(
+                title: 'Hello World',
+                description: 'This is a basic toast notification',
+              );
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Success',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerSuccess(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Success',
+        onPressed: () {
+          context.showSuccess(
+            title: 'Success',
+            description: 'Your changes have been saved',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Error',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerError(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Error',
+        onPressed: () {
+          context.showError(
+            title: 'Error',
+            description: 'Something went wrong. Please try again.',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Warning',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerWarning(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Warning',
+        onPressed: () {
+          context.showWarning(
+            title: 'Warning',
+            description: 'Your session is about to expire',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Info',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerInfo(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Info',
+        onPressed: () {
+          context.showInfo(
+            title: 'Information',
+            description: 'You have 3 new notifications',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Loading',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerLoading(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GrafitButton(
+            label: 'Show Loading',
+            onPressed: () {
+              final id = context.showLoading(
+                title: 'Processing',
+                description: 'Please wait while we process your request...',
+              );
+              // Dismiss after 3 seconds
+              Future.delayed(const Duration(seconds: 3), () {
+                context.dismissToast(id);
+              });
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Action',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerWithAction(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Toast With Action',
+        onPressed: () {
+          context.showToast(
+            title: 'New Update Available',
+            description: 'A new version of the app is ready to install',
+            actionLabel: 'Update Now',
+            onAction: () {
+              // Handle action
+            },
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Positions',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerPositions(BuildContext context) {
+  final position = context.knobs.list(
+    label: 'Position',
+    initialOption: GrafitToastPosition.bottomRight,
+    options: [
+      GrafitToastPosition.topLeft,
+      GrafitToastPosition.topCenter,
+      GrafitToastPosition.topRight,
+      GrafitToastPosition.bottomLeft,
+      GrafitToastPosition.bottomCenter,
+      GrafitToastPosition.bottomRight,
+    ],
+  );
+
+  return GrafitSonner(
+    position: position,
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Toast',
+        onPressed: () {
+          context.showToast(
+            title: 'Position: ${position.name}',
+            description: 'Toast appears at ${position.name}',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Promise',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerPromise(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Promise Toast',
+        onPressed: () {
+          context.showPromise(
+            () async {
+              await Future.delayed(const Duration(seconds: 2));
+              if (context.mounted) {
+                return 'Success!';
+              }
+              throw Exception('Failed');
+            }(),
+            loadingTitle: 'Loading...',
+            loadingDescription: 'Fetching data from server',
+            successTitle: 'Complete',
+            successDescription: 'Data loaded successfully',
+            errorTitle: 'Error',
+            errorDescription: 'Failed to load data',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Variants',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerAllVariants(BuildContext context) {
+  return GrafitSonner(
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 8,
+        children: [
+          GrafitButton(
+            label: 'Basic',
+            variant: GrafitButtonVariant.primary,
+            onPressed: () => context.showToast(title: 'Basic Toast'),
+          ),
+          GrafitButton(
+            label: 'Success',
+            variant: GrafitButtonVariant.primary,
+            onPressed: () => context.showSuccess(title: 'Success!'),
+          ),
+          GrafitButton(
+            label: 'Error',
+            variant: GrafitButtonVariant.destructive,
+            onPressed: () => context.showError(title: 'Error!'),
+          ),
+          GrafitButton(
+            label: 'Warning',
+            variant: GrafitButtonVariant.primary,
+            onPressed: () => context.showWarning(title: 'Warning!'),
+          ),
+          GrafitButton(
+            label: 'Info',
+            variant: GrafitButtonVariant.secondary,
+            onPressed: () => context.showInfo(title: 'Info'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSonner,
+  path: 'Feedback/Sonner',
+)
+Widget sonnerInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Notification');
+  final description = context.knobs.string(label: 'Description', initialValue: 'You have a new message');
+  final variant = context.knobs.list(
+    label: 'Variant',
+    initialOption: GrafitToastVariant.basic,
+    options: [
+      GrafitToastVariant.basic,
+      GrafitToastVariant.success,
+      GrafitToastVariant.error,
+      GrafitToastVariant.warning,
+      GrafitToastVariant.info,
+    ],
+  );
+  final position = context.knobs.list(
+    label: 'Position',
+    initialOption: GrafitToastPosition.bottomRight,
+    options: [
+      GrafitToastPosition.topLeft,
+      GrafitToastPosition.topCenter,
+      GrafitToastPosition.topRight,
+      GrafitToastPosition.bottomLeft,
+      GrafitToastPosition.bottomCenter,
+      GrafitToastPosition.bottomRight,
+    ],
+  );
+  final maxToasts = context.knobs.int.slider(
+    label: 'Max Toasts',
+    initialValue: 3,
+    min: 1,
+    max: 10,
+  );
+
+  return GrafitSonner(
+    position: position,
+    maxToasts: maxToasts,
+    child: Center(
+      child: GrafitButton(
+        label: 'Show Toast',
+        onPressed: () {
+          switch (variant) {
+            case GrafitToastVariant.basic:
+              context.showToast(title: title, description: description);
+              break;
+            case GrafitToastVariant.success:
+              context.showSuccess(title: title, description: description);
+              break;
+            case GrafitToastVariant.error:
+              context.showError(title: title, description: description);
+              break;
+            case GrafitToastVariant.warning:
+              context.showWarning(title: title, description: description);
+              break;
+            case GrafitToastVariant.info:
+              context.showInfo(title: title, description: description);
+              break;
+            case GrafitToastVariant.loading:
+              context.showLoading(title: title, description: description);
+              break;
+          }
+        },
+      ),
+    ),
+  );
 }

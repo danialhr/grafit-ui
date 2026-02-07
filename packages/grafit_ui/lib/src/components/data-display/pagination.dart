@@ -3,6 +3,7 @@ import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/clickable.dart';
 import '../form/button.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Pagination link size
 enum GrafitPaginationLinkSize {
@@ -494,4 +495,150 @@ class _GrafitPaginationWidgetState extends State<GrafitPaginationWidget> {
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 0,
+      totalPages: 10,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Middle Page',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationMiddle(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 5,
+      totalPages: 10,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Last Page',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationLast(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 9,
+      totalPages: 10,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With First/Last Buttons',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationWithFirstLast(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 5,
+      totalPages: 10,
+      showFirstLast: true,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Compact',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationCompact(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 5,
+      totalPages: 10,
+      compact: true,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Page Count',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationSmallCount(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 1,
+      totalPages: 5,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Large Page Count',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationLargeCount(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: 25,
+      totalPages: 50,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitPaginationWidget,
+  path: 'DataDisplay/Pagination',
+)
+Widget paginationInteractive(BuildContext context) {
+  final currentPage = context.knobs.int.slider(
+    label: 'Current Page',
+    initialValue: 5,
+    min: 0,
+    max: 9,
+  );
+  final totalPages = context.knobs.int.slider(
+    label: 'Total Pages',
+    initialValue: 10,
+    min: 3,
+    max: 20,
+  );
+  final showFirstLast = context.knobs.boolean(
+    label: 'Show First/Last',
+    initialValue: false,
+  );
+  final compact = context.knobs.boolean(
+    label: 'Compact',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitPaginationWidget(
+      currentPage: currentPage,
+      totalPages: totalPages,
+      showFirstLast: showFirstLast,
+      compact: compact,
+    ),
+  );
 }

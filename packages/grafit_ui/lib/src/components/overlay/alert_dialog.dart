@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../form/button.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// AlertDialog size variant
 enum GrafitAlertDialogSize {
@@ -359,4 +360,212 @@ class GrafitAlertDialogMedia extends StatelessWidget {
       child: child ?? const Icon(Icons.warning_amber_outlined),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogDefault(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Are you sure?',
+    descriptionText: 'This action cannot be undone. This will permanently delete your account and remove your data from our servers.',
+    actions: [
+      GrafitAlertDialogCancel(label: 'Cancel'),
+      const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Delete Account', destructive: true),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Media',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogWithMedia(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Success',
+    descriptionText: 'Your changes have been saved successfully.',
+    media: GrafitAlertDialogMedia(
+      backgroundColor: Colors.green.shade100,
+      child: Icon(Icons.check_circle, color: Colors.green.shade700),
+    ),
+    actions: [
+      GrafitAlertDialogAction(label: 'Continue'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogSmall(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    size: GrafitAlertDialogSize.sm,
+    titleText: 'Delete Item',
+    descriptionText: 'Are you sure you want to delete this item?',
+    actions: [
+      GrafitAlertDialogCancel(label: 'Cancel'),
+      const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Delete', destructive: true),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Warning Dialog',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogWarning(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Warning',
+    descriptionText: 'You are about to perform a potentially dangerous action. Please review carefully.',
+    media: const GrafitAlertDialogMedia(
+      child: Icon(Icons.warning_amber_outlined, color: Colors.orange, size: 32),
+    ),
+    actions: [
+      GrafitAlertDialogCancel(label: 'Go Back'),
+      const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Proceed'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Confirm Dialog',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogConfirm(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Confirm Subscription',
+    descriptionText: 'By clicking confirm, you agree to subscribe to our premium plan at \$9.99/month.',
+    actions: [
+      GrafitAlertDialogCancel(label: 'Maybe Later'),
+      const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Confirm Subscription'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Info Dialog',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogInfo(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Information',
+    descriptionText: 'Your session will expire in 5 minutes. Please save your work to avoid losing any changes.',
+    media: const GrafitAlertDialogMedia(
+      child: Icon(Icons.info_outline, color: Colors.blue, size: 32),
+    ),
+    actions: [
+      GrafitAlertDialogAction(label: 'Got it'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Non Dismissible',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogNonDismissible(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    dismissible: false,
+    titleText: 'Attention Required',
+    descriptionText: 'You must complete this action before proceeding. This dialog cannot be dismissed.',
+    actions: [
+      GrafitAlertDialogAction(label: 'I Understand'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Custom Content',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogCustomContent(BuildContext context) {
+  return GrafitAlertDialog(
+    open: true,
+    titleText: 'Select Option',
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        RadioListTile(
+          title: Text('Option 1'),
+          value: '1',
+          groupValue: '1',
+          onChanged: (_) {},
+        ),
+        RadioListTile(
+          title: Text('Option 2'),
+          value: '2',
+          groupValue: '1',
+          onChanged: (_) {},
+        ),
+        RadioListTile(
+          title: Text('Option 3'),
+          value: '3',
+          groupValue: '1',
+          onChanged: (_) {},
+        ),
+      ],
+    ),
+    actions: [
+      GrafitAlertDialogCancel(label: 'Cancel'),
+      const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Confirm'),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitAlertDialog,
+  path: 'Overlay/AlertDialog',
+)
+Widget alertDialogInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Confirm Action');
+  final description = context.knobs.string(
+    label: 'Description',
+    initialValue: 'Are you sure you want to proceed?',
+  );
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitAlertDialogSize.value,
+    options: [GrafitAlertDialogSize.sm, GrafitAlertDialogSize.value],
+  );
+  final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  final showMedia = context.knobs.boolean(label: 'Show Media', initialValue: false);
+  final showCancel = context.knobs.boolean(label: 'Show Cancel Button', initialValue: true);
+
+  return GrafitAlertDialog(
+    open: true,
+    size: size,
+    dismissible: dismissible,
+    titleText: title.isNotEmpty ? title : null,
+    descriptionText: description.isNotEmpty ? description : null,
+    media: showMedia ? const GrafitAlertDialogMedia() : null,
+    actions: [
+      if (showCancel) GrafitAlertDialogCancel(label: 'Cancel'),
+      if (showCancel && showCancel) const SizedBox(width: 8),
+      GrafitAlertDialogAction(label: 'Confirm'),
+    ],
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../primitives/focusable.dart';
 
@@ -778,6 +779,188 @@ class _GrafitInputGroupTextareaState extends State<GrafitInputGroupTextarea> {
       cursorColor: colors.primary,
     );
   }
+}
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('https://'),
+        child: GrafitInputGroupInput(
+          hint: 'example.com',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Right Addon',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupWithRight(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        right: GrafitInputGroupText('.com', icon: Icons.email),
+        child: GrafitInputGroupInput(
+          hint: 'user',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Both Addons',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupWithBoth(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('\$', icon: Icons.attach_money),
+        right: GrafitInputGroupText('USD'),
+        child: GrafitInputGroupInput(
+          hint: '0.00',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Error',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupWithError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('https://'),
+        errorText: 'Please enter a valid URL',
+        hasError: true,
+        child: GrafitInputGroupInput(
+          hint: 'example.com',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Helper Text',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupWithHelper(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('@'),
+        helperText: 'Enter your username',
+        child: GrafitInputGroupInput(
+          hint: 'johndoe',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('https://'),
+        disabled: true,
+        child: GrafitInputGroupInput(
+          hint: 'Disabled input',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Button',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupWithButton(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: GrafitInputGroupText('Search'),
+        right: GrafitInputGroupButton(
+          icon: Icons.search,
+          onPressed: () {},
+        ),
+        child: GrafitInputGroupInput(
+          hint: 'Type to search...',
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitInputGroup,
+  path: 'Form/InputGroup',
+)
+Widget inputGroupInteractive(BuildContext context) {
+  final hasLeft = context.knobs.boolean(label: 'Left Addon', initialValue: true);
+  final hasRight = context.knobs.boolean(label: 'Right Addon', initialValue: false);
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitInputGroup(
+        left: hasLeft ? const GrafitInputGroupText('https://') : null,
+        right: hasRight ? const GrafitInputGroupText('.com') : null,
+        errorText: hasError ? 'This field has an error' : null,
+        hasError: hasError,
+        disabled: disabled,
+        child: GrafitInputGroupInput(
+          hint: 'example.com',
+        ),
+      ),
+    ),
+  );
 }
 
 /// Button variant enum (reused from button.dart)

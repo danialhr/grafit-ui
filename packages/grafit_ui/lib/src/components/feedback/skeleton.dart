@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Skeleton component
 class GrafitSkeleton extends StatefulWidget {
@@ -178,4 +179,216 @@ class GrafitSkeletonCard extends StatelessWidget {
       height: defaultHeight,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitSkeleton,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: GrafitSkeleton(
+      width: 200,
+      height: 20,
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Avatar',
+  type: GrafitSkeletonAvatar,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonAvatar(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Row(
+      children: [
+        GrafitSkeletonAvatar(size: 32),
+        SizedBox(width: 8),
+        GrafitSkeletonAvatar(size: 40),
+        SizedBox(width: 8),
+        GrafitSkeletonAvatar(size: 48),
+        SizedBox(width: 8),
+        GrafitSkeletonAvatar(size: 64),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Text Lines',
+  type: GrafitSkeletonText,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonTextLines(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSkeletonText(width: 200),
+        SizedBox(height: 8),
+        GrafitSkeletonText(width: 180),
+        SizedBox(height: 8),
+        GrafitSkeletonText(width: 150),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Card',
+  type: GrafitSkeletonCard,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonCard(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitSkeletonCard(
+        width: 300,
+        height: 120,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Card with Lines',
+  type: GrafitSkeletonCard,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonCardWithLines(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitSkeletonCard(
+        width: 300,
+        lines: 3,
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'List Item',
+  type: GrafitSkeleton,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonListItem(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      children: List.generate(
+        5,
+        (index) => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              GrafitSkeletonAvatar(size: 40),
+              SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GrafitSkeletonText(width: double.infinity),
+                    SizedBox(height: 8),
+                    GrafitSkeletonText(width: 200),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Profile Card',
+  type: GrafitSkeleton,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonProfileCard(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        GrafitSkeletonAvatar(size: 80),
+        SizedBox(height: 16),
+        GrafitSkeleton(width: 200, height: 24),
+        SizedBox(height: 8),
+        GrafitSkeleton(width: 150, height: 16),
+        SizedBox(height: 16),
+        GrafitSkeleton(width: double.infinity, height: 60),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Multiple Sizes',
+  type: GrafitSkeleton,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonMultipleSizes(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GrafitSkeleton(width: 100, height: 8),
+        SizedBox(height: 8),
+        GrafitSkeleton(width: 150, height: 12),
+        SizedBox(height: 8),
+        GrafitSkeleton(width: 200, height: 16),
+        SizedBox(height: 8),
+        GrafitSkeleton(width: 250, height: 20),
+        SizedBox(height: 8),
+        GrafitSkeleton(width: 300, height: 24),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSkeleton,
+  path: 'Feedback/Skeleton',
+)
+Widget skeletonInteractive(BuildContext context) {
+  final width = context.knobs.double.slider(
+    label: 'Width',
+    initialValue: 200,
+    min: 50,
+    max: 400,
+  );
+  final height = context.knobs.double.slider(
+    label: 'Height',
+    initialValue: 20,
+    min: 8,
+    max: 100,
+  );
+  final borderRadius = context.knobs.double.slider(
+    label: 'Border Radius',
+    initialValue: 4,
+    min: 0,
+    max: 50,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GrafitSkeleton(
+      width: width,
+      height: height,
+      borderRadius: borderRadius,
+    ),
+  );
 }

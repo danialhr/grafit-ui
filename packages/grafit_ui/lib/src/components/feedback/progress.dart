@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Progress component
 class GrafitProgress extends StatelessWidget {
@@ -134,4 +135,245 @@ class _GrafitProgressIndeterminateState
       ),
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 0.5),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Zero',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressZero(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 0.0),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Quarter',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressQuarter(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 0.25),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Half',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressHalf(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 0.5),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Three Quarters',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressThreeQuarters(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 0.75),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Full',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressFull(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgress(value: 1.0),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Indeterminate',
+  type: GrafitProgressIndeterminate,
+  path: 'Feedback/Progress',
+)
+Widget progressIndeterminate(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitProgressIndeterminate(),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Height',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressCustomHeight(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(value: 0.5, height: 4),
+        ),
+        SizedBox(height: 16),
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(value: 0.5, height: 8),
+        ),
+        SizedBox(height: 16),
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(value: 0.5, height: 16),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Colors',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressCustomColors(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(
+            value: 0.5,
+            progressColor: Colors.blue,
+          ),
+        ),
+        SizedBox(height: 16),
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(
+            value: 0.7,
+            progressColor: Colors.green,
+          ),
+        ),
+        SizedBox(height: 16),
+        SizedBox(
+          width: 300,
+          child: GrafitProgress(
+            value: 0.3,
+            progressColor: Colors.orange,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All States',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressAllStates(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Loading...', style: TextStyle(fontSize: 14)),
+          SizedBox(height: 8),
+          GrafitProgressIndeterminate(height: 4),
+          SizedBox(height: 24),
+          Text('25% Complete', style: TextStyle(fontSize: 14)),
+          SizedBox(height: 8),
+          GrafitProgress(value: 0.25),
+          SizedBox(height: 24),
+          Text('50% Complete', style: TextStyle(fontSize: 14)),
+          SizedBox(height: 8),
+          GrafitProgress(value: 0.5),
+          SizedBox(height: 24),
+          Text('100% Complete', style: TextStyle(fontSize: 14)),
+          SizedBox(height: 8),
+          GrafitProgress(value: 1.0),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitProgress,
+  path: 'Feedback/Progress',
+)
+Widget progressInteractive(BuildContext context) {
+  final value = context.knobs.double.slider(
+    label: 'Progress Value',
+    initialValue: 0.5,
+    min: 0.0,
+    max: 1.0,
+  );
+  final height = context.knobs.double.slider(
+    label: 'Height',
+    initialValue: 8.0,
+    min: 2.0,
+    max: 24.0,
+  );
+  final isIndeterminate = context.knobs.boolean(
+    label: 'Indeterminate',
+    initialValue: false,
+  );
+
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: SizedBox(
+      width: 300,
+      child: isIndeterminate
+          ? GrafitProgressIndeterminate(height: height)
+          : GrafitProgress(value: value, height: height),
+    ),
+  );
 }

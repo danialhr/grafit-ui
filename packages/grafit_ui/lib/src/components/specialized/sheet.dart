@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import '../form/button.dart';
 
 /// Sheet side - direction from which the sheet slides in
 enum GrafitSheetSide {
@@ -788,4 +790,282 @@ class _SheetModalOverlayState extends State<_SheetModalOverlay>
         return const Offset(-4, 0);
     }
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'Right Sheet',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetRight(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.right,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Settings',
+          description: 'Manage your application settings',
+        ),
+        Text('Settings content goes here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Left Sheet',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetLeft(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.left,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Navigation',
+          description: 'Quick navigation menu',
+        ),
+        Text('Navigation items go here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Top Sheet',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetTop(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.top,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Filters',
+          description: 'Filter your results',
+        ),
+        Text('Filter options go here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Bottom Sheet',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetBottom(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.bottom,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Share',
+          description: 'Share this content',
+        ),
+        Text('Share options go here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Trigger',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetWithTrigger(BuildContext context) {
+  return GrafitSheet(
+    side: GrafitSheetSide.right,
+    trigger: const GrafitButton(label: 'Open Sheet'),
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'With Trigger',
+          description: 'Sheet with custom trigger button',
+        ),
+        Text('Content here...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Footer',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetWithFooter(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.right,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SheetHeader(
+          title: 'Confirm Action',
+          description: 'Are you sure you want to proceed?',
+        ),
+        const Expanded(
+          child: Text('Additional details and information...'),
+        ),
+        SheetFooter(
+          actions: [
+            GrafitButton(
+              label: 'Cancel',
+              variant: GrafitButtonVariant.outline,
+              onPressed: null,
+            ),
+            SizedBox(width: 8),
+            GrafitButton(
+              label: 'Confirm',
+              variant: GrafitButtonVariant.primary,
+              onPressed: null,
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Custom Width',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetCustomWidth(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.right,
+    width: 500,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Wide Sheet',
+          description: '500px width',
+        ),
+        Text('Extra wide sheet for more content...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Sides',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetAllSides(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(100.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16,
+      children: [
+        GrafitButton(
+          label: 'Top Sheet',
+          onPressed: null,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
+          children: [
+            GrafitButton(
+              label: 'Left Sheet',
+              onPressed: null,
+            ),
+            GrafitButton(
+              label: 'Right Sheet',
+              onPressed: null,
+            ),
+          ],
+        ),
+        GrafitButton(
+          label: 'Bottom Sheet',
+          onPressed: null,
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Non Dismissible',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetNonDismissible(BuildContext context) {
+  return GrafitSheet(
+    open: true,
+    side: GrafitSheetSide.right,
+    dismissible: false,
+    showCloseButton: true,
+    child: const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SheetHeader(
+          title: 'Important',
+          description: 'This sheet must be closed using the X button',
+        ),
+        Text('Cannot dismiss by clicking outside...'),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitSheet,
+  path: 'Specialized/Sheet',
+)
+Widget sheetInteractive(BuildContext context) {
+  final title = context.knobs.string(label: 'Title', initialValue: 'Sheet Title');
+  final description = context.knobs.string(label: 'Description', initialValue: 'Sheet description');
+  final side = context.knobs.list(
+    label: 'Side',
+    initialOption: GrafitSheetSide.right,
+    options: [
+      GrafitSheetSide.top,
+      GrafitSheetSide.bottom,
+      GrafitSheetSide.left,
+      GrafitSheetSide.right,
+    ],
+  );
+  final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  final showCloseButton = context.knobs.boolean(label: 'Show Close Button', initialValue: true);
+  final width = context.knobs.double.slider(label: 'Width (side sheets)', initialValue: 384, min: 200, max: 600);
+
+  return GrafitSheet(
+    open: true,
+    side: side,
+    width: side == GrafitSheetSide.left || side == GrafitSheetSide.right ? width : null,
+    dismissible: dismissible,
+    showCloseButton: showCloseButton,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (title.isNotEmpty || description.isNotEmpty)
+          SheetHeader(
+            title: title.isNotEmpty ? title : null,
+            description: description.isNotEmpty ? description : null,
+          ),
+        const Text('Sheet content goes here...'),
+      ],
+    ),
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 /// Direction values for text layout
 enum GrafitTextDirection {
@@ -381,4 +382,279 @@ class GrafitDirectionalIcon extends StatelessWidget {
       color: color,
     );
   }
+}
+
+// Widgetbook use cases
+@widgetbook.UseCase(
+  name: 'LTR Direction',
+  type: GrafitDirection,
+  path: 'Specialized/Direction',
+)
+Widget directionLTR(BuildContext context) {
+  return GrafitDirection.ltr(
+    child: Container(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Left-to-Right (LTR)',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              const Icon(Icons.arrow_back),
+              const SizedBox(width: 8),
+              const Text('Back'),
+              const SizedBox(width: 32),
+              const Text('Content'),
+              const SizedBox(width: 32),
+              const Icon(Icons.arrow_forward),
+              const SizedBox(width: 8),
+              const Text('Next'),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'RTL Direction',
+  type: GrafitDirection,
+  path: 'Specialized/Direction',
+)
+Widget directionRTL(BuildContext context) {
+  return GrafitDirection.rtl(
+    child: Container(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Right-to-Left (RTL)',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              const Icon(Icons.arrow_back),
+              const SizedBox(width: 8),
+              const Text('Back'),
+              const SizedBox(width: 32),
+              const Text('محتوى'), // Content in Arabic
+              const SizedBox(width: 32),
+              const Icon(Icons.arrow_forward),
+              const SizedBox(width: 8),
+              const Text('Next'),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Direction Builder',
+  type: GrafitDirectionBuilder,
+  path: 'Specialized/Direction',
+)
+Widget directionBuilder(BuildContext context) {
+  return GrafitDirection.ltr(
+    child: Column(
+      children: [
+        const GrafitDirection(
+          direction: GrafitTextDirection.ltr,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('LTR Layout: Text flows from left to right'),
+          ),
+        ),
+        const SizedBox(height: 16),
+        const GrafitDirection(
+          direction: GrafitTextDirection.rtl,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('RTL Layout: النص يتدفق من اليمين إلى اليسار'),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Directional Padding',
+  type: GrafitDirectionalPadding,
+  path: 'Specialized/Direction',
+)
+Widget directionPadding(BuildContext context) {
+  return Row(
+    children: [
+      Expanded(
+        child: GrafitDirection.ltr(
+          child: const GrafitDirectionalPadding(
+            padding: EdgeInsetsDirectional.only(start: 24),
+            child: Text('LTR: Padding on the left'),
+          ),
+        ),
+      ),
+      const SizedBox(width: 32),
+      Expanded(
+        child: GrafitDirection.rtl(
+          child: const GrafitDirectionalPadding(
+            padding: EdgeInsetsDirectional.only(start: 24),
+            child: Text('RTL: الحشو على اليمين'),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Directional Icon',
+  type: GrafitDirectionalIcon,
+  path: 'Specialized/Direction',
+)
+Widget directionIcon(BuildContext context) {
+  return Column(
+    children: [
+      GrafitDirection.ltr(
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('LTR: '),
+            GrafitDirectionalIcon(icon: Icons.arrow_forward),
+          ],
+        ),
+      ),
+      const SizedBox(height: 32),
+      GrafitDirection.rtl(
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('RTL: '),
+            GrafitDirectionalIcon(icon: Icons.arrow_forward),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Mixed Content',
+  type: GrafitDirection,
+  path: 'Specialized/Direction',
+)
+Widget directionMixed(BuildContext context) {
+  return GrafitDirection.ltr(
+    child: Container(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          const Text(
+            'Mixed Direction Content',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 24),
+          const GrafitDirection(
+            direction: GrafitTextDirection.ltr,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Icon(Icons.arrow_back),
+                    Text('English content goes here'),
+                    Icon(Icons.arrow_forward),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const GrafitDirection(
+            direction: GrafitTextDirection.rtl,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Icon(Icons.arrow_back),
+                    Text('المحتوى العربي هنا'),
+                    Icon(Icons.arrow_forward),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitDirection,
+  path: 'Specialized/Direction',
+)
+Widget directionInteractive(BuildContext context) {
+  final direction = context.knobs.list(
+    label: 'Text Direction',
+    options: GrafitTextDirection.values,
+    initialOption: GrafitTextDirection.ltr,
+  );
+
+  final mirrorIcon = context.knobs.boolean(
+    label: 'Mirror Icon in RTL',
+    initialValue: true,
+  );
+
+  return GrafitDirection(
+    direction: direction,
+    child: Container(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Direction: ${direction.name.toUpperCase()}',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              GrafitDirectionalIcon(
+                icon: Icons.arrow_back,
+                mirrorInRtl: mirrorIcon,
+              ),
+              const SizedBox(width: 8),
+              const Text('Back'),
+              const SizedBox(width: 32),
+              Expanded(
+                child: Text(
+                  direction == GrafitTextDirection.rtl
+                      ? 'محتوى تفاعلي'
+                      : 'Interactive Content',
+                ),
+              ),
+              const SizedBox(width: 32),
+              const Text('Next'),
+              const SizedBox(width: 8),
+              GrafitDirectionalIcon(
+                icon: Icons.arrow_forward,
+                mirrorInRtl: mirrorIcon,
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }

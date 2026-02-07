@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import '../../theme/theme.dart';
 import '../../theme/theme_data.dart';
 import '../../primitives/focusable.dart';
@@ -639,3 +640,214 @@ class GrafitNativeSelectOptionItem<T> extends GrafitNativeSelectOption<T> {
     );
   }
 }
+
+// ============================================================
+// WIDGETBOOK USE CASES
+// ============================================================
+
+@widgetbook.UseCase(
+  name: 'Default',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectDefault(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'apple', label: 'Apple'),
+          GrafitNativeSelectOption(value: 'banana', label: 'Banana'),
+          GrafitNativeSelectOption(value: 'orange', label: 'Orange'),
+          GrafitNativeSelectOption(value: 'grape', label: 'Grape'),
+        ],
+        placeholder: 'Select a fruit',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Value',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectWithValue(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'apple', label: 'Apple'),
+          GrafitNativeSelectOption(value: 'banana', label: 'Banana'),
+          GrafitNativeSelectOption(value: 'orange', label: 'Orange'),
+        ],
+        value: 'banana',
+        placeholder: 'Select a fruit',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Label',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectWithLabel(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'us', label: 'United States'),
+          GrafitNativeSelectOption(value: 'uk', label: 'United Kingdom'),
+          GrafitNativeSelectOption(value: 'ca', label: 'Canada'),
+        ],
+        label: 'Country',
+        placeholder: 'Select your country',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Small Size',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectSmall(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 280,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'sm', label: 'Small'),
+          GrafitNativeSelectOption(value: 'md', label: 'Medium'),
+          GrafitNativeSelectOption(value: 'lg', label: 'Large'),
+        ],
+        size: GrafitNativeSelectSize.sm,
+        placeholder: 'Select size',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Error',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectWithError(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'admin', label: 'Admin'),
+          GrafitNativeSelectOption(value: 'user', label: 'User'),
+          GrafitNativeSelectOption(value: 'guest', label: 'Guest'),
+        ],
+        label: 'Role',
+        errorText: 'This field is required',
+        placeholder: 'Select a role',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Disabled',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectDisabled(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(value: 'option1', label: 'Option 1'),
+          GrafitNativeSelectOption(value: 'option2', label: 'Option 2'),
+        ],
+        enabled: false,
+        placeholder: 'Disabled select',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'With Descriptions',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectWithDescriptions(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 320,
+      child: GrafitNativeSelect<String>(
+        options: [
+          GrafitNativeSelectOption(
+            value: 'free',
+            label: 'Free Plan',
+            description: 'For individuals',
+          ),
+          GrafitNativeSelectOption(
+            value: 'pro',
+            label: 'Pro Plan',
+            description: 'For businesses',
+          ),
+          GrafitNativeSelectOption(
+            value: 'enterprise',
+            label: 'Enterprise',
+            description: 'For organizations',
+          ),
+        ],
+        placeholder: 'Select a plan',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Interactive',
+  type: GrafitNativeSelect,
+  path: 'Form/NativeSelect',
+)
+Widget nativeSelectInteractive(BuildContext context) {
+  final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  final size = context.knobs.list(
+    label: 'Size',
+    initialOption: GrafitNativeSelectSize.md,
+    options: const [GrafitNativeSelectSize.sm, GrafitNativeSelectSize.md],
+  );
+  final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+
+  return Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: SizedBox(
+      width: 300,
+      child: GrafitNativeSelect<String>(
+        options: const [
+          GrafitNativeSelectOption(value: 'option1', label: 'Option 1'),
+          GrafitNativeSelectOption(value: 'option2', label: 'Option 2'),
+          GrafitNativeSelectOption(value: 'option3', label: 'Option 3'),
+        ],
+        placeholder: placeholder.isNotEmpty ? placeholder : null,
+        enabled: enabled,
+        size: size,
+        errorText: hasError ? 'This field has an error' : null,
+      ),
+    ),
+  );
+}
+

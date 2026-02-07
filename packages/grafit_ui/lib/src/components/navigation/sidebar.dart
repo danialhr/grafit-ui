@@ -1722,23 +1722,29 @@ Widget sidebarWithBadges(BuildContext context) {
   path: 'Navigation/Sidebar',
 )
 Widget sidebarInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final isOpen = context.knobs.boolean(label: 'Open', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final sideIndex = context.knobs.list(
     label: 'Side',
     options: ['left', 'right'],
     initialOption: 'left',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variantIndex = context.knobs.list(
     label: 'Variant',
     options: ['sidebar', 'floating', 'inset'],
     initialOption: 'sidebar',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final collapsibleIndex = context.knobs.list(
     label: 'Collapsible',
     options: ['offcanvas', 'icon', 'none'],
     initialOption: 'icon',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showGroups = context.knobs.boolean(label: 'Show Groups', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showBadges = context.knobs.boolean(label: 'Show Badges', initialValue: false);
 
   final side = GrafitSidebarSide.values[sideIndex == 'left' ? 0 : 1];

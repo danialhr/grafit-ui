@@ -261,7 +261,9 @@ Widget badgeStatus(BuildContext context) {
   path: 'DataDisplay/Badge',
 )
 Widget badgeInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Badge');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitBadgeVariant.value,

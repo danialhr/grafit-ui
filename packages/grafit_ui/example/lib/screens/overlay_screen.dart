@@ -102,7 +102,7 @@ class OverlayScreen extends StatelessWidget {
       confirmText: 'Confirm',
       cancelText: 'Cancel',
       onConfirm: () {
-        GrafitSonner.showSuccess(context, description: 'Account deleted successfully');
+        context.showSuccess(description: 'Account deleted successfully');
       },
     );
   }
@@ -136,16 +136,20 @@ class OverlayScreen extends StatelessWidget {
   }
 
   void _showAlertDialog(BuildContext context) {
-    GrafitAlertDialog.show(
-      context,
-      title: 'Delete Account',
-      description: 'Are you sure you want to delete your account? All of your data will be permanently removed.',
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
-      onConfirm: () {
-        Navigator.of(context).pop();
-        GrafitSonner.showSuccess(context, description: 'Account deleted');
-      },
+    showDialog(
+      context: context,
+      builder: (context) => const GrafitAlertDialog(
+        titleText: 'Delete Account',
+        descriptionText: 'Are you sure you want to delete your account? All of your data will be permanently removed.',
+        actions: [
+          GrafitAlertDialogCancel(label: 'Cancel'),
+          SizedBox(width: 8),
+          GrafitAlertDialogAction(
+            label: 'Delete',
+            destructive: true,
+          ),
+        ],
+      ),
     );
   }
 
@@ -173,9 +177,9 @@ class OverlayScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GrafitText.titleMedium('Popover Content'),
+                      const Text('Popover Content', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                       SizedBox(height: 8),
-                      GrafitText.muted('This is the content of the popover. You can put any widget here.'),
+                      const Text('This is the content of the popover. You can put any widget here.', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
                       SizedBox(height: 12),
                       GrafitButton(
                         label: 'Learn More',
@@ -247,16 +251,13 @@ class OverlayScreen extends StatelessWidget {
             GrafitHoverCard(
               trigger: Row(
                 children: [
-                  GrafitAvatar.text(
-                    initials: 'JD',
-                    size: GrafitAvatarSize.sm,
-                  ),
+                  const GrafitAvatar(name: 'JD', size: 32),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GrafitText.labelMedium('@johndoe'),
-                      GrafitText.muted('John Doe', style: GrafitTextStyle.bodySmall),
+                      GrafitText.muted('John Doe'),
                     ],
                   ),
                 ],
@@ -270,10 +271,7 @@ class OverlayScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          GrafitAvatar.text(
-                            initials: 'JD',
-                            size: GrafitAvatarSize.md,
-                          ),
+                          const GrafitAvatar(name: 'JD', size: 40),
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,11 +287,11 @@ class OverlayScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Row(
                         children: [
-                          GrafitBadge.secondary('Followers'),
+                          GrafitBadge(label: 'Followers', variant: GrafitBadgeVariant.secondary),
                           const SizedBox(width: 4),
                           GrafitText.labelMedium('1,234'),
                           const SizedBox(width: 16),
-                          GrafitBadge.secondary('Following'),
+                          GrafitBadge(label: 'Following', variant: GrafitBadgeVariant.secondary),
                           const SizedBox(width: 4),
                           GrafitText.labelMedium('567'),
                         ],
@@ -324,23 +322,23 @@ class OverlayScreen extends StatelessWidget {
               items: [
                 GrafitContextMenuItem(
                   label: 'Copy',
-                  icon: Icons.copy,
+                  leading: const Icon(Icons.copy, size: 16),
                   shortcut: 'Cmd+C',
-                  onTap: () {
-                    GrafitSonner.showSuccess(context, description: 'Copied to clipboard');
+                  onSelected: () {
+                    context.showSuccess(description: 'Copied to clipboard');
                   },
                 ),
                 GrafitContextMenuItem(
                   label: 'Paste',
-                  icon: Icons.paste,
+                  leading: const Icon(Icons.paste, size: 16),
                   shortcut: 'Cmd+V',
                 ),
-                const GrafitContextMenuDivider(),
+                const GrafitContextMenuSeparator(),
                 GrafitContextMenuItem(
                   label: 'Delete',
-                  icon: Icons.delete,
+                  leading: const Icon(Icons.delete, size: 16),
                   shortcut: 'Cmd+Del',
-                  destructive: true,
+                  variant: GrafitContextMenuItemVariant.destructive,
                 ),
               ],
               child: GrafitCard(
@@ -399,57 +397,54 @@ class OverlayScreen extends StatelessWidget {
   }
 
   void _showSheet(BuildContext context, GrafitSheetSide side) {
-    GrafitSheet.open(
+    GrafitSheetHelper.show(
       context,
       side: side,
       child: SizedBox(
         width: side == GrafitSheetSide.right || side == GrafitSheetSide.left ? 400 : null,
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GrafitText.titleLarge('Sheet Title'),
-                  GrafitButton(
-                    variant: GrafitButtonVariant.ghost,
-                    size: GrafitButtonSize.icon,
-                    icon: Icons.close,
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const GrafitSeparator(),
-              const SizedBox(height: 16),
-              GrafitText.muted('This is the sheet content. Sheets are useful for displaying additional information or actions without leaving the current context.'),
-              const SizedBox(height: 24),
-              const GrafitInput(
-                label: 'Name',
-                hint: 'Enter your name',
-              ),
-              const SizedBox(height: 16),
-              const GrafitTextarea(
-                label: 'Description',
-                hint: 'Enter a description',
-                minLines: 3,
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: GrafitButton(
-                  label: 'Save Changes',
-                  variant: GrafitButtonVariant.primary,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    GrafitSonner.showSuccess(context, description: 'Changes saved');
-                  },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GrafitText.titleLarge('Sheet Title'),
+                GrafitButton(
+                  variant: GrafitButtonVariant.ghost,
+                  size: GrafitButtonSize.icon,
+                  icon: Icons.close,
+                  onPressed: () => GrafitSheetHelper.close(),
                 ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const GrafitSeparator(),
+            const SizedBox(height: 16),
+            GrafitText.muted('This is the sheet content. Sheets are useful for displaying additional information or actions without leaving the current context.'),
+            const SizedBox(height: 24),
+            const GrafitInput(
+              label: 'Name',
+              hint: 'Enter your name',
+            ),
+            const SizedBox(height: 16),
+            const GrafitInput(
+              label: 'Description',
+              hint: 'Enter a description',
+              maxLines: 3,
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: GrafitButton(
+                label: 'Save Changes',
+                variant: GrafitButtonVariant.primary,
+                onPressed: () {
+                  GrafitSheetHelper.close();
+                  context.showSuccess(description: 'Changes saved');
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

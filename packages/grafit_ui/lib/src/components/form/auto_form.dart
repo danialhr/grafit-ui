@@ -2527,7 +2527,9 @@ Widget autoFormComplete(BuildContext context) {
   path: 'Form/AutoForm',
 )
 Widget autoFormInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showValidation = context.knobs.boolean(label: 'Show Validation', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final submitButtonText = context.knobs.string(label: 'Submit Button', initialValue: 'Submit');
 
   return Padding(

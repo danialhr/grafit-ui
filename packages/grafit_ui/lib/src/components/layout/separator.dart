@@ -233,20 +233,25 @@ Widget separatorWithCards(BuildContext context) {
   path: 'Layout/Separator',
 )
 Widget separatorInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final horizontal = context.knobs.boolean(label: 'Horizontal', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final thickness = context.knobs.double.slider(
     label: 'Thickness',
     initialValue: 1,
     min: 0.5,
     max: 8,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final spacing = context.knobs.double.slider(
     label: 'Spacing',
     initialValue: 8,
     min: 0,
     max: 32,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final useCustomColor = context.knobs.boolean(label: 'Custom Color', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final colorValue = context.knobs.color.label(
     label: 'Color',
     initialValue: const Color(0xFFe5e7eb),

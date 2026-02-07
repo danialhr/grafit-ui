@@ -1014,6 +1014,7 @@ Widget formNested(BuildContext context) {
 )
 Widget formInteractive(BuildContext context) {
   final controller = GrafitFormController();
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showValidation = context.knobs.boolean(label: 'Show Validation', initialValue: false);
 
   return Padding(

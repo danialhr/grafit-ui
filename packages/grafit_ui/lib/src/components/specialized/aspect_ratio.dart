@@ -212,6 +212,7 @@ Widget aspectRatioComparison(BuildContext context) {
   path: 'Specialized/AspectRatio',
 )
 Widget aspectRatioInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final ratio = context.knobs.double.slider(
     label: 'Aspect Ratio',
     initialValue: 1.0,
@@ -219,6 +220,7 @@ Widget aspectRatioInteractive(BuildContext context) {
     max: 3.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final alignment = context.knobs.list(
     label: 'Alignment',
     options: [

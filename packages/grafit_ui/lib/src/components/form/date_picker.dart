@@ -972,13 +972,21 @@ Widget datePickerWithHelper(BuildContext context) {
   path: 'Form/DatePicker',
 )
 Widget datePickerInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Pick a date');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Date');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasHelper = context.knobs.boolean(label: 'Has Helper', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final isRange = context.knobs.boolean(label: 'Range Mode', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showCalendarIcon = context.knobs.boolean(label: 'Show Icon', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showClear = context.knobs.boolean(label: 'Show Clear', initialValue: true);
 
   final now = DateTime.now();

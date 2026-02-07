@@ -707,22 +707,27 @@ Widget toggleGroupWithTooltips(BuildContext context) {
   path: 'Form/ToggleGroup',
 )
 Widget toggleGroupInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final type = context.knobs.list(
     label: 'Type',
     initialOption: GrafitToggleGroupType.single,
     options: const [GrafitToggleGroupType.single, GrafitToggleGroupType.multiple],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitToggleGroupVariant.plain,
     options: const [GrafitToggleGroupVariant.plain, GrafitToggleGroupVariant.outline],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitToggleGroupSize.md,
     options: const [GrafitToggleGroupSize.sm, GrafitToggleGroupSize.md, GrafitToggleGroupSize.lg],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final spacing = context.knobs.double(label: 'Spacing', initialValue: 0);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
 
   return Padding(

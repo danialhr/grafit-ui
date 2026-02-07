@@ -611,22 +611,26 @@ Widget paginationLargeCount(BuildContext context) {
   path: 'DataDisplay/Pagination',
 )
 Widget paginationInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final currentPage = context.knobs.int.slider(
     label: 'Current Page',
     initialValue: 5,
     min: 0,
     max: 9,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final totalPages = context.knobs.int.slider(
     label: 'Total Pages',
     initialValue: 10,
     min: 3,
     max: 20,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showFirstLast = context.knobs.boolean(
     label: 'Show First/Last',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final compact = context.knobs.boolean(
     label: 'Compact',
     initialValue: false,

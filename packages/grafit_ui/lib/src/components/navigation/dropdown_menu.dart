@@ -1472,20 +1472,26 @@ Widget dropdownMenuWithSubmenu(BuildContext context) {
   path: 'Navigation/Dropdown Menu',
 )
 Widget dropdownMenuInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final alignmentIndex = context.knobs.list(
     label: 'Alignment',
     options: ['bottom', 'top', 'left', 'right', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'],
     initialOption: 'bottom',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showSeparators = context.knobs.boolean(label: 'Show Separators', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final itemCount = context.knobs.int.slider(
     label: 'Items',
     initialValue: 4,
     min: 2,
     max: 8,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasDisabled = context.knobs.boolean(label: 'Has Disabled Items', initialValue: true);
 
   final alignment = GrafitDropdownMenuAlignment.values[

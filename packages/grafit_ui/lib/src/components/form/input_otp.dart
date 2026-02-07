@@ -839,8 +839,11 @@ Widget inputOtpCustomSeparator(BuildContext context) {
   path: 'Form/InputOtp',
 )
 Widget inputOtpInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final length = context.knobs.int.label: 'Length', initialValue: 6);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showErrors = context.knobs.boolean(label: 'Show Errors', initialValue: false);
 
   return Padding(

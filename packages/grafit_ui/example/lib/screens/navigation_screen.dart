@@ -9,7 +9,6 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  int _selectedTab = 0;
   String? _selectedDropdown;
 
   @override
@@ -122,7 +121,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   ),
                 ),
               ],
-              onChanged: (index) => setState(() => _selectedTab = index),
+              onChanged: (index) {},
             ),
           ],
         ),
@@ -141,10 +140,47 @@ class _NavigationScreenState extends State<NavigationScreen> {
             const SizedBox(height: 16),
             const GrafitBreadcrumb(
               items: [
-                GrafitBreadcrumbItem(label: 'Home', icon: Icons.home),
-                GrafitBreadcrumbItem(label: 'Components', icon: Icons.widgets),
-                GrafitBreadcrumbItem(label: 'Navigation', icon: Icons.navigation),
-                GrafitBreadcrumbItem(label: 'Breadcrumb', isActive: true),
+                GrafitBreadcrumbItem(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.home, size: 16),
+                      SizedBox(width: 4),
+                      Text('Home'),
+                    ],
+                  ),
+                ),
+                GrafitBreadcrumbItem(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.widgets, size: 16),
+                      SizedBox(width: 4),
+                      Text('Components'),
+                    ],
+                  ),
+                ),
+                GrafitBreadcrumbItem(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.navigation, size: 16),
+                      SizedBox(width: 4),
+                      Text('Navigation'),
+                    ],
+                  ),
+                ),
+                GrafitBreadcrumbItem(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.description, size: 16),
+                      SizedBox(width: 4),
+                      Text('Breadcrumb'),
+                    ],
+                  ),
+                  isActive: true,
+                ),
               ],
             ),
           ],
@@ -164,38 +200,34 @@ class _NavigationScreenState extends State<NavigationScreen> {
             const SizedBox(height: 16),
             Row(
               children: [
-                GrafitDropdownMenu<String>(
+                GrafitDropdownMenu(
                   trigger: GrafitButton(
                     label: _selectedDropdown ?? 'Select Option',
                     variant: GrafitButtonVariant.outline,
                     trailing: const Icon(Icons.expand_more, size: 16),
                     onPressed: () {},
                   ),
-                  items: [
-                    GrafitDropdownMenuItem(
-                      value: 'profile',
+                  children: [
+                    GrafiDropdownMenuItem(
                       label: 'Profile',
-                      icon: Icons.person,
-                      onTap: () => setState(() => _selectedDropdown = 'Profile'),
+                      leading: const Icon(Icons.person, size: 16),
+                      onSelected: () => setState(() => _selectedDropdown = 'Profile'),
                     ),
-                    GrafitDropdownMenuItem(
-                      value: 'settings',
+                    GrafiDropdownMenuItem(
                       label: 'Settings',
-                      icon: Icons.settings,
-                      onTap: () => setState(() => _selectedDropdown = 'Settings'),
+                      leading: const Icon(Icons.settings, size: 16),
+                      onSelected: () => setState(() => _selectedDropdown = 'Settings'),
                     ),
-                    GrafitDropdownMenuItem(
-                      value: 'billing',
+                    GrafiDropdownMenuItem(
                       label: 'Billing',
-                      icon: Icons.payment,
-                      onTap: () => setState(() => _selectedDropdown = 'Billing'),
+                      leading: const Icon(Icons.payment, size: 16),
+                      onSelected: () => setState(() => _selectedDropdown = 'Billing'),
                     ),
-                    const GrafitDropdownMenuDivider(),
-                    GrafitDropdownMenuItem(
-                      value: 'logout',
+                    const GrafitDropdownMenuSeparator(),
+                    GrafiDropdownMenuItem(
                       label: 'Logout',
-                      icon: Icons.logout,
-                      onTap: () => setState(() => _selectedDropdown = 'Logout'),
+                      leading: const Icon(Icons.logout, size: 16),
+                      onSelected: () => setState(() => _selectedDropdown = 'Logout'),
                     ),
                   ],
                 ),
@@ -216,27 +248,121 @@ class _NavigationScreenState extends State<NavigationScreen> {
           children: [
             GrafitText.titleMedium('Navigation Menu'),
             const SizedBox(height: 16),
-            const GrafitNavigationMenu(
-              items: [
+            GrafitNavigationMenu(
+              children: [
                 GrafitNavigationMenuItem(
-                  label: 'Home',
-                  icon: Icons.home,
-                  href: '/',
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GrafitNavigationMenuTrigger(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.home, size: 18),
+                            SizedBox(width: 6),
+                            Text('Home'),
+                          ],
+                        ),
+                      ),
+                      GrafitNavigationMenuContent(
+                        child: Container(
+                          width: 200,
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              GrafitNavigationMenuLink(
+                                title: 'Dashboard',
+                                onSelect: null,
+                              ),
+                              SizedBox(height: 4),
+                              GrafitNavigationMenuLink(
+                                title: 'Analytics',
+                                onSelect: null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 GrafitNavigationMenuItem(
-                  label: 'Components',
-                  icon: Icons.widgets,
-                  href: '/components',
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GrafitNavigationMenuTrigger(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.widgets, size: 18),
+                            SizedBox(width: 6),
+                            Text('Components'),
+                          ],
+                        ),
+                      ),
+                      GrafitNavigationMenuContent(
+                        child: Container(
+                          width: 200,
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              GrafitNavigationMenuLink(
+                                title: 'Buttons',
+                                onSelect: null,
+                              ),
+                              SizedBox(height: 4),
+                              GrafitNavigationMenuLink(
+                                title: 'Inputs',
+                                onSelect: null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 GrafitNavigationMenuItem(
-                  label: 'Documentation',
-                  icon: Icons.description,
-                  href: '/docs',
-                ),
-                GrafitNavigationMenuItem(
-                  label: 'Settings',
-                  icon: Icons.settings,
-                  href: '/settings',
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GrafitNavigationMenuTrigger(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.settings, size: 18),
+                            SizedBox(width: 6),
+                            Text('Settings'),
+                          ],
+                        ),
+                      ),
+                      GrafitNavigationMenuContent(
+                        child: Container(
+                          width: 200,
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              GrafitNavigationMenuLink(
+                                title: 'Profile',
+                                onSelect: null,
+                              ),
+                              SizedBox(height: 4),
+                              GrafitNavigationMenuLink(
+                                title: 'Preferences',
+                                onSelect: null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -255,79 +381,76 @@ class _NavigationScreenState extends State<NavigationScreen> {
           children: [
             GrafitText.titleMedium('Menubar'),
             const SizedBox(height: 16),
-            const GrafitMenubar(
-              items: [
-                GrafitMenubarItem(
-                  label: 'File',
-                  shortcut: 'Alt+F',
-                  items: [
-                    GrafitMenubarMenuItem(
+            GrafitMenubar(
+              children: [
+                GrafitMenubarMenu(
+                  trigger: const GrafitMenubarTrigger(child: Text('File')),
+                  children: const [
+                    GrafitMenubarItem(
                       label: 'New Tab',
-                      icon: Icons.tab,
+                      leading: Icon(Icons.tab, size: 16),
                       shortcut: 'Cmd+T',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'New Window',
-                      icon: Icons.open_in_new,
+                      leading: Icon(Icons.open_in_new, size: 16),
                       shortcut: 'Cmd+N',
                     ),
-                    const GrafitMenubarDivider(),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarSeparator(),
+                    GrafitMenubarItem(
                       label: 'Print',
-                      icon: Icons.print,
+                      leading: Icon(Icons.print, size: 16),
                       shortcut: 'Cmd+P',
                     ),
                   ],
                 ),
-                GrafitMenubarItem(
-                  label: 'Edit',
-                  shortcut: 'Alt+E',
-                  items: [
-                    GrafitMenubarMenuItem(
+                GrafitMenubarMenu(
+                  trigger: const GrafitMenubarTrigger(child: Text('Edit')),
+                  children: const [
+                    GrafitMenubarItem(
                       label: 'Undo',
-                      icon: Icons.undo,
+                      leading: Icon(Icons.undo, size: 16),
                       shortcut: 'Cmd+Z',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'Redo',
-                      icon: Icons.redo,
+                      leading: Icon(Icons.redo, size: 16),
                       shortcut: 'Cmd+Y',
                     ),
-                    const GrafitMenubarDivider(),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarSeparator(),
+                    GrafitMenubarItem(
                       label: 'Cut',
-                      icon: Icons.content_cut,
+                      leading: Icon(Icons.content_cut, size: 16),
                       shortcut: 'Cmd+X',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'Copy',
-                      icon: Icons.content_copy,
+                      leading: Icon(Icons.content_copy, size: 16),
                       shortcut: 'Cmd+C',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'Paste',
-                      icon: Icons.content_paste,
+                      leading: Icon(Icons.content_paste, size: 16),
                       shortcut: 'Cmd+V',
                     ),
                   ],
                 ),
-                GrafitMenubarItem(
-                  label: 'View',
-                  shortcut: 'Alt+V',
-                  items: [
-                    GrafitMenubarMenuItem(
+                GrafitMenubarMenu(
+                  trigger: const GrafitMenubarTrigger(child: Text('View')),
+                  children: const [
+                    GrafitMenubarItem(
                       label: 'Fullscreen',
-                      icon: Icons.fullscreen,
+                      leading: Icon(Icons.fullscreen, size: 16),
                       shortcut: 'F11',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'Zoom In',
-                      icon: Icons.zoom_in,
+                      leading: Icon(Icons.zoom_in, size: 16),
                       shortcut: 'Cmd++',
                     ),
-                    GrafitMenubarMenuItem(
+                    GrafitMenubarItem(
                       label: 'Zoom Out',
-                      icon: Icons.zoom_out,
+                      leading: Icon(Icons.zoom_out, size: 16),
                       shortcut: 'Cmd+-',
                     ),
                   ],

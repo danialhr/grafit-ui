@@ -739,22 +739,26 @@ Widget textOverflow(BuildContext context) {
   path: 'Typography/Text',
 )
 Widget textInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     options: GrafitTextVariant.values,
     initialOption: GrafitTextVariant.bodyMedium,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final text = context.knobs.string(
     label: 'Text',
     initialValue: 'Interactive text example',
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final color = context.knobs.colorOrNull(
     label: 'Color',
     initialValue: null,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final maxLines = context.knobs.int.slider(
     label: 'Max Lines',
     initialValue: 10,
@@ -762,6 +766,7 @@ Widget textInteractive(BuildContext context) {
     max: 10,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final textAlign = context.knobs.list(
     label: 'Text Align',
     options: [

@@ -822,6 +822,7 @@ Widget buttonGroupWithIcons(BuildContext context) {
   path: 'Form/ButtonGroup',
 )
 Widget buttonGroupInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final orientation = context.knobs.list(
     label: 'Orientation',
     initialOption: GrafitButtonGroupOrientation.horizontal,
@@ -830,11 +831,13 @@ Widget buttonGroupInteractive(BuildContext context) {
       GrafitButtonGroupOrientation.vertical,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitButtonSize.md,
     options: const [GrafitButtonSize.sm, GrafitButtonSize.md, GrafitButtonSize.lg],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
 
   return Padding(

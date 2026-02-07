@@ -541,18 +541,24 @@ Widget alertDialogCustomContent(BuildContext context) {
   path: 'Overlay/AlertDialog',
 )
 Widget alertDialogInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Confirm Action');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(
     label: 'Description',
     initialValue: 'Are you sure you want to proceed?',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitAlertDialogSize.value,
     options: [GrafitAlertDialogSize.sm, GrafitAlertDialogSize.value],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showMedia = context.knobs.boolean(label: 'Show Media', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showCancel = context.knobs.boolean(label: 'Show Cancel Button', initialValue: true);
 
   return GrafitAlertDialog(

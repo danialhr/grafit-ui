@@ -605,12 +605,14 @@ Widget directionMixed(BuildContext context) {
   path: 'Specialized/Direction',
 )
 Widget directionInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final direction = context.knobs.list(
     label: 'Text Direction',
     options: GrafitTextDirection.values,
     initialOption: GrafitTextDirection.ltr,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final mirrorIcon = context.knobs.boolean(
     label: 'Mirror Icon in RTL',
     initialValue: true,

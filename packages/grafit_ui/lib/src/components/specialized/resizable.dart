@@ -367,12 +367,14 @@ Widget resizableWithConstraints(BuildContext context) {
   path: 'Specialized/Resizable',
 )
 Widget resizableInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final direction = context.knobs.list(
     label: 'Direction',
     options: [Axis.horizontal, Axis.vertical],
     initialOption: Axis.horizontal,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final handleSize = context.knobs.double.slider(
     label: 'Handle Size',
     initialValue: 4.0,
@@ -380,6 +382,7 @@ Widget resizableInteractive(BuildContext context) {
     max: 10.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final panelCount = context.knobs.int.slider(
     label: 'Panel Count',
     initialValue: 2,

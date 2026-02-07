@@ -294,11 +294,13 @@ Widget collapsibleMultipleSections(BuildContext context) {
   path: 'Specialized/Collapsible',
 )
 Widget collapsibleInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final animated = context.knobs.boolean(
     label: 'Animated',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final initiallyOpen = context.knobs.boolean(
     label: 'Initially Open',
     initialValue: false,

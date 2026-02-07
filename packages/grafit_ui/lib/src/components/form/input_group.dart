@@ -940,9 +940,13 @@ Widget inputGroupWithButton(BuildContext context) {
   path: 'Form/InputGroup',
 )
 Widget inputGroupInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasLeft = context.knobs.boolean(label: 'Left Addon', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasRight = context.knobs.boolean(label: 'Right Addon', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
 
   return Padding(

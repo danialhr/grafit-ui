@@ -1680,15 +1680,21 @@ Widget comboboxGrouped(BuildContext context) {
   path: 'Form/Combobox',
 )
 Widget comboboxInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitComboboxSize.md,
     options: const [GrafitComboboxSize.sm, GrafitComboboxSize.md],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showClear = context.knobs.boolean(label: 'Show Clear', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showTrigger = context.knobs.boolean(label: 'Show Trigger', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
 
   return Padding(

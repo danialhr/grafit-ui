@@ -151,11 +151,13 @@ Widget scrollAreaLongContent(BuildContext context) {
   path: 'Specialized/ScrollArea',
 )
 Widget scrollAreaInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showPadding = context.knobs.boolean(
     label: 'Show Padding',
     initialValue: false,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final contentHeight = context.knobs.int.slider(
     label: 'Content Height',
     initialValue: 500,

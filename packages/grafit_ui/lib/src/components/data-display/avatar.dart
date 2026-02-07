@@ -198,29 +198,29 @@ Widget avatarFallbackIcon(BuildContext context) {
   path: 'DataDisplay/Avatar',
 )
 Widget avatarGroup(BuildContext context) {
-  return const Padding(
-    padding: EdgeInsets.all(16.0),
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
     child: Row(
       children: [
-        GrafitAvatar(name: 'Alice', size: 36),
+        const GrafitAvatar(name: 'Alice', size: 36),
         Transform.translate(
-          offset: Offset(-12, 0),
-          child: GrafitAvatar(name: 'Bob', size: 36),
+          offset: const Offset(-12, 0),
+          child: const GrafitAvatar(name: 'Bob', size: 36),
         ),
         Transform.translate(
-          offset: Offset(-24, 0),
-          child: GrafitAvatar(name: 'Charlie', size: 36),
+          offset: const Offset(-24, 0),
+          child: const GrafitAvatar(name: 'Charlie', size: 36),
         ),
         Transform.translate(
-          offset: Offset(-36, 0),
-          child: GrafitAvatar(name: 'Diana', size: 36),
+          offset: const Offset(-36, 0),
+          child: const GrafitAvatar(name: 'Diana', size: 36),
         ),
         Transform.translate(
-          offset: Offset(-48, 0),
+          offset: const Offset(-48, 0),
           child: GrafitAvatar(
             name: '',
             size: 36,
-            child: Center(
+            fallback: Center(
               child: Text(
                 '+5',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
@@ -263,9 +263,13 @@ Widget avatarCustomFallback(BuildContext context) {
   path: 'DataDisplay/Avatar',
 )
 Widget avatarInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final name = context.knobs.string(label: 'Name', initialValue: 'John Doe');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.double.slider(label: 'Size', initialValue: 40, min: 24, max: 120);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showImage = context.knobs.boolean(label: 'Show Image', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showFallback = context.knobs.boolean(label: 'Custom Fallback', initialValue: false);
 
   return Padding(

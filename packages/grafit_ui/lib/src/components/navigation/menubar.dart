@@ -1475,21 +1475,27 @@ Widget menubarMultiple(BuildContext context) {
   path: 'Navigation/Menubar',
 )
 Widget menubarInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final menuCount = context.knobs.int.slider(
     label: 'Menus',
     initialValue: 4,
     min: 1,
     max: 6,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final itemsPerMenu = context.knobs.int.slider(
     label: 'Items per Menu',
     initialValue: 3,
     min: 1,
     max: 6,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasSeparators = context.knobs.boolean(label: 'Has Separators', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasDisabled = context.knobs.boolean(label: 'Has Disabled Items', initialValue: false);
 
   final menuLabels = ['File', 'Edit', 'View', 'Insert', 'Format', 'Tools'];

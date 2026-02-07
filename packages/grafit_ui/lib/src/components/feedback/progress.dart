@@ -350,18 +350,21 @@ Widget progressAllStates(BuildContext context) {
   path: 'Feedback/Progress',
 )
 Widget progressInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final value = context.knobs.double.slider(
     label: 'Progress Value',
     initialValue: 0.5,
     min: 0.0,
     max: 1.0,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final height = context.knobs.double.slider(
     label: 'Height',
     initialValue: 8.0,
     min: 2.0,
     max: 24.0,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final isIndeterminate = context.knobs.boolean(
     label: 'Indeterminate',
     initialValue: false,

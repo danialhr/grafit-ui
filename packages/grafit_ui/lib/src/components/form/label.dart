@@ -131,8 +131,11 @@ Widget labelMultiple(BuildContext context) {
   path: 'Form/Label',
 )
 Widget labelInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final text = context.knobs.string(label: 'Text', initialValue: 'Email');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final required = context.knobs.boolean(label: 'Required', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
 
   return Padding(

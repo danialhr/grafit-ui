@@ -504,37 +504,44 @@ Widget kbdWithIcons(BuildContext context) {
   path: 'Typography/Kbd',
 )
 Widget kbdInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     options: GrafitKbdSize.values,
     initialOption: GrafitKbdSize.medium,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showGroup = context.knobs.boolean(
     label: 'Show as Group',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final key1 = context.knobs.string(
     label: 'Key 1',
     initialValue: 'Ctrl',
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final key2 = context.knobs.string(
     label: 'Key 2',
     initialValue: 'K',
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showPlus = context.knobs.boolean(
     label: 'Show Plus Separator',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final customBg = context.knobs.colorOrNull(
     label: 'Background Color',
     initialValue: null,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final customFg = context.knobs.colorOrNull(
     label: 'Foreground Color',
     initialValue: null,

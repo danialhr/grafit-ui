@@ -779,8 +779,11 @@ Widget hoverCardNonDismissible(BuildContext context) {
   path: 'Overlay/HoverCard',
 )
 Widget hoverCardInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Hover Card');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(label: 'Description', initialValue: 'Move your mouse over the button');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final alignment = context.knobs.list(
     label: 'Alignment',
     initialOption: GrafitHoverCardAlignment.bottom,
@@ -795,8 +798,11 @@ Widget hoverCardInteractive(BuildContext context) {
       GrafitHoverCardAlignment.bottomRight,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final width = context.knobs.double.slider(label: 'Width', initialValue: 256, min: 150, max: 500);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final openDelay = context.knobs.int.slider(label: 'Open Delay (ms)', initialValue: 400, min: 0, max: 1000);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final closeOnTap = context.knobs.boolean(label: 'Close on Tap', initialValue: true);
 
   return Padding(

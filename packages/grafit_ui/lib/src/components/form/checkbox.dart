@@ -253,9 +253,13 @@ Widget checkboxMultiple(BuildContext context) {
   path: 'Form/Checkbox',
 )
 Widget checkboxInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Accept terms');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final checked = context.knobs.boolean(label: 'Checked', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitInputSizeX.md,

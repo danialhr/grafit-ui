@@ -1235,6 +1235,7 @@ Widget selectError(BuildContext context) {
   path: 'Form/Select',
 )
 Widget selectInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final items = context.knobs.list(
     label: 'Items',
     initialOption: ['Apple', 'Banana', 'Orange', 'Grape'],
@@ -1245,10 +1246,15 @@ Widget selectInteractive(BuildContext context) {
     ],
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Favorite Fruit');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final searchable = context.knobs.boolean(label: 'Searchable', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
 
   return Padding(

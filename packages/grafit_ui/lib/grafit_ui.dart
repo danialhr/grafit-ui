@@ -1,5 +1,8 @@
 library grafit_ui;
 
+// Internal exports (Widgetbook stubs for code generation)
+export 'src/internal/widgetbook_stub.dart';
+
 // Theme exports
 export 'src/theme/theme.dart';
 export 'src/theme/theme_data.dart';

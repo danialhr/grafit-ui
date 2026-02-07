@@ -1034,8 +1034,11 @@ Widget sheetNonDismissible(BuildContext context) {
   path: 'Specialized/Sheet',
 )
 Widget sheetInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Sheet Title');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(label: 'Description', initialValue: 'Sheet description');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final side = context.knobs.list(
     label: 'Side',
     initialOption: GrafitSheetSide.right,
@@ -1046,8 +1049,11 @@ Widget sheetInteractive(BuildContext context) {
       GrafitSheetSide.right,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showCloseButton = context.knobs.boolean(label: 'Show Close Button', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final width = context.knobs.double.slider(label: 'Width (side sheets)', initialValue: 384, min: 200, max: 600);
 
   return GrafitSheet(

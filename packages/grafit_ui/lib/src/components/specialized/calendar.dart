@@ -824,6 +824,7 @@ Widget calendarDefault(BuildContext context) {
   path: 'Specialized/Calendar',
 )
 Widget calendarSingleSelection(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final initialDate = context.knobs.dateTimeOrNull(
     label: 'Initial Date',
     initialValue: DateTime.now(),
@@ -847,11 +848,13 @@ Widget calendarSingleSelection(BuildContext context) {
   path: 'Specialized/Calendar',
 )
 Widget calendarMultipleSelection(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showOutsideDays = context.knobs.boolean(
     label: 'Show Outside Days',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showWeekNumbers = context.knobs.boolean(
     label: 'Show Week Numbers',
     initialValue: false,
@@ -882,6 +885,7 @@ Widget calendarMultipleSelection(BuildContext context) {
   path: 'Specialized/Calendar',
 )
 Widget calendarRangeSelection(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showOutsideDays = context.knobs.boolean(
     label: 'Show Outside Days',
     initialValue: true,
@@ -930,6 +934,7 @@ Widget calendarWithConstraints(BuildContext context) {
   path: 'Specialized/Calendar',
 )
 Widget calendarCustomWeekStart(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final firstDayOfWeek = context.knobs.int.slider(
     label: 'First Day of Week',
     initialValue: 0,
@@ -979,22 +984,26 @@ Widget calendarWithDisabledDates(BuildContext context) {
   path: 'Specialized/Calendar',
 )
 Widget calendarInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final mode = context.knobs.list(
     label: 'Mode',
     options: GrafitCalendarMode.values,
     initialOption: GrafitCalendarMode.single,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showOutsideDays = context.knobs.boolean(
     label: 'Show Outside Days',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showWeekNumbers = context.knobs.boolean(
     label: 'Show Week Numbers',
     initialValue: false,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final firstDayOfWeek = context.knobs.int.slider(
     label: 'First Day of Week',
     initialValue: 0,

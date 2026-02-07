@@ -1010,6 +1010,7 @@ Widget itemDisabled(BuildContext context) {
   path: 'DataDisplay/Item',
 )
 Widget itemInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitItemVariant.default_,
@@ -1019,6 +1020,7 @@ Widget itemInteractive(BuildContext context) {
       GrafitItemVariant.muted,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitItemSize.default_,
@@ -1028,10 +1030,12 @@ Widget itemInteractive(BuildContext context) {
       GrafitItemSize.lg,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final selected = context.knobs.boolean(
     label: 'Selected',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(
     label: 'Disabled',
     initialValue: false,

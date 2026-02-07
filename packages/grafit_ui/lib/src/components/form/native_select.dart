@@ -823,13 +823,17 @@ Widget nativeSelectWithDescriptions(BuildContext context) {
   path: 'Form/NativeSelect',
 )
 Widget nativeSelectInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Select an option');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitNativeSelectSize.md,
     options: const [GrafitNativeSelectSize.sm, GrafitNativeSelectSize.md],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
 
   return Padding(

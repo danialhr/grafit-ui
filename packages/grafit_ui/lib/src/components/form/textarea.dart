@@ -303,11 +303,17 @@ Widget textareaResizable(BuildContext context) {
   path: 'Form/Textarea',
 )
 Widget textareaInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(label: 'Placeholder', initialValue: 'Enter text...');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final minLines = context.knobs.int.slider(label: 'Min Lines', initialValue: 3, min: 1, max: 10);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final maxLines = context.knobs.int.slider(label: 'Max Lines', initialValue: 5, min: 2, max: 15);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showLabel = context.knobs.boolean(label: 'Show Label', initialValue: true);
 
   return Padding(

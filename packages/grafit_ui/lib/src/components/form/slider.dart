@@ -655,11 +655,17 @@ Widget sliderMultiple(BuildContext context) {
   path: 'Form/Slider',
 )
 Widget sliderInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Value');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final value = context.knobs.double.slider(label: 'Value', initialValue: 0.5, min: 0, max: 1);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final divisions = context.knobs.nullable.int.input(label: 'Divisions', initialValue: null);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final isRange = context.knobs.boolean(label: 'Range Slider', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final isVertical = context.knobs.boolean(label: 'Vertical', initialValue: false);
 
   return Padding(

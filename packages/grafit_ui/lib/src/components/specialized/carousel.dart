@@ -701,6 +701,7 @@ Widget carouselVertical(BuildContext context) {
   path: 'Specialized/Carousel',
 )
 Widget carouselAutoPlay(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final autoPlayDelay = context.knobs.double.slider(
     label: 'Auto Play Delay (seconds)',
     initialValue: 2.0,
@@ -727,16 +728,19 @@ Widget carouselAutoPlay(BuildContext context) {
   path: 'Specialized/Carousel',
 )
 Widget carouselWithLoop(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final loop = context.knobs.boolean(
     label: 'Loop',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showArrows = context.knobs.boolean(
     label: 'Show Arrows',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIndicators = context.knobs.boolean(
     label: 'Show Indicators',
     initialValue: true,
@@ -763,6 +767,7 @@ Widget carouselWithLoop(BuildContext context) {
   path: 'Specialized/Carousel',
 )
 Widget carouselCustomSpacing(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final spacing = context.knobs.double.slider(
     label: 'Spacing',
     initialValue: 16.0,
@@ -770,6 +775,7 @@ Widget carouselCustomSpacing(BuildContext context) {
     max: 32.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final viewportFraction = context.knobs.double.slider(
     label: 'Viewport Fraction',
     initialValue: 0.85,
@@ -817,17 +823,20 @@ Widget carouselNoSwipe(BuildContext context) {
   path: 'Specialized/Carousel',
 )
 Widget carouselInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final orientation = context.knobs.list(
     label: 'Orientation',
     options: GrafitCarouselOrientation.values,
     initialOption: GrafitCarouselOrientation.horizontal,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final loop = context.knobs.boolean(
     label: 'Loop',
     initialValue: false,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final autoPlayDelay = context.knobs.double.slider(
     label: 'Auto Play Delay (seconds)',
     initialValue: 0.0,
@@ -835,11 +844,13 @@ Widget carouselInteractive(BuildContext context) {
     max: 5.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enableSwipe = context.knobs.boolean(
     label: 'Enable Swipe',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final spacing = context.knobs.double.slider(
     label: 'Spacing',
     initialValue: 0.0,
@@ -847,6 +858,7 @@ Widget carouselInteractive(BuildContext context) {
     max: 24.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final viewportFraction = context.knobs.double.slider(
     label: 'Viewport Fraction',
     initialValue: 1.0,
@@ -854,11 +866,13 @@ Widget carouselInteractive(BuildContext context) {
     max: 1.0,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showArrows = context.knobs.boolean(
     label: 'Show Arrows',
     initialValue: true,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIndicators = context.knobs.boolean(
     label: 'Show Indicators',
     initialValue: true,

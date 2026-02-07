@@ -188,16 +188,19 @@ Widget tooltipIconButtons(BuildContext context) {
   path: 'Overlay/Tooltip',
 )
 Widget tooltipInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final message = context.knobs.string(
     label: 'Message',
     initialValue: 'This is a tooltip',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final delay = context.knobs.int.slider(
     label: 'Delay (ms)',
     initialValue: 500,
     min: 0,
     max: 2000,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final childType = context.knobs.list(
     label: 'Child Type',
     initialOption: 'Text',

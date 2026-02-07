@@ -1042,13 +1042,16 @@ Widget navigationMenuMultiple(BuildContext context) {
   path: 'Navigation/Navigation Menu',
 )
 Widget navigationMenuInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final itemCount = context.knobs.int.slider(
     label: 'Items',
     initialValue: 3,
     min: 1,
     max: 5,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showContent = context.knobs.boolean(label: 'Show Content', initialValue: true);
 
   final labels = ['Home', 'Products', 'Services', 'About', 'Contact'];

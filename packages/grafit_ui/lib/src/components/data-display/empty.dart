@@ -755,22 +755,27 @@ Widget emptyVariants(BuildContext context) {
   path: 'DataDisplay/Empty',
 )
 Widget emptyInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(
     label: 'Title',
     initialValue: 'No data found',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(
     label: 'Description',
     initialValue: 'Try adjusting your search or filters',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIcon = context.knobs.boolean(
     label: 'Show Icon',
     initialValue: true,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showAction = context.knobs.boolean(
     label: 'Show Action',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final iconBackground = context.knobs.boolean(
     label: 'Icon Background',
     initialValue: false,

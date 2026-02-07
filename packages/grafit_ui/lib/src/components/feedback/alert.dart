@@ -294,14 +294,17 @@ Widget alertCustomIcon(BuildContext context) {
   path: 'Feedback/Alert',
 )
 Widget alertInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(
     label: 'Title',
     initialValue: 'Alert Title',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(
     label: 'Description',
     initialValue: 'This is the alert description text.',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitAlertVariant.value,
@@ -311,10 +314,12 @@ Widget alertInteractive(BuildContext context) {
       GrafitAlertVariant.warning,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasIcon = context.knobs.boolean(
     label: 'Show Custom Icon',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasCloseButton = context.knobs.boolean(
     label: 'Show Close Button',
     initialValue: false,

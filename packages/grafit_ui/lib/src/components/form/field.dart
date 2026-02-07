@@ -1007,6 +1007,7 @@ Widget fieldSet(BuildContext context) {
   path: 'Form/Field',
 )
 Widget fieldInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final orientation = context.knobs.list(
     label: 'Orientation',
     initialOption: GrafitFieldOrientation.vertical,
@@ -1016,8 +1017,11 @@ Widget fieldInteractive(BuildContext context) {
       GrafitFieldOrientation.responsive,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasError = context.knobs.boolean(label: 'Has Error', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final required = context.knobs.boolean(label: 'Required', initialValue: false);
 
   return Padding(

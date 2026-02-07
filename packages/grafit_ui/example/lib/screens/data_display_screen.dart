@@ -110,18 +110,18 @@ class _DataDisplayScreenState extends State<DataDisplayScreen> {
               children: [
                 GrafitBadge(
                   label: 'Success',
-                  backgroundColor: Colors.green.withOpacity(0.1),
-                  foregroundColor: Colors.green,
+                  backgroundColor: const Color(0xFF22C55E).withValues(alpha: 0.1),
+                  foregroundColor: const Color(0xFF22C55E),
                 ),
                 GrafitBadge(
                   label: 'Warning',
-                  backgroundColor: Colors.orange.withOpacity(0.1),
-                  foregroundColor: Colors.orange,
+                  backgroundColor: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+                  foregroundColor: const Color(0xFFF59E0B),
                 ),
                 GrafitBadge(
                   label: 'Info',
-                  backgroundColor: Colors.blue.withOpacity(0.1),
-                  foregroundColor: Colors.blue,
+                  backgroundColor: const Color(0xFF3B82F6).withValues(alpha: 0.1),
+                  foregroundColor: const Color(0xFF3B82F6),
                 ),
               ],
             ),
@@ -294,19 +294,19 @@ class _DataDisplayScreenState extends State<DataDisplayScreen> {
       case 'Active':
         return GrafitBadge(
           label: status,
-          backgroundColor: Colors.green.withOpacity(0.1),
-          foregroundColor: Colors.green,
+          backgroundColor: const Color(0xFF22C55E).withValues(alpha: 0.1),
+          foregroundColor: const Color(0xFF22C55E),
         );
       case 'Inactive':
-        return const GrafitBadge(label: status, variant: GrafitBadgeVariant.secondary);
+        return GrafitBadge(label: status, variant: GrafitBadgeVariant.secondary);
       case 'Pending':
         return GrafitBadge(
           label: status,
-          backgroundColor: Colors.orange.withOpacity(0.1),
-          foregroundColor: Colors.orange,
+          backgroundColor: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+          foregroundColor: const Color(0xFFF59E0B),
         );
       default:
-        return const GrafitBadge(label: status, variant: GrafitBadgeVariant.outline);
+        return GrafitBadge(label: status, variant: GrafitBadgeVariant.outline);
     }
   }
 

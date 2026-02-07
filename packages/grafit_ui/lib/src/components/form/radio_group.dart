@@ -532,17 +532,21 @@ Widget radioGroupWithDisabledItem(BuildContext context) {
   path: 'Form/RadioGroup',
 )
 Widget radioGroupInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Select an option');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitRadioSize.md,
     options: const [GrafitRadioSize.sm, GrafitRadioSize.md, GrafitRadioSize.lg],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final direction = context.knobs.list(
     label: 'Direction',
     initialOption: Axis.vertical,
     options: const [Axis.vertical, Axis.horizontal],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
 
   return Padding(

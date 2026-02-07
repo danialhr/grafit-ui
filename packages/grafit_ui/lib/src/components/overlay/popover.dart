@@ -636,8 +636,11 @@ Widget popoverCustomOffset(BuildContext context) {
   path: 'Overlay/Popover',
 )
 Widget popoverInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Popover Title');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(label: 'Description', initialValue: 'This is a popover');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final alignment = context.knobs.list(
     label: 'Alignment',
     initialOption: GrafitPopoverAlignment.bottom,
@@ -652,7 +655,9 @@ Widget popoverInteractive(BuildContext context) {
       GrafitPopoverAlignment.bottomRight,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final offset = context.knobs.double.slider(label: 'Offset', initialValue: 4, min: 0, max: 32);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
 
   return Padding(

@@ -905,18 +905,22 @@ Widget tableCellAlignment(BuildContext context) {
   path: 'DataDisplay/Table',
 )
 Widget tableInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showBorders = context.knobs.boolean(
     label: 'Show Borders',
     initialValue: true,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showVertical = context.knobs.boolean(
     label: 'Show Vertical Borders',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final hasCaption = context.knobs.boolean(
     label: 'Show Caption',
     initialValue: false,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final caption = context.knobs.string(
     label: 'Caption Text',
     initialValue: 'Data Table',

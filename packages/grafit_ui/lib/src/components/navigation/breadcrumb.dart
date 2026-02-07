@@ -421,6 +421,7 @@ Widget breadcrumbMinimal(BuildContext context) {
   path: 'Navigation/Breadcrumb',
 )
 Widget breadcrumbInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final itemCount = context.knobs.int.slider(
     label: 'Items',
     initialValue: 3,
@@ -428,7 +429,9 @@ Widget breadcrumbInteractive(BuildContext context) {
     max: 6,
   );
 
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showEllipsis = context.knobs.boolean(label: 'Show Ellipsis', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final customSeparator = context.knobs.boolean(label: 'Custom Separator', initialValue: false);
 
   final labels = ['Home', 'Products', 'Category', 'Subcategory', 'Item', 'Details'];

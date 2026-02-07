@@ -1147,6 +1147,7 @@ Widget sonnerWithAction(BuildContext context) {
   path: 'Feedback/Sonner',
 )
 Widget sonnerPositions(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final position = context.knobs.list(
     label: 'Position',
     initialOption: GrafitToastPosition.bottomRight,
@@ -1257,8 +1258,11 @@ Widget sonnerAllVariants(BuildContext context) {
   path: 'Feedback/Sonner',
 )
 Widget sonnerInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Notification');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(label: 'Description', initialValue: 'You have a new message');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitToastVariant.basic,
@@ -1270,6 +1274,7 @@ Widget sonnerInteractive(BuildContext context) {
       GrafitToastVariant.info,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final position = context.knobs.list(
     label: 'Position',
     initialOption: GrafitToastPosition.bottomRight,
@@ -1282,6 +1287,7 @@ Widget sonnerInteractive(BuildContext context) {
       GrafitToastPosition.bottomRight,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final maxToasts = context.knobs.int.slider(
     label: 'Max Toasts',
     initialValue: 3,

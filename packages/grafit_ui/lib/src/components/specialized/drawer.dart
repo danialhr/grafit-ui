@@ -716,8 +716,11 @@ Widget drawerAllDirections(BuildContext context) {
   path: 'Specialized/Drawer',
 )
 Widget drawerInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final title = context.knobs.string(label: 'Title', initialValue: 'Drawer');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final description = context.knobs.string(label: 'Description', initialValue: 'Drawer description');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final direction = context.knobs.list(
     label: 'Direction',
     initialOption: GrafitDrawerDirection.right,
@@ -728,7 +731,9 @@ Widget drawerInteractive(BuildContext context) {
       GrafitDrawerDirection.right,
     ],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final dismissible = context.knobs.boolean(label: 'Dismissible', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showCloseButton = context.knobs.boolean(label: 'Show Close Button', initialValue: false);
 
   return GrafitDrawer(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
-import '../../theme/theme_data.dart';
 
 /// Sort direction for table columns
 enum GrafitTableSortDirection {
@@ -477,17 +476,30 @@ class DataTableBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<GrafitTheme>()!;
 
-    return Column(
+    return Table(
+      border: const TableBorder(
+        verticalInside: BorderSide.none,
+        horizontalInside: BorderSide.none,
+        top: BorderSide.none,
+        bottom: BorderSide.none,
+        left: BorderSide.none,
+        right: BorderSide.none,
+      ),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: children.asMap().entries.map((entry) {
         final index = entry.key;
         final row = entry.value;
 
-        return Container(
-          color: stripeRows && index % 2 == 1
-              ? (stripeColor ?? theme.colors.muted.withOpacity(0.2))
-              : null,
-          child: row,
-        );
+        // Apply striping to the row decoration
+        if (stripeRows && index % 2 == 1) {
+          return TableRow(
+            decoration: BoxDecoration(
+              color: stripeColor ?? theme.colors.muted.withOpacity(0.2),
+            ),
+            children: row.children,
+          );
+        }
+        return row;
       }).toList(),
     );
   }

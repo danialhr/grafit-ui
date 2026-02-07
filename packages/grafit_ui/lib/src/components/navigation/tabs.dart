@@ -501,23 +501,27 @@ Widget tabsRichContent(BuildContext context) {
   path: 'Navigation/Tabs',
 )
 Widget tabsInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final tabCount = context.knobs.int.slider(
     label: 'Tabs',
     initialValue: 3,
     min: 1,
     max: 6,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final initialIndex = context.knobs.int.slider(
     label: 'Initial Index',
     initialValue: 0,
     min: 0,
     max: 5,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variantIndex = context.knobs.list(
     label: 'Variant',
     options: ['value', 'line'],
     initialOption: 'value',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final orientationIndex = context.knobs.list(
     label: 'Orientation',
     options: ['horizontal', 'vertical'],

@@ -2158,6 +2158,7 @@ Widget chartCombo(BuildContext context) {
   path: 'DataDisplay/Chart',
 )
 Widget chartInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final chartType = context.knobs.list(
     label: 'Chart Type',
     initialOption: GrafitChartType.line,

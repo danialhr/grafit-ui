@@ -225,9 +225,13 @@ Widget switchMultiple(BuildContext context) {
   path: 'Form/Switch',
 )
 Widget switchInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final label = context.knobs.string(label: 'Label', initialValue: 'Enable feature');
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final checked = context.knobs.boolean(label: 'Checked', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final enabled = context.knobs.boolean(label: 'Enabled', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitSwitchSize.value,

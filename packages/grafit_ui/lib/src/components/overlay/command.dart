@@ -913,13 +913,18 @@ Widget commandLongList(BuildContext context) {
   path: 'Overlay/Command',
 )
 Widget commandInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final placeholder = context.knobs.string(
     label: 'Placeholder',
     initialValue: 'Search...',
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showGroups = context.knobs.boolean(label: 'Show Groups', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showIcons = context.knobs.boolean(label: 'Show Icons', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final showShortcuts = context.knobs.boolean(label: 'Show Shortcuts', initialValue: true);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final itemCount = context.knobs.int.slider(
     label: 'Item Count',
     initialValue: 5,

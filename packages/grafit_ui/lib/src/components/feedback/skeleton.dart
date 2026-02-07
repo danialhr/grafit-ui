@@ -364,18 +364,21 @@ Widget skeletonMultipleSizes(BuildContext context) {
   path: 'Feedback/Skeleton',
 )
 Widget skeletonInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final width = context.knobs.double.slider(
     label: 'Width',
     initialValue: 200,
     min: 50,
     max: 400,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final height = context.knobs.double.slider(
     label: 'Height',
     initialValue: 20,
     min: 8,
     max: 100,
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final borderRadius = context.knobs.double.slider(
     label: 'Border Radius',
     initialValue: 4,

@@ -495,17 +495,21 @@ Widget toggleDisabled(BuildContext context) {
   path: 'Form/Toggle',
 )
 Widget toggleInteractive(BuildContext context) {
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final pressed = context.knobs.boolean(label: 'Pressed', initialValue: false);
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final variant = context.knobs.list(
     label: 'Variant',
     initialOption: GrafitToggleVariant.primary,
     options: const [GrafitToggleVariant.primary, GrafitToggleVariant.outline],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final size = context.knobs.list(
     label: 'Size',
     initialOption: GrafitToggleSize.md,
     options: const [GrafitToggleSize.sm, GrafitToggleSize.md, GrafitToggleSize.lg],
   );
+  // Widgetbook-only: ignore undefined_getter, undefined_method, invalid_annotation_value
   final disabled = context.knobs.boolean(label: 'Disabled', initialValue: false);
 
   return Padding(

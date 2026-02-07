@@ -19,7 +19,6 @@ class _FormComponentsScreenState extends State<FormComponentsScreen> {
   bool _checkbox2 = true;
   bool _checkbox3 = false;
   double _sliderValue = 50.0;
-  int _selectedRadio = 0;
 
   @override
   void dispose() {

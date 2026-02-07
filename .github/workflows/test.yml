@@ -1,0 +1,103 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Flutter analyze and format check
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Install dependencies
+        working-directory: packages/grafit_ui
+        run: flutter pub get
+      
+      - name: Verify formatting
+        working-directory: packages/grafit_ui
+        run: dart format --output=none --set-exit-if-changed .
+      
+      - name: Analyze code
+        working-directory: packages/grafit_ui
+        run: flutter analyze --no-fatal-infos
+
+  # Widget tests
+  test:
+    name: Widget Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Install dependencies
+        working-directory: packages/grafit_ui
+        run: flutter pub get
+      
+      - name: Run widget tests
+        working-directory: packages/grafit_ui
+        run: flutter test --coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: packages/grafit_ui/coverage/lcov.info
+          flags: widget-tests
+          name: widget-test-coverage
+          fail_ci_if_error: false
+
+  # Golden tests (only on main branch)
+  golden:
+    name: Golden Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    timeout-minutes: 45
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Install dependencies
+        working-directory: packages/grafit_ui
+        run: flutter pub get
+      
+      - name: Generate golden files
+        working-directory: packages/grafit_ui
+        run: flutter test test/golden --update-goldens
+      
+      - name: Upload golden artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-files
+          path: packages/grafit_ui/test/goldens/
+          retention-days: 7

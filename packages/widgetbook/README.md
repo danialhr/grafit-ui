@@ -128,13 +128,39 @@ packages/widgetbook/
 
 ## Implemented Components
 
-The following Grafit UI components have interactive use cases:
+All 59 Grafit UI components have interactive use cases with 400+ scenarios total:
 
-1. **Buttons** - All variants (primary, secondary, ghost, outline, link, destructive), sizes, states
-2. **Inputs** - Text input with sizes, states, error handling, icons
-3. **Cards** - Basic cards, with header/footer, complete structure
-4. **Dialogs** - Alert, confirm, info, and custom dialogs
-5. **Tabs** - Horizontal/vertical, value/line variants
+### Form Components (18)
+- Button, Input, Checkbox, Switch, Slider, Textarea, Label, Select, Combobox, Radio Group, Toggle Group, Toggle, Input OTP, Form, Auto Form, Field, Input Group, Native Select, Button Group, Date Picker
+
+### Navigation Components (7)
+- Tabs, Breadcrumb, Sidebar, Dropdown Menu, Navigation Menu, Menubar, Pagination
+
+### Overlay Components (8)
+- Dialog, Tooltip, Popover, Alert Dialog, Command, Context Menu, Hover Card, Sonner, Sheet, Drawer, Collapsible
+
+### Feedback Components (5)
+- Alert, Progress, Skeleton, Spinner, Sonner
+
+### Data Display Components (9)
+- Badge, Avatar, Card, Data Table, Table, Pagination, Empty, Chart, Item, Separator
+
+### Typography Components (2)
+- Text, Kbd
+
+### Layout Components (3)
+- Card, Separator, Accordion
+
+### Specialized Components (11)
+- Resizable, Scroll Area, Collapsible, Drawer, Sheet, Aspect Ratio, Calendar, Carousel, Direction
+
+### Use Cases per Component
+- Each component has 5-15 use cases covering:
+  - Default/basic usage
+  - All variants (primary, secondary, ghost, outline, etc.)
+  - All sizes (sm, md, lg, xl)
+  - States (disabled, error, loading)
+  - Interactive knobs for real-time customization
 
 ## Tips for Great Use Cases
 

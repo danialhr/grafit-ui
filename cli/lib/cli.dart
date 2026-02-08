@@ -2,8 +2,12 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'commands/init_command.dart';
 import 'commands/add_command.dart';
+import 'commands/remove_command.dart';
 import 'commands/list_command.dart';
 import 'commands/view_command.dart';
+import 'commands/new_command.dart';
+import 'commands/doctor_command.dart';
+import 'commands/upgrade_command.dart';
 import 'commands/update_command.dart';
 import 'commands/version_command.dart';
 
@@ -19,8 +23,12 @@ class GrafitCLI extends CommandRunner<void> {
     // Add commands
     addCommand(InitCommand());
     addCommand(AddCommand());
+    addCommand(RemoveCommand());
     addCommand(ListCommand());
     addCommand(ViewCommand());
+    addCommand(NewCommand());
+    addCommand(DoctorCommand());
+    addCommand(UpgradeCommand());
     addCommand(UpdateCommand());
     addCommand(VersionCommand());
 

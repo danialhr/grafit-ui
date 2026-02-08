@@ -44,12 +44,68 @@ grafit-ui/
 │   │   ├── test/                  # Tests
 │   │   └── example/               # Demo app
 │   └── widgetbook/              # Interactive documentation
+├── cli/                        # Command-line tool
 ├── COMPONENT_REGISTRY.yaml      # Component tracking
 ├── SYNC_LOG.md                 # Implementation history
 └── .github/workflows/          # CI/CD
 ```
 
+## Using the CLI
+
+Grafit UI includes a CLI tool (`gft`) for component management.
+
+### Quick Start
+
+```bash
+# Initialize Grafit UI in a Flutter project
+dart run cli/bin/gft.dart init
+
+# List available components
+dart run cli/bin/gft.dart list
+
+# Add a component
+dart run cli/bin/gft.dart add button
+
+# View component source
+dart run cli/bin/gft.dart view badge
+
+# Check project health
+dart run cli/bin/gft.dart doctor
+```
+
+### For Users
+
+If you're using Grafit UI in your Flutter project:
+
+1. Run `gft init` to set up
+2. Run `gft list` to see available components
+3. Run `gft add <component>` to add components
+4. Run `gft doctor` to check your setup
+
+See [cli/README.md](cli/README.md) for complete CLI documentation.
+
 ## Adding Components
+
+### Quick Start with CLI
+
+Use the CLI to scaffold a new component from shadcn-ui:
+
+```bash
+# List available shadcn-ui components
+dart run cli/bin/gft.dart new --list
+
+# Scaffold a new component
+dart run cli/bin/gft.dart new toast --category feedback
+```
+
+The CLI will:
+1. Fetch component source from shadcn-ui
+2. Provide scaffold guidance
+3. Create the component structure
+
+### Manual Component Creation
+
+Follow these steps to add a component manually:
 
 ### 1. Implement the Component
 

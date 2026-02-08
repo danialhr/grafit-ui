@@ -239,8 +239,140 @@ grafit-ui/
 - [x] Add Widgetbook documentation
 - [x] Add comprehensive tests
 - [x] Set up CI/CD pipeline
+- [x] Add CLI tool for component management
 - [ ] Publish to pub.dev
-- [ ] Add CLI tool for component management
+
+## CLI Tool
+
+Grafit UI includes a powerful CLI tool (`gft`) for component management.
+
+### Installation
+
+```bash
+# From the Grafit UI repository
+dart run cli/bin/gft.dart <command>
+```
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `gft init` | Initialize Grafit UI in a Flutter project |
+| `gft add <component>` | Add a component to your project |
+| `gft remove <component>` | Remove a component from your project |
+| `gft list` | List all available components |
+| `gft view <component>` | View component source code |
+| `gft new <component>` | Scaffold new component from shadcn-ui |
+| `gft doctor` | Check project health and configuration |
+| `gft upgrade` | Upgrade components to latest versions |
+| `gft update` | Update Grafit UI components |
+| `gft version` | Show CLI version information |
+
+### Usage Examples
+
+#### Initialize Grafit UI in a Project
+
+```bash
+dart run cli/bin/gft.dart init
+```
+
+This creates:
+- `components.json` - Project configuration
+- `lib/ui/` - Components directory
+- `lib/ui/grafit_ui.dart` - Export file
+
+#### Add Components
+
+```bash
+# Add a single component
+dart run cli/bin/gft.dart add button
+
+# Add all stable components
+dart run cli/bin/gft.dart add --all
+
+# Skip confirmation prompts
+dart run cli/bin/gft.dart add button --yes
+```
+
+#### Remove Components
+
+```bash
+dart run cli/bin/gft.dart remove button
+
+# Force removal without confirmation
+dart run cli/bin/gft.dart remove button --force
+```
+
+#### List Components
+
+```bash
+dart run cli/bin/gft.dart list
+```
+
+Output shows all 59 components with parity status:
+```
+Specialized
+────────────────────────────────────────
+  ✓ accordion (100%)
+  ✓ alert-dialog (100%)
+  ✓ badge (90%)
+  ...
+```
+
+#### View Component Source
+
+```bash
+dart run cli/bin/gft.dart view badge
+
+# Open in editor
+dart run cli/bin/gft.dart view badge --editor code
+```
+
+#### Project Health Check
+
+```bash
+dart run cli/bin/gft.dart doctor
+```
+
+Checks:
+- Flutter/Dart installation
+- Project structure
+- Grafit UI initialization
+- Dependencies
+- Component status
+
+#### Upgrade Components
+
+```bash
+# Check for updates
+dart run cli/bin/gft.dart upgrade --check
+
+# Upgrade all components
+dart run cli/bin/gft.dart upgrade --all
+```
+
+#### Scaffold New Components
+
+```bash
+# List available shadcn-ui components
+dart run cli/bin/gft.dart new --list
+
+# Scaffold a new component
+dart run cli/bin/gft.dart new toast --category feedback
+```
+
+### CLI Reference
+
+```bash
+# Show help
+dart run cli/bin/gft.dart --help
+
+# Show command help
+dart run cli/bin/gft.dart add --help
+
+# Verbose output
+dart run cli/bin/gft.dart list --verbose
+```
 
 ## Contributing
 
